@@ -110,6 +110,7 @@
     .btn-tracking, .btn-shop { justify-content: center; }
   }
 </style>
+<link rel="stylesheet" href="assets/chatbot.css">
 </head>
 <body>
 
@@ -326,20 +327,7 @@ function init() {
 
 init();
 </script>
-<script>
-(function() {
-  var btn = document.createElement('button');
-  btn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
-  btn.style.cssText = 'position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:50%;background:#1a1a1a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9999;box-shadow:0 2px 12px rgba(0,0,0,0.15)';
-  var iframe = document.createElement('iframe');
-  iframe.src = 'https://khaneh-piro-chat-pqtvg5jj1-piro-co.vercel.app';
-  iframe.style.cssText = 'position:fixed;bottom:92px;left:24px;width:340px;height:480px;border:none;border-radius:16px;z-index:9998;box-shadow:0 8px 32px rgba(0,0,0,0.12);display:none';
-  btn.onclick = function() {
-    iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
-  };
-  document.body.appendChild(btn);
-  document.body.appendChild(iframe);
-})();
-</script>
+
+<script src="assets/chatbot.js"></script>
 </body>
 </html>
