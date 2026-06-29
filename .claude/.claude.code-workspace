@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../assets"
+		},
+		{
+			"path": "../catalogs"
+		},
+		{
+			"path": "../images"
+		},
+		{
+			"path": "../netlify"
+		},
+		{
+			"path": "../tools"
+		}
+	]
+}

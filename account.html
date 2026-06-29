@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ورود | ثبت‌نام — خانه پیرو PIRO</title>
+<script>
+// پس از لود صفحه dashboard رو بررسی می‌کنیم (نه redirect)
+</script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+
+/* ===== Auth page layout ===== */
+body { background: var(--bg-soft); }
+
+.auth-header {
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(16px, 4vw, 40px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.auth-header-back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  color: var(--grey);
+  transition: color .2s;
+}
+.auth-header-back:hover { color: var(--burgundy); }
+.auth-header-back svg { width:17px; height:17px; stroke:currentColor; fill:none; stroke-width:2; flex-shrink:0; }
+.auth-header-logo {
+  font-family: var(--font-lat);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: .2em;
+  color: var(--ink);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.auth-header-logo b { color: var(--burgundy); font-weight: 500; }
+.auth-header-space { width: 90px; }
+
+/* ===== Center card ===== */
+.auth-main {
+  min-height: calc(100svh - 64px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px 48px;
+}
+
+.auth-card {
+  background: #fff;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 8px;
+  box-shadow: 0 4px 28px rgba(0,0,0,.07);
+  overflow: hidden;
+}
+
+/* card top stripe */
+.auth-card-bar {
+  height: 4px;
+  background: var(--burgundy);
+}
+
+.auth-card-body {
+  padding: 36px 40px 40px;
+}
+
+/* ===== Step chrome ===== */
+.step-back-btn {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--grey);
+  margin-bottom: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-fa);
+  transition: color .2s;
+}
+.step-back-btn:hover { color: var(--burgundy); }
+.step-back-btn svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; }
+.step-back-btn.visible { display: flex; }
+
+.step-tag {
+  font-size: 11.5px;
+  letter-spacing: .08em;
+  color: var(--grey);
+  margin-bottom: 10px;
+  font-family: var(--font-lat);
+  display: none;
+}
+.step-tag.visible { display: block; }
+
+.auth-headline {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+.auth-sub {
+  font-size: 14px;
+  color: var(--grey);
+  margin-bottom: 28px;
+  line-height: 1.75;
+}
+.auth-sub strong {
+  color: var(--ink);
+  font-family: var(--font-lat);
+  direction: ltr;
+  display: inline-block;
+  font-weight: 600;
+}
+
+/* ===== Inputs ===== */
+.f-group { margin-bottom: 18px; }
+.f-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 7px;
+  color: var(--ink-soft);
+}
+.f-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid var(--line);
+  font-family: var(--font-fa);
+  font-size: 15px;
+  color: var(--ink);
+  background: #fff;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color .22s, box-shadow .22s;
+  appearance: none;
+}
+.f-group input:focus {
+  border-color: var(--burgundy);
+  box-shadow: 0 0 0 3px rgba(139,38,53,.1);
+}
+.f-group input::placeholder { color: #bbb; }
+
+.f-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* ===== OTP boxes ===== */
+.otp-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 4px 0 8px;
+  direction: ltr;
+}
+.otp-row input {
+  width: 52px;
+  height: 56px;
+  text-align: center;
+  font-size: 22px;
+  font-family: var(--font-lat);
+  font-weight: 600;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color .22s, box-shadow .22s, background .22s;
+  caret-color: var(--burgundy);
+  padding: 0;
+  color: var(--ink);
+}
+.otp-row input:focus {
+  border-color: var(--burgundy);
+  box-shadow: 0 0 0 3px rgba(139,38,53,.1);
+  background: #fffaf9;
+}
+.otp-row input.filled {
+  background: var(--bg-soft);
+  border-color: #ccc;
+}
+
+/* Timer & resend */
+.otp-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  font-size: 13px;
+}
+.otp-timer-text { color: var(--grey); }
+.otp-timer-text b { font-family: var(--font-lat); color: var(--ink); }
+.otp-resend {
+  color: var(--burgundy);
+  cursor: pointer;
+  font-size: 13px;
+  display: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-fa);
+}
+.otp-resend:hover { text-decoration: underline; }
+
+/* ===== Messages ===== */
+.f-msg {
+  font-size: 13.5px;
+  padding: 11px 15px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  display: none;
+  line-height: 1.6;
+}
+.f-msg.err { background: #fdf0ef; color: #c0392b; border: 1px solid #f5c6c2; display: flex; gap: 8px; align-items: flex-start; }
+.f-msg.ok  { background: #edf7f0; color: #1a7c3e; border: 1px solid #b8e5c8; display: flex; gap: 8px; align-items: flex-start; }
+.f-msg svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; flex-shrink:0; margin-top:1px; }
+
+/* ===== CTA Button ===== */
+.auth-btn {
+  width: 100%;
+  padding: 15px;
+  background: var(--burgundy);
+  color: #fff;
+  font-family: var(--font-fa);
+  font-size: 15.5px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background .25s, transform .15s;
+  margin-top: 8px;
+  letter-spacing: .01em;
+}
+.auth-btn:hover { background: var(--burgundy-dark); }
+.auth-btn:active { transform: scale(.98); }
+.auth-btn:disabled { opacity: .6; cursor: not-allowed; }
+
+/* ===== Legal ===== */
+.auth-legal {
+  font-size: 12px;
+  color: var(--grey);
+  text-align: center;
+  margin-top: 18px;
+  line-height: 1.8;
+}
+.auth-legal a { color: var(--burgundy); }
+
+/* ===== Welcome ===== */
+.welcome-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #fef5f6;
+  border: 2px solid var(--burgundy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 24px;
+}
+.welcome-circle svg {
+  width: 34px;
+  height: 34px;
+  stroke: var(--burgundy);
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ===== Trust bar ===== */
+.auth-trust {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.auth-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--grey);
+}
+.auth-trust-item svg {
+  width: 15px;
+  height: 15px;
+  stroke: var(--grey);
+  fill: none;
+  stroke-width: 1.8;
+}
+
+/* ===== Steps ===== */
+.acc-step { display: none; }
+.acc-step.active { display: block; }
+
+/* ===== OTP demo banner (inline, no modal) ===== */
+.otp-demo-banner {
+  display: none;
+  background: #fff8e1;
+  border: 1.5px dashed #f4c430;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.otp-demo-banner .demo-label {
+  font-size: 11.5px;
+  color: #8a6d00;
+  margin-bottom: 6px;
+  letter-spacing: .04em;
+}
+.otp-demo-banner .demo-digits {
+  font-family: var(--font-lat);
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 14px;
+  color: var(--burgundy);
+  margin-bottom: 10px;
+  display: block;
+}
+.otp-demo-banner .demo-fill-btn {
+  font-size: 12.5px;
+  color: var(--burgundy);
+  cursor: pointer;
+  background: none;
+  border: 1px solid var(--burgundy);
+  padding: 5px 14px;
+  border-radius: 4px;
+  font-family: var(--font-fa);
+  transition: background .2s, color .2s;
+}
+.otp-demo-banner .demo-fill-btn:hover {
+  background: var(--burgundy);
+  color: #fff;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+  .auth-card-body { padding: 28px 24px 32px; }
+  .f-grid-2 { grid-template-columns: 1fr; }
+  .otp-row input { width: 44px; height: 50px; font-size: 19px; }
+  .auth-header-back span { display: none; }
+}
+
+/* ===== Dashboard ===== */
+#dashboardSection { display: none; }
+.dash-wrap { max-width: 860px; margin: 0 auto; padding: 40px clamp(16px,4vw,40px) 80px; }
+.dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
+.dash-title { font-size: 22px; font-weight: 300; color: var(--ink); letter-spacing: -0.01em; }
+.dash-user  { font-size: 13px; color: var(--grey); }
+.dash-user strong { color: var(--ink); }
+.btn-logout-dash { height: 36px; padding: 0 16px; border: 1px solid var(--line); background: none; color: var(--grey); font-family: var(--font-fa); font-size: 12px; cursor: pointer; transition: all 0.2s; }
+.btn-logout-dash:hover { border-color: #c00; color: #c00; }
+
+.orders-tabs { display: flex; border-bottom: 1px solid var(--line); margin-bottom: 24px; overflow-x: auto; scrollbar-width: none; }
+.orders-tabs::-webkit-scrollbar { display: none; }
+.orders-tab { padding: 10px 20px; font-family: var(--font-fa); font-size: 13px; color: var(--grey); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none; transition: all 0.2s; }
+.orders-tab:hover { color: var(--ink); }
+.orders-tab.active { color: var(--ink); border-bottom-color: var(--burgundy); font-weight: 500; }
+
+.orders-empty { text-align: center; padding: 60px 0; color: var(--grey); font-size: 14px; }
+.orders-list { display: flex; flex-direction: column; gap: 16px; }
+
+.ocard { background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
+.ocard-header { padding: 16px 20px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.ocard-id { font-size: 14px; font-weight: 600; color: var(--burgundy); font-family: monospace; letter-spacing: 0.05em; direction: ltr; }
+.ocard-date { font-size: 12px; color: var(--grey); margin-top: 2px; }
+.ostatus { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; font-size: 12px; font-weight: 500; }
+.ostatus::before { content: ''; width: 7px; height: 7px; border-radius: 50%; }
+.os-waiting  { background: #FEF9C3; color: #854D0E; } .os-waiting::before  { background: #EAB308; }
+.os-making   { background: #DBEAFE; color: #1E40AF; } .os-making::before   { background: #3B82F6; }
+.os-ready    { background: #EDE9FE; color: #5B21B6; } .os-ready::before    { background: #7C3AED; }
+.os-sent     { background: #FED7AA; color: #9A3412; } .os-sent::before     { background: #F97316; }
+.os-delivered{ background: #D1FAE5; color: #065F46; } .os-delivered::before{ background: #10B981; }
+.os-canceled { background: #FEE2E2; color: #991B1B; } .os-canceled::before { background: #EF4444; }
+
+.ocard-body { padding: 16px 20px; }
+.ocard-items { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.ocard-item-thumb { width: 48px; height: 48px; background: var(--bg-card); overflow: hidden; flex-shrink: 0; }
+.ocard-item-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.ocard-item-thumb .ph { width: 100%; height: 100%; background: linear-gradient(135deg, var(--wood-2), var(--wood-3)); }
+.ocard-item-info { flex: 1; min-width: 120px; }
+.ocard-item-name { font-size: 13px; color: var(--ink); line-height: 1.4; }
+.ocard-item-meta { font-size: 11px; color: var(--grey); margin-top: 2px; }
+
+.ocard-footer { padding: 12px 20px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.ocard-total { font-size: 14px; font-weight: 600; color: var(--ink); }
+.ocard-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.ocard-btn { height: 34px; padding: 0 14px; font-family: var(--font-fa); font-size: 12px; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; transition: all 0.2s; }
+.ocard-btn-track  { background: var(--ink); color: #fff; } .ocard-btn-track:hover  { background: #333; }
+.ocard-btn-cancel { background: #FEE2E2; color: #991B1B; } .ocard-btn-cancel:hover { background: #FECACA; }
+.ocard-btn-return { background: #DBEAFE; color: #1E40AF; } .ocard-btn-return:hover { background: #BFDBFE; }
+
+@media (max-width: 600px) { .ocard-header { flex-direction: column; align-items: flex-start; } }
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header class="auth-header">
+  <a href="index.html" class="auth-header-back">
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    <span>بازگشت به سایت</span>
+  </a>
+  <a href="index.html" class="auth-header-logo lat">PI<b>R</b>O</a>
+  <div class="auth-header-space"></div>
+</header>
+
+<!-- ===== Main ===== -->
+<main class="auth-main">
+  <div class="auth-card">
+    <div class="auth-card-bar"></div>
+    <div class="auth-card-body">
+
+      <!-- Back button (shown on steps 2, 3) -->
+      <button class="step-back-btn" id="cardBackBtn" onclick="cardGoBack()">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        بازگشت
+      </button>
+
+      <!-- Step tag -->
+      <div class="step-tag" id="stepTag">مرحله ۱ از ۳</div>
+
+      <!-- ===== STEP 1 — Contact ===== -->
+      <div class="acc-step active" id="step1">
+        <h2 class="auth-headline">ورود | ثبت‌نام</h2>
+        <p class="auth-sub">شماره موبایل یا ایمیل خود را وارد کنید</p>
+        <div id="msg1" class="f-msg">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span></span>
+        </div>
+        <div class="f-group">
+          <label for="inp_contact">موبایل یا ایمیل</label>
+          <input type="text" id="inp_contact" placeholder="09xxxxxxxxx یا email@..." inputmode="email" autocomplete="username">
+        </div>
+        <button class="auth-btn" id="btn1" onclick="step1Next()">ادامه</button>
+        <p class="auth-legal">با ادامه، <a href="#">قوانین و مقررات</a> و <a href="#">حریم خصوصی</a> خانه پیرو را می‌پذیرید.</p>
+      </div>
+
+      <!-- ===== STEP 2 — OTP ===== -->
+      <div class="acc-step" id="step2">
+        <h2 class="auth-headline">کد تأیید</h2>
+        <p class="auth-sub" id="otpSub">کد ۵ رقمی ارسال‌شده به <strong id="contactDisplay"></strong> را وارد کنید</p>
+
+        <!-- Demo code banner — همیشه نمایان -->
+        <div class="otp-demo-banner" id="demoBanner">
+          <div class="demo-label">🧪 حالت دمو — در نسخه واقعی پیامک می‌شود</div>
+          <span class="demo-digits" id="demoDigits">— — — — —</span>
+          <button class="demo-fill-btn" onclick="autoFillOtp()">تکمیل خودکار</button>
+        </div>
+
+        <div id="msg2" class="f-msg">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span></span>
+        </div>
+        <div class="otp-row" id="otpRow">
+          <input type="text" maxlength="1" inputmode="numeric">
+          <input type="text" maxlength="1" inputmode="numeric">
+          <input type="text" maxlength="1" inputmode="numeric">
+          <input type="text" maxlength="1" inputmode="numeric">
+          <input type="text" maxlength="1" inputmode="numeric">
+        </div>
+        <div class="otp-footer">
+          <div class="otp-timer-text" id="otpTimer">ارسال مجدد کد تا <b id="timerNum">01:30</b></div>
+          <button class="otp-resend" id="otpResend" onclick="resendOtp()">ارسال مجدد</button>
+        </div>
+        <button class="auth-btn" style="margin-top:22px" id="btn2" onclick="step2Next()">تأیید و ادامه</button>
+      </div>
+
+      <!-- ===== STEP 3 — Profile ===== -->
+      <div class="acc-step" id="step3">
+        <h2 class="auth-headline">تکمیل اطلاعات</h2>
+        <p class="auth-sub">برای ساخت حساب، اطلاعات زیر را تکمیل کنید</p>
+        <div id="msg3" class="f-msg">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span></span>
+        </div>
+        <div class="f-grid-2">
+          <div class="f-group">
+            <label for="inp_fname">نام</label>
+            <input type="text" id="inp_fname" placeholder="نام" autocomplete="given-name">
+          </div>
+          <div class="f-group">
+            <label for="inp_lname">نام خانوادگی</label>
+            <input type="text" id="inp_lname" placeholder="نام خانوادگی" autocomplete="family-name">
+          </div>
+        </div>
+        <div class="f-group">
+          <label for="inp_nid">کد ملی</label>
+          <input type="text" id="inp_nid" placeholder="۱۰ رقم" maxlength="10" inputmode="numeric">
+        </div>
+        <div class="f-group">
+          <label for="inp_email2">ایمیل <small style="color:var(--grey);font-weight:400">(اختیاری)</small></label>
+          <input type="email" id="inp_email2" placeholder="email@example.com" autocomplete="email">
+        </div>
+        <button class="auth-btn" id="btn3" onclick="step3Register()">ساخت حساب کاربری</button>
+      </div>
+
+      <!-- ===== STEP 4 — Welcome ===== -->
+      <div class="acc-step" id="step4">
+        <div class="welcome-circle">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h2 class="auth-headline" id="welcomeMsg">خوش آمدید!</h2>
+        <p class="auth-sub" id="welcomeSub">به دنیای خانه پیرو خوش آمدید.</p>
+        <button class="auth-btn" style="margin-top:0" onclick="showDashboard()">سفارشات من</button>
+        <div style="text-align:center;margin-top:14px">
+          <a href="index.html" style="font-size:13.5px;color:var(--grey)">بازگشت به صفحه اصلی</a>
+        </div>
+      </div>
+
+    </div><!-- /auth-card-body -->
+  </div><!-- /auth-card -->
+
+  <!-- Trust bar -->
+  <div class="auth-trust">
+    <div class="auth-trust-item">
+      <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      ورود امن
+    </div>
+    <div class="auth-trust-item">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      حفاظت از اطلاعات
+    </div>
+    <div class="auth-trust-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      پشتیبانی ۲۴/۷
+    </div>
+  </div>
+</main>
+
+<!-- ===== Dashboard (سفارشات) ===== -->
+<section id="dashboardSection">
+  <div class="dash-wrap">
+    <div class="dash-header">
+      <div>
+        <div class="dash-title">سفارشات من</div>
+        <div class="dash-user">خوش آمدی، <strong id="dashUserName">کاربر</strong></div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <a href="shop.html" style="font-size:13px;color:var(--grey);text-decoration:none">فروشگاه</a>
+        <button class="btn-logout-dash" onclick="dashLogout()">خروج</button>
+      </div>
+    </div>
+
+    <div class="orders-tabs">
+      <button class="orders-tab active" data-tab="active" onclick="switchTab(this)">جاری</button>
+      <button class="orders-tab" data-tab="delivered" onclick="switchTab(this)">تحویل شده</button>
+      <button class="orders-tab" data-tab="returned" onclick="switchTab(this)">مرجوعی</button>
+      <button class="orders-tab" data-tab="canceled" onclick="switchTab(this)">لغو شده</button>
+    </div>
+
+    <div id="ordersContent"></div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.js"></script>
+<script src="assets/auth.js"></script>
+<script>
+var currentContact = '', isExistingUser = false;
+var currentStep = 1;
+
+function goStep(n) {
+  document.querySelectorAll('.acc-step').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById('step' + n).classList.add('active');
+  currentStep = n;
+  updateChrome(n);
+  clearMsg();
+}
+
+function updateChrome(n) {
+  var backBtn = document.getElementById('cardBackBtn');
+  var tag = document.getElementById('stepTag');
+
+  // Back button: show on step 2 and 3
+  backBtn.className = 'step-back-btn' + (n === 2 || n === 3 ? ' visible' : '');
+
+  // Step tag
+  if (n === 1 || n === 4) {
+    tag.className = 'step-tag';
+  } else {
+    tag.className = 'step-tag visible';
+    var labels = { 2: 'مرحله ۲ از ۳', 3: 'مرحله ۳ از ۳' };
+    tag.textContent = labels[n] || '';
+  }
+}
+
+function cardGoBack() {
+  if (currentStep === 2) goStep(1);
+  else if (currentStep === 3) goStep(2);
+}
+
+function showMsg(step, text, type) {
+  var el = document.getElementById('msg' + step);
+  if (!el) return;
+  el.querySelector('span').textContent = text;
+  el.className = 'f-msg ' + type;
+}
+function clearMsg() {
+  document.querySelectorAll('.f-msg').forEach(function(e){ e.className = 'f-msg'; });
+}
+
+var lastDemoCode = '';
+
+function showDemoBanner(code) {
+  lastDemoCode = code;
+  var banner = document.getElementById('demoBanner');
+  var digits = document.getElementById('demoDigits');
+  if (banner) banner.style.display = 'block';
+  if (digits) digits.textContent = code;
+}
+
+function autoFillOtp() {
+  if (!lastDemoCode) return;
+  var inputs = document.querySelectorAll('.otp-row input');
+  lastDemoCode.split('').forEach(function(ch, i) {
+    if (inputs[i]) { inputs[i].value = ch; inputs[i].className = 'filled'; }
+  });
+  if (inputs[inputs.length - 1]) inputs[inputs.length - 1].focus();
+}
+
+function step1Next() {
+  var btn = document.getElementById('btn1');
+  var contact = document.getElementById('inp_contact').value.trim();
+  if (!contact) { showMsg(1, 'لطفاً موبایل یا ایمیل را وارد کنید.', 'err'); return; }
+  if (!PiroAuth.validEmail(contact) && !PiroAuth.validMobile(contact)) {
+    showMsg(1, 'موبایل باید با ۰۹ شروع و ۱۱ رقم باشد، یا یک ایمیل معتبر وارد کنید.', 'err'); return;
+  }
+  btn.disabled = true; btn.textContent = 'در حال ارسال...';
+  setTimeout(function() {
+    btn.disabled = false; btn.textContent = 'ادامه';
+    currentContact = contact;
+    var r = PiroAuth.sendOtp(contact);
+    if (!r.ok) { showMsg(1, r.msg, 'err'); return; }
+    showDemoBanner(r.code);
+    document.getElementById('contactDisplay').textContent = contact;
+    isExistingUser = PiroAuth.users().some(function(u){
+      return u.email === contact.toLowerCase() || u.mobile === contact;
+    });
+    goStep(2); startTimer();
+    setTimeout(function(){ var f = document.querySelector('#otpRow input'); if (f) f.focus(); }, 200);
+  }, 600);
+}
+
+var boxes;
+document.addEventListener('DOMContentLoaded', function() {
+  boxes = document.querySelectorAll('.otp-row input');
+  boxes.forEach(function(box, i) {
+    box.addEventListener('input', function() {
+      var v = box.value.replace(/\D/g, '');
+      box.value = v ? v[0] : '';
+      box.className = v ? 'filled' : '';
+      if (v && i < boxes.length - 1) boxes[i + 1].focus();
+    });
+    box.addEventListener('keydown', function(e) {
+      if (e.key === 'Backspace' && !box.value && i > 0) { boxes[i-1].focus(); boxes[i-1].className = ''; }
+    });
+    box.addEventListener('paste', function(e) {
+      e.preventDefault();
+      var paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+      paste.split('').slice(0, 5).forEach(function(ch, j){ if (boxes[j]) { boxes[j].value = ch; boxes[j].className = 'filled'; } });
+      var next = Math.min(paste.length, 4);
+      if (boxes[next]) boxes[next].focus();
+    });
+  });
+});
+
+var timerInterval;
+function startTimer() {
+  var secs = 90;
+  document.getElementById('otpResend').style.display = 'none';
+  document.getElementById('otpTimer').style.display = 'block';
+  clearInterval(timerInterval);
+  timerInterval = setInterval(function() {
+    secs--;
+    var mn = String(Math.floor(secs / 60)).padStart(2, '0');
+    var sc = String(secs % 60).padStart(2, '0');
+    document.getElementById('timerNum').textContent = mn + ':' + sc;
+    if (secs <= 0) {
+      clearInterval(timerInterval);
+      document.getElementById('otpTimer').style.display = 'none';
+      document.getElementById('otpResend').style.display = 'inline';
+    }
+  }, 1000);
+}
+
+function resendOtp() {
+  var r = PiroAuth.sendOtp(currentContact);
+  if (r.ok) {
+    showDemoBanner(r.code);
+    startTimer();
+    boxes.forEach(function(b){ b.value = ''; b.className = ''; });
+    var f = document.querySelector('.otp-row input'); if (f) f.focus();
+  }
+}
+
+function step2Next() {
+  var bx = document.querySelectorAll('.otp-row input');
+  var code = Array.from(bx).map(function(b){ return b.value; }).join('');
+  if (code.length < 5) { showMsg(2, 'کد ۵ رقمی را کامل وارد کنید.', 'err'); return; }
+  if (!PiroAuth.verifyOtp(code)) { showMsg(2, 'کد وارد شده اشتباه است.', 'err'); return; }
+  clearInterval(timerInterval);
+  if (isExistingUser) {
+    var u = PiroAuth.users().find(function(u){
+      return u.email === currentContact.toLowerCase() || u.mobile === currentContact;
+    });
+    if (u) { localStorage.setItem('piro_session', currentContact); showWelcome(u, false); }
+  } else {
+    if (PiroAuth.validEmail(currentContact)) {
+      var el = document.getElementById('inp_email2'); if (el) el.value = currentContact;
+    }
+    goStep(3);
+    setTimeout(function(){ var f = document.getElementById('inp_fname'); if (f) f.focus(); }, 100);
+  }
+}
+
+function step3Register() {
+  var firstName = document.getElementById('inp_fname').value.trim();
+  var lastName = document.getElementById('inp_lname').value.trim();
+  var nationalId = document.getElementById('inp_nid').value.trim();
+  var r = PiroAuth.register({ firstName: firstName, lastName: lastName, nationalId: nationalId, contact: currentContact, password: '_otp_verified_' });
+  if (!r.ok) { showMsg(3, r.msg, 'err'); return; }
+  showWelcome(r.user, true);
+}
+
+function showWelcome(u, isNew) {
+  document.getElementById('welcomeMsg').textContent = 'خوش آمدی، ' + u.firstName + ' عزیز!';
+  document.getElementById('welcomeSub').textContent = isNew
+    ? 'حساب کاربری شما با موفقیت ساخته شد. به دنیای خانه پیرو خوش آمدید.'
+    : 'با موفقیت وارد شدید. به دنیای خانه پیرو خوش آمدید.';
+  var nameEl = document.getElementById('dashUserName');
+  if (nameEl) nameEl.textContent = u.firstName || 'کاربر';
+  goStep(4);
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter') return;
+  var active = document.querySelector('.acc-step.active');
+  if (!active) return;
+  if (active.id === 'step1') step1Next();
+  if (active.id === 'step2') step2Next();
+  if (active.id === 'step3') step3Register();
+});
+
+// ===== Dashboard =====
+var activeTab = 'active';
+
+function parsePrice(str) {
+  if (typeof str === 'number') return str;
+  return parseInt(String(str).replace(/[۰-۹]/g, function(d){ return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d); }).replace(/,/g,'')) || 0;
+}
+function fmt(n) { return n.toLocaleString('fa-IR'); }
+
+function toShamsi(dateStr) {
+  if (!dateStr || typeof jalaali === 'undefined') return '';
+  var d = new Date(dateStr);
+  var j = jalaali.toJalaali(d.getFullYear(), d.getMonth()+1, d.getDate());
+  var months = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+  return j.jd + ' ' + months[j.jm-1] + ' ' + j.jy;
+}
+
+var STATUS_CLASS = {
+  'در انتظار تأیید': 'os-waiting',
+  'در حال تولید':    'os-making',
+  'آماده ارسال':     'os-ready',
+  'ارسال شده':       'os-sent',
+  'تحویل داده شده':  'os-delivered',
+  'لغو شده':         'os-canceled',
+};
+
+function tabFilter(orders, tab) {
+  if (tab === 'active')    return orders.filter(function(o){ return ['در انتظار تأیید','در حال تولید','آماده ارسال','ارسال شده'].indexOf(o.status) > -1; });
+  if (tab === 'delivered') return orders.filter(function(o){ return o.status === 'تحویل داده شده'; });
+  if (tab === 'returned')  return orders.filter(function(o){ return o.returnRequested; });
+  if (tab === 'canceled')  return orders.filter(function(o){ return o.status === 'لغو شده'; });
+  return orders;
+}
+
+function renderOrders() {
+  var orders = [];
+  try { orders = JSON.parse(localStorage.getItem('piro_orders')||'[]'); } catch(e){}
+  var filtered = tabFilter(orders, activeTab);
+  var el = document.getElementById('ordersContent');
+  if (!filtered.length) {
+    el.innerHTML = '<div class="orders-empty">سفارشی در این بخش وجود ندارد</div>';
+    return;
+  }
+  el.innerHTML = '<div class="orders-list">' + filtered.map(function(order) { return renderOrderCard(order, activeTab); }).join('') + '</div>';
+}
+
+function renderOrderCard(order, tab) {
+  var itemsHtml = (order.items||[]).map(function(item) {
+    var imgHtml = item.image ? '<img src="'+item.image+'" alt="" loading="lazy">' : '<div class="ph"></div>';
+    var meta = [item.color?'رنگ: '+item.color:'', item.size?'سایز: '+item.size:''].filter(Boolean).join(' — ');
+    return '<div style="display:flex;gap:8px;align-items:center"><div class="ocard-item-thumb">'+imgHtml+'</div><div class="ocard-item-info"><div class="ocard-item-name">'+(item.name||'محصول')+'</div><div class="ocard-item-meta">'+meta+(item.quantity>1?' × '+fmt(item.quantity):'')+'</div></div></div>';
+  }).join('');
+
+  var actionsHtml = '';
+  actionsHtml += '<a href="order-tracking.html?id='+order.orderId+'" class="ocard-btn ocard-btn-track">مشاهده و پیگیری</a>';
+  if (order.cancelable && order.status === 'در انتظار تأیید') {
+    actionsHtml += '<button class="ocard-btn ocard-btn-cancel" onclick="cancelOrder(\''+order.orderId+'\')">لغو سفارش</button>';
+  }
+  if (tab === 'delivered' && !order.returnRequested) {
+    var deliveryDate = order.deliveryDate ? new Date(order.deliveryDate) : null;
+    var daysSince = deliveryDate ? Math.floor((Date.now() - deliveryDate.getTime()) / 86400000) : 999;
+    if (daysSince <= 7) {
+      actionsHtml += '<button class="ocard-btn ocard-btn-return" onclick="requestReturn(\''+order.orderId+'\')">درخواست مرجوعی</button>';
+    }
+  }
+
+  return '<div class="ocard" id="oc-'+order.orderId+'">'
+    + '<div class="ocard-header"><div><div class="ocard-id">'+order.orderId+'</div><div class="ocard-date">'+toShamsi(order.date)+'</div></div>'
+    + '<span class="ostatus '+(STATUS_CLASS[order.status]||'')+'">'+order.status+'</span></div>'
+    + '<div class="ocard-body">'+(itemsHtml||'<div style="font-size:13px;color:var(--grey)">بدون جزئیات محصول</div>')+'</div>'
+    + '<div class="ocard-footer"><div class="ocard-total">'+fmt(order.total||0)+' تومان</div><div class="ocard-actions">'+actionsHtml+'</div></div>'
+    + '</div>';
+}
+
+function switchTab(btn) {
+  document.querySelectorAll('.orders-tab').forEach(function(t){ t.classList.remove('active'); });
+  btn.classList.add('active');
+  activeTab = btn.dataset.tab;
+  renderOrders();
+}
+
+function cancelOrder(orderId) {
+  if (!confirm('آیا مطمئن هستید؟ سفارش لغو می‌شود.')) return;
+  var orders = [];
+  try { orders = JSON.parse(localStorage.getItem('piro_orders')||'[]'); } catch(e){}
+  var idx = orders.findIndex(function(o){ return o.orderId === orderId; });
+  if (idx < 0) return;
+  orders[idx].status = 'لغو شده';
+  orders[idx].cancelable = false;
+  localStorage.setItem('piro_orders', JSON.stringify(orders));
+  renderOrders();
+}
+
+function requestReturn(orderId) {
+  if (!confirm('درخواست مرجوعی ثبت شود؟')) return;
+  var orders = [];
+  try { orders = JSON.parse(localStorage.getItem('piro_orders')||'[]'); } catch(e){}
+  var idx = orders.findIndex(function(o){ return o.orderId === orderId; });
+  if (idx < 0) return;
+  orders[idx].returnRequested = true;
+  orders[idx].returnDate = new Date().toISOString();
+  localStorage.setItem('piro_orders', JSON.stringify(orders));
+  alert('درخواست مرجوعی شما ثبت شد. کارشناس خانه پیرو با شما تماس می‌گیرد.');
+  renderOrders();
+}
+
+function showDashboard() {
+  document.querySelector('.auth-main').style.display = 'none';
+  document.getElementById('dashboardSection').style.display = 'block';
+  renderOrders();
+}
+
+function dashLogout() {
+  localStorage.removeItem('piro_session');
+  document.getElementById('dashboardSection').style.display = 'none';
+  document.querySelector('.auth-main').style.display = 'flex';
+  goStep(1);
+}
+
+// بررسی session موجود
+(function(){
+  var s = localStorage.getItem('piro_session');
+  if (!s) return;
+  try {
+    var users = JSON.parse(localStorage.getItem('piro_users')||'[]');
+    var u = users.find(function(x){ return x.mobile===s||x.email===s.toLowerCase(); });
+    if (u) {
+      var nameEl = document.getElementById('dashUserName');
+      if (nameEl) nameEl.textContent = u.firstName || 'کاربر';
+      setTimeout(function(){
+        document.querySelector('.auth-main').style.display = 'none';
+        document.getElementById('dashboardSection').style.display = 'block';
+        renderOrders();
+      }, 50);
+    }
+  } catch(e){}
+})();
+</script>
+<script>
+(function() {
+  var btn = document.createElement('button');
+  btn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+  btn.style.cssText = 'position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:50%;background:#1a1a1a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9999;box-shadow:0 2px 12px rgba(0,0,0,0.15)';
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://khaneh-piro-chat-pqtvg5jj1-piro-co.vercel.app';
+  iframe.style.cssText = 'position:fixed;bottom:92px;left:24px;width:340px;height:480px;border:none;border-radius:16px;z-index:9998;box-shadow:0 8px 32px rgba(0,0,0,0.12);display:none';
+  btn.onclick = function() {
+    iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
+  };
+  document.body.appendChild(btn);
+  document.body.appendChild(iframe);
+})();
+</script>
+</body>
+</html>

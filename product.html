@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>میز بار آلتو | PIRO</title>
+<meta name="description" content="میز بار آلتو — چوب طبیعی، طراحی مینیمال. ساخت دست خانه پیرو.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Noto+Sans+Arabic:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/chatbot.css">
+<style>
+  .pd-wrap { max-width:var(--maxw); margin:0 auto; padding:clamp(28px,3.5vw,44px) var(--gut) clamp(20px,2.5vw,32px); }
+  .crumbs { font-family:var(--font-lat); font-size:11px; letter-spacing:0.08em; color:var(--grey); margin-bottom:32px; }
+  .crumbs a:hover { color:var(--burgundy); }
+  .pd-grid { display:grid; grid-template-columns:1.4fr 1fr; gap:clamp(30px,5vw,72px); align-items:start; }
+
+  /* Gallery */
+  .gallery { display:grid; grid-template-columns:84px 1fr; gap:16px; }
+  @media (min-width:900px) { .gallery { position:sticky; top:96px; } }
+  .thumbs { display:flex; flex-direction:column; gap:12px; }
+  .thumb { aspect-ratio:1; cursor:pointer; position:relative; overflow:hidden; opacity:0.55; transition:opacity 0.2s; border:2px solid transparent; }
+  .thumb.active, .thumb:hover { opacity:1; border-color:var(--burgundy); }
+  .thumb img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .main-img { aspect-ratio:4/5; position:relative; overflow:hidden; background:var(--bg-soft); cursor:zoom-in; }
+  .main-img img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 0.5s var(--ease); }
+  .main-img:hover img { transform:scale(1.05); }
+
+  /* Info panel */
+  .pd-info .cat { font-family:var(--font-fa); font-size:12px; color:var(--burgundy); margin-bottom:14px; }
+  .pd-info h1 { font-family:var(--font-lat); font-weight:200; font-size:clamp(30px,4vw,52px); line-height:1.05; letter-spacing:-0.015em; }
+  .pd-info .name-fa { font-size:clamp(17px,1.8vw,22px); font-weight:400; color:var(--ink-soft); margin:8px 0 24px; }
+  .pd-price { font-family:var(--font-lat); font-size:26px; margin-bottom:6px; direction:ltr; text-align:right; }
+  .pd-price .u { font-size:14px; color:var(--grey); }
+  .pd-install { font-size:13.5px; color:var(--grey); margin-bottom:28px; }
+  .pd-install b { color:var(--burgundy); }
+  .pd-desc { font-size:15px; line-height:1.95; color:var(--ink-soft); padding-bottom:28px; border-bottom:1px solid var(--line); margin-bottom:28px; }
+
+  .opt-block { margin-bottom:26px; }
+  .opt-block .lbl { font-size:13px; letter-spacing:0.04em; margin-bottom:14px; display:flex; justify-content:space-between; }
+  .opt-block .lbl span { color:var(--grey); font-family:var(--font-lat); }
+  .opt-swatches { display:flex; gap:12px; }
+  .opt-sw { width:42px; height:42px; border-radius:50%; cursor:pointer; border:2px solid #fff; box-shadow:0 0 0 1px var(--line); transition:box-shadow 0.2s,transform 0.2s; position:relative; }
+  .opt-sw.active { box-shadow:0 0 0 2.5px var(--burgundy); }
+  .opt-sw:hover { transform:scale(1.08); }
+
+  /* ── Wood Chip Swatches (Rubio Monocoat) ── */
+  .wood-swatches { display:flex; flex-wrap:wrap; gap:7px; }
+  .wood-sw {
+    width:50px; height:34px; padding:0; background:none;
+    border:2px solid transparent; border-radius:3px; cursor:pointer;
+    overflow:visible; transition:border-color 0.18s, transform 0.15s;
+    display:block; flex-shrink:0; position:relative;
+  }
+  .wood-sw-img {
+    width:100%; height:100%; object-fit:cover; display:block;
+    border-radius:1px; /* clip image with border-radius instead of overflow:hidden */
+  }
+  .wood-sw:hover { border-color:rgba(26,26,26,0.35); transform:scale(1.1); }
+  .wood-sw.active { border-color:var(--burgundy); transform:scale(1.0); }
+
+  /* Hover tooltip — shows color name above chip */
+  .wood-sw::after {
+    content: attr(title);
+    position:absolute;
+    bottom: calc(100% + 7px);
+    left:50%; transform:translateX(-50%);
+    background:var(--ink); color:#fff;
+    font-family:var(--font-lat); font-size:10px; letter-spacing:0.05em;
+    padding:3px 8px; white-space:nowrap; border-radius:2px;
+    pointer-events:none;
+    opacity:0; transition:opacity 0.15s 0.05s;
+    z-index:20;
+  }
+  .wood-sw:hover::after { opacity:1; }
+
+  .size-opts { display:flex; gap:10px; flex-wrap:wrap; }
+  .size-opt { padding:11px 20px; border:1.5px solid var(--line); font-size:14px; cursor:pointer; transition:border-color 0.2s,color 0.2s; }
+  .size-opt.active { border-color:var(--burgundy); color:var(--burgundy); background:rgba(139,38,53,0.04); }
+
+  .pd-actions { display:flex; gap:12px; margin:30px 0 22px; }
+  .qty { display:flex; align-items:center; border:1.5px solid var(--line); }
+  .qty button { width:46px; height:52px; font-size:20px; color:var(--ink); transition:background 0.2s; }
+  .qty button:hover { background:var(--bg-soft); }
+  .qty span { width:46px; text-align:center; font-family:var(--font-lat); font-size:16px; }
+  .pd-actions .btn { flex:1; justify-content:center; }
+
+  .pd-meta { display:flex; flex-direction:column; gap:14px; padding-top:24px; border-top:1px solid var(--line); }
+  .pd-meta div { display:flex; align-items:center; gap:12px; font-size:14px; color:var(--ink-soft); }
+  .pd-meta svg { width:20px; height:20px; stroke:var(--burgundy); fill:none; stroke-width:1.5; flex-shrink:0; }
+
+  /* Piro Craft Story */
+  .piro-craft-story { background:#f5f2ee; direction:rtl; padding:64px 48px; text-align:center; }
+  .pcs-rule { width:40px; height:0.5px; background:#8B7355; margin:0 auto 48px; display:block; border:none; }
+  .pcs-eyebrow { display:block; font-family:'Playfair Display',serif; font-style:italic; color:#8B7355; letter-spacing:4px; font-size:10px; margin-bottom:18px; }
+  .pcs-quote-en { font-family:'Playfair Display',serif; font-style:italic; font-size:22px; color:#2c2820; margin:0 auto 12px; max-width:640px; }
+  .pcs-quote-fa { font-size:15px; color:#5a5246; font-weight:300; margin-bottom:56px; }
+  .pcs-grid { display:grid; grid-template-columns:repeat(3,1fr); border:0.5px solid #c4b89a; max-width:900px; margin:0 auto; text-align:right; }
+  .pcs-col { padding:32px 28px; }
+  .pcs-col + .pcs-col { border-inline-start:0.5px solid #c4b89a; }
+  .pcs-num { font-family:'Playfair Display',serif; color:#8B7355; letter-spacing:3px; font-size:11px; display:block; margin-bottom:10px; }
+  .pcs-title-en { font-family:'Playfair Display',serif; letter-spacing:2px; font-size:13px; display:block; color:#2c2820; margin-bottom:5px; text-transform:uppercase; }
+  .pcs-title-fa { font-size:14px; color:#2c2820; display:block; margin-bottom:10px; }
+  .pcs-desc { font-size:12px; color:#7a6e62; line-height:2; font-weight:300; }
+  .pcs-footer { display:flex; align-items:center; gap:16px; margin-top:48px; justify-content:center; }
+  .pcs-footer-line { flex:1; height:0.5px; background:#c4b89a; max-width:140px; }
+  .pcs-footer-text { font-family:'Playfair Display',serif; font-style:italic; color:#8B7355; letter-spacing:3px; font-size:10px; white-space:nowrap; }
+
+  /* Related */
+  .related { max-width:var(--maxw); margin:0 auto; padding:clamp(60px,7vw,88px) var(--gut) clamp(70px,9vw,110px); }
+  .related-head { margin-bottom:clamp(32px,4vw,52px); display:flex; align-items:baseline; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+  .related-head .eyebrow { display:block; font-family:var(--font-fa); font-size:11px; color:var(--grey); margin-bottom:10px; }
+  .related-head h2 { font-weight:300; font-size:clamp(26px,3.5vw,44px); margin:0; }
+  .related-head a { font-family:var(--font-fa); font-size:13px; color:var(--grey); white-space:nowrap; }
+  .related-head a:hover { color:var(--ink); }
+  .rgrid { display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(24px,3vw,40px) clamp(14px,1.8vw,24px); }
+  .pcard { cursor:pointer; }
+  .pcard .pimg { aspect-ratio:4/5; position:relative; overflow:hidden; margin-bottom:14px; background:var(--bg-card); }
+  .pcard .pimg .ph { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:opacity 0.5s ease, transform 0.8s var(--ease); opacity:1; transform:scale(1); }
+  .pcard:hover .pimg .ph { transform:scale(1.04); }
+  .pcard .pimg .ph.ph2 { opacity:0; }
+  .pcard:hover .pimg .ph:not(.ph2) { opacity:0; }
+  .pcard:hover .pimg .ph.ph2 { opacity:1; }
+  .pcat { font-family:var(--font-fa); font-size:11px; color:#b0a89e; margin:14px 0 4px; }
+  .pmeta { margin-top:0; }
+  .pname { font-size:14px; color:var(--ink); margin-bottom:5px; line-height:1.4; }
+  .pprice { display:none; }
+
+  @media (max-width:900px) { .pd-grid{grid-template-columns:1fr;gap:36px;} .rgrid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px) { .gallery{grid-template-columns:1fr;} .thumbs{flex-direction:row;} .thumb{width:70px;} .rgrid{grid-template-columns:1fr 1fr;} }
+
+  /* ── Extended Product Details ── */
+  .pd-ext { max-width:var(--maxw); margin:0 auto; padding:clamp(20px,2.5vw,32px) var(--gut); }
+  .pd-ext-inner { display:grid; grid-template-columns:1fr 1fr; gap:clamp(40px,7vw,96px); margin-bottom:0; }
+  .pd-ext-eyebrow { display:block; font-family:var(--font-fa); font-size:12px; color:var(--burgundy); margin-bottom:16px; }
+  .pd-ext-h { font-weight:300; font-size:clamp(20px,2.5vw,32px); margin:0 0 28px; line-height:1.15; }
+  .pd-story-text p { font-size:15px; line-height:2.05; color:var(--ink-soft); margin-bottom:18px; }
+  .pd-story-text p:last-child { margin-bottom:0; }
+  .pd-specs-table { width:100%; border-collapse:collapse; font-size:14px; }
+  .pd-specs-table tr { border-bottom:1px solid var(--line); }
+  .pd-specs-table tr:first-child { border-top:1px solid var(--line); }
+  .pd-specs-table td { padding:14px 0; line-height:1.5; }
+  .pd-specs-table td:first-child { color:var(--grey); padding-left:0; width:44%; }
+  .pd-specs-table td:last-child { color:var(--ink); font-family:var(--font-lat); direction:ltr; text-align:right; letter-spacing:0.01em; }
+  .pd-care-wrap { background:var(--bg-warm); padding:clamp(36px,4.5vw,56px) clamp(32px,4vw,56px); border-top:3px solid var(--burgundy); }
+  .pd-care-title { font-family:var(--font-lat); font-weight:200; font-size:clamp(18px,2vw,26px); margin:0 0 24px; letter-spacing:-0.01em; }
+  .pd-care-list { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:16px 48px; margin:0; padding:0; }
+  .pd-care-list li { font-size:14px; color:var(--ink-soft); line-height:1.75; padding-right:20px; position:relative; }
+  .pd-care-list li::before { content:'—'; position:absolute; right:0; color:var(--burgundy); font-family:var(--font-lat); }
+  .pd-companion { display:flex; align-items:center; gap:16px; margin-top:28px; padding-top:24px; border-top:1px solid rgba(0,0,0,0.10); }
+  .pd-companion-img { width:72px; height:72px; flex-shrink:0; object-fit:cover; background:var(--bg-soft); }
+  .pd-companion-body { flex:1; }
+  .pd-companion-label { font-family:var(--font-fa); font-size:11px; color:var(--burgundy); margin-bottom:4px; }
+  .pd-companion-name { font-size:15px; font-weight:300; margin-bottom:4px; }
+  .pd-companion-note { font-size:13px; color:var(--grey); line-height:1.55; }
+  @media (max-width:900px) { .pd-ext-inner { grid-template-columns:1fr; gap:48px; } .pd-care-list { grid-template-columns:1fr; } }
+
+  /* Tech Specs Section */
+  .tech-specs { background:var(--bg); padding:clamp(20px,2.5vw,32px) 0; }
+  .tech-specs-inner { max-width:var(--maxw); margin:0 auto; padding:0 var(--gut); }
+  .tech-specs-title { font-size:clamp(1.05rem,1.8vw,1.35rem); font-weight:500; letter-spacing:0.03em; color:var(--ink); margin-bottom:2.5rem; }
+  .tech-specs-grid { display:grid; grid-template-columns:60% 40%; align-items:center; }
+  .tech-img-col { padding-left:4rem; border-left:1px solid rgba(0,0,0,0.12); }
+  .tech-spec-img { width:100%; display:block; object-fit:contain; background:#F0F0F0; }
+  .tech-list-col { padding-right:4rem; }
+  .tech-table { width:100%; border-collapse:collapse; }
+  .tech-table th, .tech-table td { padding:.9rem 0; font-size:.88rem; }
+  .tech-table th { text-align:right; color:var(--ink); font-weight:500; width:45%; }
+  .tech-table td { text-align:right; color:#666; }
+  .tech-table tr { border-bottom:1px solid rgba(0,0,0,0.10); }
+  .tech-table tr:last-child { border-bottom:none; }
+  .tech-specs-grid.no-img { grid-template-columns:1fr; }
+  .tech-specs-grid.no-img .tech-img-col { display:none; }
+  .tech-specs-grid.no-img .tech-list-col { padding-right:0; max-width:420px; }
+  @media (max-width:768px) {
+    .tech-specs-grid { grid-template-columns:1fr; }
+    .tech-img-col { border-left:none; border-bottom:1px solid rgba(0,0,0,0.12); padding-left:0; padding-bottom:2.5rem; margin-bottom:2rem; }
+    .tech-list-col { padding-right:0; }
+    .piro-craft-story { padding:40px 24px; }
+    .pcs-grid { grid-template-columns:1fr; }
+    .pcs-col + .pcs-col { border-inline-start:none; border-top:0.5px solid #c4b89a; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <a href="index.html" class="logo lat">
+      <span class="logo-icon">
+        <svg class="logo-branch" viewBox="0 0 28 32" fill="none">
+          <path d="M14,31 L14,20 Q13,17 12,14" stroke="#5C4030" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          <path d="M14,22 Q11,19 9,16" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <path d="M14,20 Q17,17 19,14" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <ellipse cx="14" cy="11" rx="9" ry="7" fill="#5C4030" opacity="0.18"/>
+          <ellipse cx="11" cy="9" rx="6.5" ry="5" fill="#6A4E38" opacity="0.25"/>
+          <ellipse cx="17" cy="10" rx="6" ry="4.5" fill="#5C4030" opacity="0.22"/>
+          <ellipse cx="14" cy="7.5" rx="7" ry="5.5" fill="#7A5A42" opacity="0.30"/>
+          <ellipse cx="14" cy="8" rx="5" ry="4" fill="#8A6A50" opacity="0.25"/>
+        </svg>
+      </span>
+      <span class="logo-caption">
+        <span>Handcrafted in Iran</span>
+        <span>Natural Solid Wood</span>
+      </span>
+      <span class="logo-wordmark">House of PIRO</span>
+      <span class="logo-rules">
+        <span class="logo-rule-thick"></span>
+        <span class="logo-rule-thin"></span>
+      </span>
+    </a>
+    <nav>
+      <ul class="mainnav">
+        <li><a href="index.html" data-en="Home">خانه</a></li>
+        <li class="has-mega">
+          <a href="javascript:void(0)" data-en="Products ▾">محصولات ▾</a>
+          <div class="mega">
+            <div class="mega-inner">
+              <div class="mega-col">
+                <h4 data-en="Living Room"><a href="shop.html?cat=living" style="color:inherit">نشیمن</a></h4>
+                <ul>
+                  <li><a href="shop.html?cat=living&sub=lounge" data-en="Lounge Chair">مبل راحتی</a></li>
+                  <li><a href="shop.html?cat=living&sub=chair" data-en="Chair">صندلی</a></li>
+                  <li><a href="shop.html?cat=living&sub=barstool" data-en="Barstool">استول</a></li>
+                  <li><a href="shop.html?cat=living&sub=bench" data-en="Bench">نیمکت</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <h4 data-en="Bedroom"><a href="shop.html?cat=bedroom" style="color:inherit">سرویس خواب</a></h4>
+                <ul>
+                  <li><a href="shop.html?cat=bedroom&sub=bed" data-en="Bed">تخت‌خواب</a></li>
+                  <li><a href="shop.html?cat=bedroom&sub=bed" data-en="Bed Frame">باف تخت</a></li>
+                  <li><a href="shop.html?cat=bedroom&sub=nightstand" data-en="Nightstand">پاتختی</a></li>
+                  <li><a href="shop.html?cat=bedroom&sub=dresser" data-en="Dresser">دراور</a></li>
+                  <li><a href="shop.html?cat=bedroom&sub=hanger" data-en="Wardrobe">رخت آویز</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <h4 data-en="Tables"><a href="shop.html?cat=tables" style="color:inherit">میز</a></h4>
+                <ul>
+                  <li><a href="shop.html?cat=tables&sub=dining" data-en="Dining Table">میز ناهارخوری</a></li>
+                  <li><a href="shop.html?cat=tables&sub=coffee" data-en="Coffee Table">میز جلو مبلی</a></li>
+                  <li><a href="shop.html?cat=tables&sub=sidetable" data-en="Side Table">میز عسلی</a></li>
+                  <li><a href="shop.html?cat=tables&sub=bartable" data-en="Bar Table">میز بار</a></li>
+                  <li><a href="shop.html?cat=tables&sub=desk" data-en="Writing Desk">میز تحریر</a></li>
+                  <li><a href="shop.html?cat=tables&sub=vanity" data-en="Vanity Table">میز آرایش</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <h4 data-en="Console & Accessories">کنسول و اکسسوری</h4>
+                <ul>
+                  <li><a href="shop.html?cat=console&sub=sideboard" data-en="Sideboard">سایدبورد</a></li>
+                  <li><a href="shop.html?cat=console&sub=consoleunit" data-en="Console">کنسول</a></li>
+                  <li><a href="shop.html?cat=console&sub=tv" data-en="TV Unit">میز تلویزیون</a></li>
+                  <li><a href="shop.html?cat=console&sub=cabinet" data-en="Cabinet & Shoe Rack">کابینت و جاکفشی</a></li>
+                  <li><a href="shop.html?cat=console" data-en="Mirror">آینه</a></li>
+                  <li><a href="shop.html?cat=console" data-en="Shelf">شلف</a></li>
+                  <li><a href="shop.html?cat=console" data-en="Lighting">آباژور و روشنایی</a></li>
+                </ul>
+              </div>
+              <a href="product.html" class="mega-feature">
+                <img src="images/alto-2.jpg" alt="میز بار آلتو" loading="lazy">
+                <span class="tag" data-en="New · NEW">جدید · NEW</span>
+                <h5 class="lat">Alto Bar Table</h5>
+                <p data-en="Alto Bar Table — Natural Wood, Minimal Design">میز بار آلتو — چوب طبیعی، طراحی مینیمال</p>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li class="has-mega">
+          <a href="#" data-en="Designers ▾">طراحان ▾</a>
+          <div class="mega">
+            <div class="mega-inner">
+              <div class="mega-col">
+                <h4 data-en="Piro Design Team">تیم طراحی خانه پیرو</h4>
+                <ul>
+                  <li><a href="about.html" data-en="Piro Design Studio">استودیو طراحی خانه پیرو</a></li>
+                  <li><a href="about.html" data-en="Design Philosophy">فلسفه طراحی</a></li>
+                  <li><a href="about.html" data-en="Craftsmanship Process">روند ساخت</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <h4 data-en="Collaboration">همکاری</h4>
+                <ul>
+                  <li><a href="#" data-en="Architects & Designers">معماران و دیزاینرها</a></li>
+                  <li><a href="#" data-en="Commercial Projects">پروژه‌های تجاری</a></li>
+                  <li><a href="#" data-en="Partnership Request">درخواست همکاری</a></li>
+                </ul>
+              </div>
+              <div class="mega-col"></div>
+              <div class="mega-col"></div>
+              <a href="about.html" class="mega-feature">
+                <img src="images/detail.jpg" alt="استودیو طراحی خانه پیرو" loading="lazy">
+                <span class="tag" data-en="Studio">استودیو</span>
+                <h5 class="lat">Design Studio</h5>
+                <p data-en="Designers who bring wood to life">طراحانی که چوب را زنده می‌کنند</p>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li><a href="catalogue.html" data-en="Catalogue">کاتالوگ</a></li>
+        <li><a href="#" data-en="Installments">فروش اقساطی</a></li>
+        <li><a href="about.html" data-en="About">درباره ما</a></li>
+        <li><a href="#" data-en="Contact">تماس</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="جستجو" title="جستجو"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <button class="icon-btn" aria-label="علاقه‌مندی‌ها" title="علاقه‌مندی"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+      <a id="authBtn" href="account.html" class="auth-header-btn"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span id="authBtnTxt" data-en="Sign In | Register">ورود | ثبت‌نام</span></a>
+      <button class="icon-btn" aria-label="سبد خرید" title="سبد خرید" onclick="location.href='cart.html'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="badge" id="cartCount" aria-live="polite">0</span></button>
+      <button class="lang-btn lat" onclick="toggleLang(this)" aria-label="تغییر زبان">EN</button>
+      <button class="burger" onclick="openDrawer()" aria-label="منوی موبایل" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="pd-wrap">
+  <div class="crumbs lat"><a href="index.html" data-en="Home">خانه</a> / <a href="shop.html" data-en="Products">محصولات</a> / <span data-en="Tables">میز</span> / <span data-en="Alto Bar Table">میز بار آلتو</span></div>
+
+  <div class="pd-grid">
+    <!-- Gallery -->
+    <div class="gallery">
+      <div class="thumbs">
+        <div class="thumb active" onclick="setMain(this,'images/alto-1.jpg')"><img src="images/alto-1.jpg" class="ph" alt="میز بار آلتو چیدمان‌شده"></div>
+        <div class="thumb" onclick="setMain(this,'images/alto-2.jpg')"><img src="images/alto-2.jpg" class="ph" alt="میز بار آلتو نمای کامل"></div>
+        <div class="thumb" onclick="setMain(this,'images/alto-4.jpg')"><img src="images/alto-4.jpg" class="ph" alt="موج صفحه میز آلتو"></div>
+        <div class="thumb" onclick="setMain(this,'images/alto-3.jpg')"><img src="images/alto-3.jpg" class="ph" alt="جزئیات اتصال آلتو"></div>
+      </div>
+      <div class="main-img">
+        <img src="images/alto-1.jpg" class="ph" id="mainImg" alt="میز بار آلتو">
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="pd-info">
+      <div class="cat" data-en="Tables · Bar Table">میز · میز بار</div>
+      <h1 class="lat">Alto Bar Table</h1>
+      <div class="name-fa">میز بار آلتو</div>
+
+      <div class="pd-price lat">۴۹,۵۰۰,۰۰۰ <span class="u" data-en="Toman">تومان</span></div>
+      <div class="pd-install" data-en="Or <b>12 installments</b> of 4,125,000 Toman via DigiPay">یا <b>۱۲ قسط</b> ماهیانه ۴,۱۲۵,۰۰۰ تومان از طریق دیجی‌پی</div>
+
+      <p class="pd-desc" data-en="Alto Bar Table is designed with inspiration from Japandi simplicity and Scandinavian functionalism. The solid natural wood top features unique grains and patterns, while the column legs convey a sense of strength and elegance. Each piece is handcrafted by Piro artisans.">میز بار آلتو با الهام از سادگی جپندی و کاربردگرایی اسکاندیناوی طراحی شده است. صفحه از چوب طبیعی یکپارچه با نقش‌ها و موج‌های منحصربه‌فرد، و پایه‌های ستونی که حسی از استحکام و ظرافت را همزمان منتقل می‌کنند. هر قطعه به دست هنرمندان خانه پیرو ساخته می‌شود.</p>
+
+      <!-- Wood color — Rubio Monocoat -->
+      <div class="opt-block">
+        <div class="lbl" data-en="Wood Finish — Rubio Monocoat®">رنگ چوب — روبیو مونوکوت®</div>
+        <div class="wood-swatches" id="woodSwatches">
+          <button class="wood-sw active" onclick="pickWood(this,'Pure')"        title="Pure">       <img src="images/monocoat/pure.jpg"        alt="Pure"        class="wood-sw-img"></button>
+          <button class="wood-sw"        onclick="pickWood(this,'White 5%')"    title="White 5%">   <img src="images/monocoat/white5.jpg"      alt="White 5%"    class="wood-sw-img"></button>
+          <button class="wood-sw"        onclick="pickWood(this,'Super White')" title="Super White"><img src="images/monocoat/superwhite.jpg"  alt="Super White" class="wood-sw-img"></button>
+          <button class="wood-sw"        onclick="pickWood(this,'Vanilla')"     title="Vanilla">    <img src="images/monocoat/vanilla.jpg"     alt="Vanilla"     class="wood-sw-img"></button>
+          <button class="wood-sw"        onclick="pickWood(this,'Castle Brown')" title="Castle Brown"><img src="images/monocoat/castlebrown.jpg" alt="Castle Brown" class="wood-sw-img"></button>
+          <button class="wood-sw"        onclick="pickWood(this,'Chocolate')"   title="Chocolate">  <img src="images/monocoat/chocolate.jpg"   alt="Chocolate"   class="wood-sw-img"></button>
+          <button class="wood-sw"        onclick="pickWood(this,'Midnight Sky')" title="Midnight Sky"><img src="images/monocoat/midnightsky.jpg" alt="Midnight Sky" class="wood-sw-img"></button>
+          <button class="wood-sw"        onclick="pickWood(this,'Black')"       title="Black">      <img src="images/monocoat/black.jpg"       alt="Black"       class="wood-sw-img"></button>
+          <button class="wood-sw"        onclick="pickWood(this,'Green')"       title="Green">      <img src="images/monocoat/fern.jpg"        alt="Green"       class="wood-sw-img"></button>
+        </div>
+      </div>
+
+      <!-- Size -->
+      <div class="opt-block" id="sizeSect">
+        <div class="lbl" data-en="Size <span class='lat'>SIZE</span>">اندازه <span class="lat">SIZE</span></div>
+        <div class="size-opts">
+          <div class="size-opt active" onclick="pickSize(this)">۱۴۰ سانتی‌متر</div>
+          <div class="size-opt" onclick="pickSize(this)">۱۶۰ سانتی‌متر</div>
+          <div class="size-opt" onclick="pickSize(this)">۱۸۰ سانتی‌متر</div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="pd-actions">
+        <div class="qty">
+          <button onclick="qd(-1)">−</button>
+          <span id="qv">۱</span>
+          <button onclick="qd(1)">+</button>
+        </div>
+        <button class="btn btn-red" onclick="addCart(event)" data-en="Add to Cart">افزودن به سبد خرید</button>
+        <button class="icon-btn" style="border:1.5px solid var(--line)" onclick="favToggle(event,this)" aria-label="افزودن به علاقه‌مندی‌ها" title="علاقه‌مندی"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+      </div>
+
+      <!-- Meta -->
+      <div class="pd-meta">
+        <div><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> <span data-en="Free Delivery in Tehran">ارسال رایگان برای استان تهران</span></div>
+        <div><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> <span data-en="Delivery: approx. 60 working days">زمان تحویل: حدود ۶۰ روز کاری</span></div>
+        <div><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span data-en="Natural Wood Quality Guarantee">ضمانت کیفیت چوب طبیعی</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Extended Product Details -->
+<section class="pd-ext" id="pdExt" style="display:none">
+  <div class="pd-ext-inner">
+    <!-- Story column -->
+    <div class="reveal">
+      <span class="pd-ext-eyebrow" data-en="Product Story">داستان طراحی</span>
+      <h2 class="pd-ext-h" id="pdStoryTitle">داستان طراحی</h2>
+      <div class="pd-story-text" id="pdStory"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Tech Specs -->
+<section class="tech-specs reveal">
+  <div class="tech-specs-inner">
+    <h2 class="tech-specs-title">مشخصات فنی</h2>
+    <div class="tech-specs-grid">
+      <div class="tech-img-col">
+        <img id="techSpecImg" src="" alt="" class="tech-spec-img">
+      </div>
+      <div class="tech-list-col">
+        <table class="tech-table">
+          <tbody id="techSpecsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Care & Maintenance -->
+<div class="pd-care-wrap reveal">
+  <h3 class="pd-care-title" data-en="Care & Maintenance">نگهداری و مراقبت</h3>
+  <ul class="pd-care-list" id="pdCareList"></ul>
+  <div class="pd-companion" id="pdCompanion" style="display:none">
+    <div class="pd-companion-img" id="pdCompanionImg"></div>
+    <div class="pd-companion-body">
+      <div class="pd-companion-label" data-en="Designed Together">طراحی شده برای هم</div>
+      <div class="pd-companion-name lat" id="pdCompanionName"></div>
+      <div class="pd-companion-note" id="pdCompanionNote"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Piro Craft Story -->
+<section class="piro-craft-story reveal">
+  <hr class="pcs-rule">
+  <span class="pcs-eyebrow lat">HOUSE OF PIRO — EST. 1402</span>
+  <p class="pcs-quote-en lat">Where master craft meets precision technology.</p>
+  <p class="pcs-quote-fa">هر قطعه خانه پیرو یک اثر است — نه یک محصول</p>
+  <div class="pcs-grid">
+    <div class="pcs-col">
+      <span class="pcs-num lat">01</span>
+      <span class="pcs-title-en lat">SOLID WOOD</span>
+      <span class="pcs-title-fa">چوب طبیعی یکپارچه</span>
+      <p class="pcs-desc">از جنگل‌های معتبر اروپا<br>بدون MDF یا روکش مصنوعی</p>
+    </div>
+    <div class="pcs-col">
+      <span class="pcs-num lat">02</span>
+      <span class="pcs-title-en lat">CRAFT + TECHNOLOGY</span>
+      <span class="pcs-title-fa">هنر استادکار + فناوری دقیق</span>
+      <p class="pcs-desc">ماشین‌آلات صنعتی در خدمت<br>مهارت و ذوق استادکار خانه پیرو</p>
+    </div>
+    <div class="pcs-col">
+      <span class="pcs-num lat">03</span>
+      <span class="pcs-title-en lat">SIGNED SERIES</span>
+      <span class="pcs-title-fa">شماره‌گذاری و امضاشده</span>
+      <p class="pcs-desc">هر قطعه با شماره سریال<br>و امضای استادکار ارائه می‌شود</p>
+    </div>
+  </div>
+  <div class="pcs-footer">
+    <span class="pcs-footer-line"></span>
+    <span class="pcs-footer-text lat">HANDCRAFTED IN IRAN · NATURAL SOLID WOOD</span>
+    <span class="pcs-footer-line"></span>
+  </div>
+</section>
+
+<!-- Related -->
+<section class="related">
+  <div class="related-head reveal">
+    <div>
+      <span class="eyebrow" data-en="You May Also Like">پیشنهاد خانه پیرو</span>
+      <h2>شاید بپسندید</h2>
+    </div>
+    <a href="shop.html" data-en="View All →">مشاهده همه ←</a>
+  </div>
+  <div class="rgrid">
+    <article class="pcard reveal" onclick="location.href='product.html?id=en'"><div class="pimg"><img src="images/en.jpg" class="ph" loading="lazy" alt="EN Coffee Table"><img src="images/en-2.jpg" class="ph ph2" loading="lazy" alt="EN Coffee Table detail"></div><div class="pcat" data-en="TABLES">میز</div><div class="pmeta"><div class="pname" data-en="EN Coffee Table">میز جلو مبلی EN</div><div class="pprice lat">۲۸,۰۰۰,۰۰۰ <span class="u" data-en="Toman">تومان</span></div></div></article>
+    <article class="pcard reveal" style="transition-delay:.07s" onclick="location.href='product.html?id=ox'"><div class="pimg"><img src="images/ox.jpg" class="ph" loading="lazy" alt="OX Dining Table"><img src="images/ox-2.jpg" class="ph ph2" loading="lazy" alt="OX Dining Table overhead"></div><div class="pcat" data-en="TABLES">میز</div><div class="pmeta"><div class="pname" data-en="OX Dining Table">میز ناهارخوری OX</div><div class="pprice lat">۹۵,۰۰۰,۰۰۰ <span class="u" data-en="Toman">تومان</span></div></div></article>
+    <article class="pcard reveal" style="transition-delay:.14s" onclick="location.href='product.html?id=zen'"><div class="pimg"><img src="images/zen.jpg" class="ph" loading="lazy" alt="Zen Chair"><img src="images/zen-2.jpg" class="ph ph2" loading="lazy" alt="Zen Chair detail"></div><div class="pcat" data-en="CHAIRS">صندلی</div><div class="pmeta"><div class="pname" data-en="Zen Chair">صندلی زن</div><div class="pprice lat">۱۸,۵۰۰,۰۰۰ <span class="u" data-en="Toman">تومان</span></div></div></article>
+    <article class="pcard reveal" style="transition-delay:.21s" onclick="location.href='product.html?id=sideboard'"><div class="pimg"><img src="images/sideboard.jpg" class="ph" loading="lazy" alt="Mood Sideboard"><img src="images/sideboard-2.jpg" class="ph ph2" loading="lazy" alt="Mood Sideboard detail"></div><div class="pcat" data-en="CONSOLE">کنسول</div><div class="pmeta"><div class="pname" data-en="Mood Sideboard">سایدبورد مود</div><div class="pprice lat">۶۲,۰۰۰,۰۰۰ <span class="u" data-en="Toman">تومان</span></div></div></article>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo lat">
+      <span class="logo-icon">
+        <svg class="logo-branch" viewBox="0 0 28 32" fill="none">
+          <path d="M14,31 L14,20 Q13,17 12,14" stroke="#5C4030" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          <path d="M14,22 Q11,19 9,16" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <path d="M14,20 Q17,17 19,14" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <ellipse cx="14" cy="11" rx="9" ry="7" fill="#5C4030" opacity="0.18"/>
+          <ellipse cx="11" cy="9" rx="6.5" ry="5" fill="#6A4E38" opacity="0.25"/>
+          <ellipse cx="17" cy="10" rx="6" ry="4.5" fill="#5C4030" opacity="0.22"/>
+          <ellipse cx="14" cy="7.5" rx="7" ry="5.5" fill="#7A5A42" opacity="0.30"/>
+          <ellipse cx="14" cy="8" rx="5" ry="4" fill="#8A6A50" opacity="0.25"/>
+        </svg>
+      </span>
+      <span class="logo-caption">
+        <span>Handcrafted in Iran</span>
+        <span>Natural Solid Wood</span>
+      </span>
+      <span class="logo-wordmark">House of PIRO</span>
+      <span class="logo-rules">
+        <span class="logo-rule-thick"></span>
+        <span class="logo-rule-thin"></span>
+      </span>
+    </a>
+      <p data-en="Minimal, artful, high-quality furniture in natural wood.">مبلمان مینیمال، هنرمندانه و باکیفیت از چوب طبیعی.</p>
+      <div class="socials"><a href="https://instagram.com/piro_ir" target="_blank" aria-label="خانه پیرو در اینستاگرام"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.4A4 4 0 1 1 12.6 8 4 4 0 0 1 16 11.4z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a></div>
+    </div>
+    <div class="footer-col"><h4 data-en="Menu">منو</h4><ul><li><a href="index.html" data-en="Home">خانه</a></li><li><a href="shop.html" data-en="Products">محصولات</a></li><li><a href="about.html" data-en="About Us">درباره ما</a></li></ul></div>
+    <div class="footer-col"><h4 data-en="Categories">دسته‌بندی</h4><ul><li><a href="shop.html" data-en="Living Room">نشیمن</a></li><li><a href="shop.html" data-en="Tables">میز</a></li></ul></div>
+    <div class="footer-col"><h4 data-en="Support">پشتیبانی</h4><ul><li><a href="#" data-en="Warranty">گارانتی</a></li><li><a href="#" data-en="Contact">تماس</a></li></ul></div>
+    <div class="footer-col footer-contact"><h4 data-en="Contact">تماس</h4><div><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>تهران، ایران</span></div></div>
+  </div>
+  <div class="footer-bottom"><p data-en="© 2024 PIRO Furniture — All Rights Reserved">© ۱۴۰۳ خانه پیرو — تمامی حقوق محفوظ است</p><span class="lat">© 2024 PIRO Furniture</span></div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()">×</button>
+  <h4 data-en="Menu">منو</h4>
+  <a href="index.html" data-en="Home">خانه</a><a href="shop.html" data-en="Products">محصولات</a><a href="#" data-en="Designers">طراحان</a><a href="about.html" data-en="About Us">درباره ما</a><a href="#" data-en="Contact">تماس</a>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/db.js"></script>
+<script src="assets/main.js?v=3"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/chatbot.js"></script>
+<script src="assets/products.js"></script>
+<script>
+  function setMain(t, src){ document.querySelectorAll('.thumb').forEach(x=>x.classList.remove('active')); t.classList.add('active'); document.getElementById('mainImg').src = src; }
+  function pick(el){ el.parentNode.querySelectorAll('.opt-sw').forEach(x=>x.classList.remove('active')); el.classList.add('active'); }
+  function pickSize(el){ el.parentNode.querySelectorAll('.size-opt').forEach(x=>x.classList.remove('active')); el.classList.add('active'); }
+  function pickWood(el, name) {
+    document.querySelectorAll('.wood-sw').forEach(x => x.classList.remove('active'));
+    el.classList.add('active');
+  }
+  let q=1; const fa=['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+  function toFa(n){ return String(n).split('').map(d=>fa[d]||d).join(''); }
+  function qd(d){ q=Math.max(1,q+d); document.getElementById('qv').textContent=toFa(q); }
+
+  // ===== Dynamic product loader =====
+  const PRODUCTS = Object.fromEntries(PIRO_PRODUCTS.map(p => [p.id, p]));
+
+  // Load product from URL ?id=
+  (function(){
+    const id = new URLSearchParams(location.search).get('id');
+    const p = id && PRODUCTS[id] ? PRODUCTS[id] : PRODUCTS.alto;
+    const isEn = localStorage.getItem('piro_lang') === 'en';
+
+    // Breadcrumb
+    document.querySelector('.crumbs').innerHTML =
+      `<a href="index.html" data-en="Home">خانه</a> / <a href="shop.html" data-en="Products">محصولات</a> / <a href="shop.html?cat=${p.catSlug}" data-en="${p.catEn}">${p.catFa}</a> / <span data-en="${p.en}">${p.fa}</span>`;
+
+    // Category label
+    document.querySelector('.pd-info .cat').textContent = `${p.catEn} · ${p.catFa}`;
+
+    // Size section — only for bedroom and console categories
+    const sizeSect = document.getElementById('sizeSect');
+    if (sizeSect) sizeSect.style.display = (p.catSlug === 'bedroom' || p.catSlug === 'console') ? '' : 'none';
+
+    // Names
+    document.querySelector('.pd-info h1').setAttribute('data-en', p.en);
+    document.querySelector('.pd-info h1').textContent = p.en;
+    document.querySelector('.pd-info .name-fa').textContent = p.fa;
+
+    // Price
+    document.querySelector('.pd-price').innerHTML = `${p.price} <span class="u" data-en="Toman">تومان</span>`;
+
+    // Installment note
+    const inst = document.querySelector('.pd-install');
+    inst.setAttribute('data-en', p.installEn);
+    inst.innerHTML = p.installFa;
+
+    // Description
+    const desc = document.querySelector('.pd-desc');
+    desc.setAttribute('data-en', p.descEn);
+    desc.textContent = p.descFa;
+
+    // Gallery
+    const thumbsEl = document.querySelector('.thumbs');
+    const mainImg = document.getElementById('mainImg');
+    thumbsEl.innerHTML = p.imgs.map((img, i) =>
+      `<div class="thumb${i===0?' active':''}" onclick="setMain(this,'images/${img}')"><img src="images/${img}" class="ph" alt="${p.alts[i]||p.fa}"></div>`
+    ).join('');
+    mainImg.src = `images/${p.imgs[0]}`;
+    mainImg.alt = p.fa;
+
+    // Page title
+    document.title = `${p.fa} | PIRO`;
+
+    // Extended details section
+    const extEl = document.getElementById('pdExt');
+    if (p.storyFa && p.specs) {
+      extEl.style.display = '';
+
+      // Story
+      const storyTitleEl = document.getElementById('pdStoryTitle');
+      storyTitleEl.textContent = `داستان ${p.fa}`;
+      storyTitleEl.setAttribute('data-en', `The Story of ${p.en}`);
+      const storyEl = document.getElementById('pdStory');
+      storyEl.innerHTML = p.storyFa.map((t,i)=>`<p data-en="${p.storyEn?.[i]||''}">${t}</p>`).join('');
+
+      // Tech Specs (image + table from p.specs)
+      const techImgEl = document.getElementById('techSpecImg');
+      const techGrid = document.querySelector('.tech-specs-grid');
+      const techFile = p.techImg || null;
+      if (techFile) {
+        techImgEl.src = `images/${techFile}`;
+        techImgEl.alt = p.fa;
+        techGrid.classList.remove('no-img');
+      } else {
+        techGrid.classList.add('no-img');
+      }
+      document.getElementById('techSpecsBody').innerHTML = p.specs.map(s=>
+        `<tr><th>${s.fa}</th><td data-en="${s.vEn}">${s.vFa}</td></tr>`
+      ).join('');
+
+      // Care
+      const careEl = document.getElementById('pdCareList');
+      careEl.innerHTML = (p.careFa||[]).map((c,i)=>
+        `<li data-en="${p.careEn?.[i]||''}">${c}</li>`
+      ).join('');
+
+      // Companion product
+      if (p.companion) {
+        const compEl = document.getElementById('pdCompanion');
+        compEl.style.display = 'flex';
+        const compImg = document.getElementById('pdCompanionImg');
+        compImg.style.backgroundImage = `url(${p.companion.img})`;
+        compImg.style.backgroundSize = 'cover';
+        compImg.style.backgroundPosition = 'center';
+        compEl.style.cursor = 'pointer';
+        compEl.onclick = ()=>{ location.href = p.companion.href; };
+        document.getElementById('pdCompanionName').textContent = p.companion.name;
+        const noteEl = document.getElementById('pdCompanionNote');
+        noteEl.textContent = p.companion.noteFa;
+        noteEl.setAttribute('data-en', p.companion.noteEn);
+      }
+    }
+
+    // Re-apply lang if EN is active
+    if (isEn && window.applyLang) applyLang('en');
+
+    // ذخیره داده محصول برای addCart
+    window._currentProduct = { id: id || 'alto', data: p };
+  })();
+
+  // ===== override addCart برای صفحه محصول =====
+  function addCart(ev) {
+    if (ev) { ev.stopPropagation(); ev.preventDefault(); }
+    const btn = ev ? ev.currentTarget : null;
+    if (btn) btn.disabled = true;
+
+    const cp = window._currentProduct;
+    if (!cp) return;
+    const p = cp.data;
+
+    const colorBtn = document.querySelector('.wood-sw.active');
+    const selectedColor = colorBtn ? (colorBtn.title || colorBtn.getAttribute('title') || '') : '';
+    const sizeEl = document.querySelector('.size-opt.active');
+    const selectedSize = sizeEl ? sizeEl.textContent.trim() : '';
+    const qty = q || 1;
+
+    // تبدیل قیمت به عدد
+    const priceStr = p.price || '0';
+    const priceNum = parseInt(priceStr.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/,/g,'')) || 0;
+
+    const item = {
+      productId: cp.id,
+      name: p.fa,
+      nameEn: p.en,
+      image: `images/${p.imgs[0]}`,
+      color: selectedColor,
+      size: selectedSize,
+      price: priceNum,
+      quantity: qty,
+    };
+
+    // ذخیره در piro_cart
+    const cart = getCart();
+    const existing = cart.find(i => i.productId === item.productId && i.color === item.color && i.size === item.size);
+    if (existing) {
+      existing.quantity = (existing.quantity || 1) + qty;
+    } else {
+      cart.push(item);
+    }
+    saveCart(cart);
+
+    // نمایش notification
+    const notif = document.createElement('div');
+    notif.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1A1A1A;color:#fff;padding:12px 20px;font-family:inherit;font-size:14px;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.2);direction:rtl;display:flex;align-items:center;gap:10px;';
+    notif.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> به سبد اضافه شد';
+    document.body.appendChild(notif);
+    setTimeout(() => notif.remove(), 2500);
+
+    if (btn) {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ اضافه شد';
+      setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 1500);
+    }
+  }
+</script>
+<script>
+(function() {
+  var btn = document.createElement('button');
+  btn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+  btn.style.cssText = 'position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:50%;background:#1a1a1a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9999;box-shadow:0 2px 12px rgba(0,0,0,0.15)';
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://khaneh-piro-chat-pqtvg5jj1-piro-co.vercel.app';
+  iframe.style.cssText = 'position:fixed;bottom:92px;left:24px;width:340px;height:480px;border:none;border-radius:16px;z-index:9998;box-shadow:0 8px 32px rgba(0,0,0,0.12);display:none';
+  btn.onclick = function() {
+    iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
+  };
+  document.body.appendChild(btn);
+  document.body.appendChild(iframe);
+})();
+</script>
+</body>
+</html>

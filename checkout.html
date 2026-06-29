@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تکمیل سفارش | PIRO</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .page-title {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: clamp(44px,5.5vw,72px) var(--gut) clamp(28px,3.5vw,44px);
+    border-bottom: 1px solid var(--line);
+  }
+  .page-title h1 { font-size: clamp(24px,3vw,40px); font-weight: 300; letter-spacing: -.01em; color: var(--ink); }
+
+  /* ── Steps breadcrumb ── */
+  .checkout-steps {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 20px var(--gut); display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--grey); border-bottom: 1px solid var(--line);
+  }
+  .checkout-steps .step { display: flex; align-items: center; gap: 8px; }
+  .checkout-steps .step.active { color: var(--ink); font-weight: 500; }
+  .checkout-steps .step.done { color: var(--burgundy); }
+  .checkout-steps .sep { color: var(--line); }
+
+  /* ── Layout ── */
+  .checkout-wrap {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: clamp(32px,4vw,56px) var(--gut) clamp(80px,10vw,140px);
+    display: grid; grid-template-columns: 1fr 360px; gap: 56px; align-items: start;
+  }
+
+  /* ── Form ── */
+  .form-section { margin-bottom: 36px; }
+  .form-section-title {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--ink); margin-bottom: 20px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--line);
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-row.full { grid-template-columns: 1fr; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 12px; color: var(--grey); }
+  .form-group label .req { color: var(--burgundy); }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    height: 46px; border: 1px solid var(--line); padding: 0 14px;
+    font-family: var(--font-fa); font-size: 14px; color: var(--ink);
+    outline: none; background: #fff; transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  .form-group textarea { height: 88px; padding: 12px 14px; resize: vertical; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--ink);
+  }
+  .form-group input.err, .form-group select.err { border-color: #c00; }
+  .form-group select:disabled { background: #f5f5f5; color: #aaa; cursor: not-allowed; }
+  .form-group .err-msg { font-size: 11px; color: #c00; display: none; }
+  .form-group.has-err .err-msg { display: block; }
+  .form-group.has-err input, .form-group.has-err select { border-color: #c00; }
+
+  /* ── Delivery time ── */
+  .delivery-section { margin-bottom: 36px; }
+  .delivery-options { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .delivery-opt {
+    border: 1px solid var(--line); padding: 10px 18px; cursor: pointer;
+    font-family: var(--font-fa); font-size: 13px; color: var(--grey);
+    background: #fff; transition: all 0.2s;
+  }
+  .delivery-opt:hover { border-color: var(--ink); color: var(--ink); }
+  .delivery-opt.active { border-color: var(--ink); background: var(--ink); color: #fff; }
+  .delivery-opt.admin-only { display: none; border-color: var(--burgundy); color: var(--burgundy); }
+  .delivery-opt.admin-only.active { background: var(--burgundy); color: #fff; }
+  .show-admin .delivery-opt.admin-only { display: block; }
+
+  .delivery-date-display {
+    background: var(--bg-warm); padding: 14px 18px;
+    font-size: 14px; color: var(--ink); line-height: 1.6;
+  }
+  .delivery-date-display strong { color: var(--burgundy); }
+
+  .admin-code-row {
+    display: flex; gap: 0; margin-top: 16px; max-width: 320px;
+  }
+  .admin-code-row input {
+    flex: 1; height: 40px; border: 1px solid var(--line); border-left: none;
+    padding: 0 12px; font-family: var(--font-fa); font-size: 12px;
+    direction: ltr; letter-spacing: 0.05em; outline: none; background: #fff;
+  }
+  .admin-code-row input:focus { border-color: var(--ink); }
+  .admin-code-row button {
+    height: 40px; padding: 0 14px; background: var(--ink); color: #fff;
+    border: none; font-family: var(--font-fa); font-size: 12px; cursor: pointer;
+  }
+  .admin-code-msg { font-size: 11px; margin-top: 6px; }
+  .admin-code-msg.ok { color: #2a7a3b; }
+  .admin-code-msg.err { color: #c00; }
+
+  /* ── Submit ── */
+  .btn-submit {
+    width: 100%; height: 52px; background: var(--burgundy); color: #fff;
+    border: none; font-family: var(--font-fa); font-size: 15px; font-weight: 500;
+    cursor: pointer; transition: background 0.2s; margin-top: 8px;
+  }
+  .btn-submit:hover { background: var(--burgundy-dark); }
+  .btn-back-link {
+    display: block; text-align: center; margin-top: 14px;
+    font-size: 13px; color: var(--grey); text-decoration: none; transition: color 0.2s;
+  }
+  .btn-back-link:hover { color: var(--ink); }
+
+  /* ── Order Summary ── */
+  .cart-summary {
+    background: var(--bg-warm); padding: 28px; position: sticky; top: 96px;
+  }
+  .summary-title { font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: 20px; }
+  .summary-items { border-bottom: 1px solid var(--line); margin-bottom: 16px; padding-bottom: 16px; }
+  .summary-item { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+  .summary-item-img { width: 48px; height: 48px; background: var(--bg-card); overflow: hidden; flex-shrink: 0; }
+  .summary-item-img img { width: 100%; height: 100%; object-fit: cover; }
+  .summary-item-img .ph { width: 100%; height: 100%; background: linear-gradient(135deg, var(--wood-2), var(--wood-3)); }
+  .summary-item-info { flex: 1; min-width: 0; }
+  .summary-item-name { font-size: 13px; color: var(--ink); line-height: 1.4; margin-bottom: 2px; }
+  .summary-item-meta { font-size: 11px; color: var(--grey); }
+  .summary-item-price { font-size: 13px; color: var(--ink); font-weight: 500; white-space: nowrap; }
+  .summary-row { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--ink-soft); margin-bottom: 10px; }
+  .summary-row.total { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 12px; font-size: 15px; font-weight: 600; color: var(--ink); }
+  .summary-row .val.discount { color: #2a7a3b; }
+  .summary-row .val.free { color: #2a7a3b; }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) { .checkout-wrap { grid-template-columns: 1fr; gap: 40px; } .cart-summary { position: static; } }
+  @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <a href="index.html" class="logo lat">
+      <span class="logo-icon">
+        <svg class="logo-branch" viewBox="0 0 28 32" fill="none">
+          <path d="M14,31 L14,20 Q13,17 12,14" stroke="#5C4030" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          <path d="M14,22 Q11,19 9,16" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <path d="M14,20 Q17,17 19,14" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <ellipse cx="14" cy="11" rx="9" ry="7" fill="#5C4030" opacity="0.18"/>
+          <ellipse cx="11" cy="9" rx="6.5" ry="5" fill="#6A4E38" opacity="0.25"/>
+          <ellipse cx="17" cy="10" rx="6" ry="4.5" fill="#5C4030" opacity="0.22"/>
+          <ellipse cx="14" cy="7.5" rx="7" ry="5.5" fill="#7A5A42" opacity="0.30"/>
+          <ellipse cx="14" cy="8" rx="5" ry="4" fill="#8A6A50" opacity="0.25"/>
+        </svg>
+      </span>
+      <span class="logo-caption"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></span>
+      <span class="logo-wordmark">House of PIRO</span>
+      <span class="logo-rules"><span class="logo-rule-thick"></span><span class="logo-rule-thin"></span></span>
+    </a>
+    <nav>
+      <ul class="mainnav">
+        <li><a href="index.html">خانه</a></li>
+        <li><a href="shop.html">محصولات</a></li>
+        <li><a href="about.html">درباره ما</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a id="authBtn" href="account.html" class="auth-header-btn"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>ورود | ثبت‌نام</span></a>
+      <button class="icon-btn" aria-label="سبد خرید" onclick="location.href='cart.html'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="badge" id="cartCount" aria-live="polite">0</span></button>
+      <button class="lang-btn lat" onclick="toggleLang(this)">EN</button>
+      <button class="burger" onclick="openDrawer()" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-title">
+  <h1>تکمیل سفارش</h1>
+</div>
+
+<div class="checkout-steps">
+  <div class="step done">سبد خرید</div>
+  <span class="sep">›</span>
+  <div class="step active">اطلاعات تحویل</div>
+  <span class="sep">›</span>
+  <div class="step">پرداخت</div>
+</div>
+
+<div class="checkout-wrap">
+
+  <!-- ── Form ── -->
+  <div class="checkout-form">
+    <form id="checkoutForm" novalidate>
+
+      <!-- اطلاعات گیرنده -->
+      <div class="form-section">
+        <div class="form-section-title">اطلاعات گیرنده</div>
+        <div class="form-row">
+          <div class="form-group" id="fg-firstName">
+            <label>نام <span class="req">*</span></label>
+            <input type="text" id="firstName" placeholder="نام">
+            <span class="err-msg">نام الزامی است</span>
+          </div>
+          <div class="form-group" id="fg-lastName">
+            <label>نام خانوادگی <span class="req">*</span></label>
+            <input type="text" id="lastName" placeholder="نام خانوادگی">
+            <span class="err-msg">نام خانوادگی الزامی است</span>
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-group" id="fg-mobile">
+            <label>شماره موبایل <span class="req">*</span></label>
+            <input type="tel" id="mobile" placeholder="۰۹۱۲۳۴۵۶۷۸۹" maxlength="11" dir="ltr">
+            <span class="err-msg">شماره موبایل معتبر نیست (۱۱ رقم)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- آدرس تحویل -->
+      <div class="form-section">
+        <div class="form-section-title">آدرس تحویل</div>
+        <div class="form-row">
+          <div class="form-group" id="fg-province">
+            <label>استان <span class="req">*</span></label>
+            <select id="province" onchange="updateCities(); updateShipping()">
+              <option value="">انتخاب استان</option>
+              <option value="تهران">تهران</option>
+              <option value="البرز">البرز</option>
+              <option value="اصفهان">اصفهان</option>
+              <option value="فارس">فارس</option>
+              <option value="خراسان رضوی">خراسان رضوی</option>
+              <option value="آذربایجان شرقی">آذربایجان شرقی</option>
+              <option value="آذربایجان غربی">آذربایجان غربی</option>
+              <option value="اردبیل">اردبیل</option>
+              <option value="سمنان">سمنان</option>
+              <option value="گیلان">گیلان</option>
+              <option value="مازندران">مازندران</option>
+              <option value="گلستان">گلستان</option>
+              <option value="خراسان شمالی">خراسان شمالی</option>
+              <option value="خراسان جنوبی">خراسان جنوبی</option>
+              <option value="سیستان و بلوچستان">سیستان و بلوچستان</option>
+              <option value="کرمان">کرمان</option>
+              <option value="هرمزگان">هرمزگان</option>
+              <option value="بوشهر">بوشهر</option>
+              <option value="خوزستان">خوزستان</option>
+              <option value="لرستان">لرستان</option>
+              <option value="چهارمحال و بختیاری">چهارمحال و بختیاری</option>
+              <option value="کهگیلویه و بویراحمد">کهگیلویه و بویراحمد</option>
+              <option value="مرکزی">مرکزی</option>
+              <option value="قم">قم</option>
+              <option value="قزوین">قزوین</option>
+              <option value="زنجان">زنجان</option>
+              <option value="همدان">همدان</option>
+              <option value="کرمانشاه">کرمانشاه</option>
+              <option value="کردستان">کردستان</option>
+              <option value="ایلام">ایلام</option>
+              <option value="یزد">یزد</option>
+            </select>
+            <span class="err-msg">انتخاب استان الزامی است</span>
+          </div>
+          <div class="form-group" id="fg-city">
+            <label>شهر <span class="req">*</span></label>
+            <select id="city" disabled>
+              <option value="">ابتدا استان را انتخاب کنید</option>
+            </select>
+            <span class="err-msg">انتخاب شهر الزامی است</span>
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-group" id="fg-address">
+            <label>آدرس کامل <span class="req">*</span></label>
+            <textarea id="address" placeholder="خیابان، کوچه، پلاک، واحد"></textarea>
+            <span class="err-msg">آدرس الزامی است</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group" id="fg-postalCode">
+            <label>کد پستی <span class="req">*</span></label>
+            <input type="text" id="postalCode" placeholder="۱۲۳۴۵۶۷۸۹۰" maxlength="10" dir="ltr">
+            <span class="err-msg">کد پستی ۱۰ رقمی وارد کنید</span>
+          </div>
+          <div class="form-group">
+            <label>توضیحات (اختیاری)</label>
+            <input type="text" id="notes" placeholder="مثلاً: طبقه چهارم، آیفون تصویری">
+          </div>
+        </div>
+      </div>
+
+      <!-- زمان تحویل -->
+      <div class="form-section delivery-section">
+        <div class="form-section-title">زمان تحویل تخمینی</div>
+        <div class="delivery-options" id="deliveryOptions">
+          <button type="button" class="delivery-opt admin-only" data-days="30" onclick="selectDelivery(this)">۳۰ روز کاری</button>
+          <button type="button" class="delivery-opt admin-only" data-days="45" onclick="selectDelivery(this)">۴۵ روز کاری</button>
+          <button type="button" class="delivery-opt active" data-days="60" onclick="selectDelivery(this)">۶۰ روز کاری</button>
+          <button type="button" class="delivery-opt" data-days="75" onclick="selectDelivery(this)">۷۵ روز کاری</button>
+          <button type="button" class="delivery-opt" data-days="90" onclick="selectDelivery(this)">۹۰ روز کاری</button>
+          <button type="button" class="delivery-opt" data-days="120" onclick="selectDelivery(this)">۱۲۰ روز کاری</button>
+        </div>
+        <div class="delivery-date-display" id="deliveryDateDisplay"></div>
+
+        <div class="admin-code-row" style="margin-top:20px">
+          <input type="text" id="adminCodeInput" placeholder="کد ادمین (اختیاری)" dir="ltr" autocomplete="off">
+          <button type="button" onclick="applyAdminCode()">اعمال</button>
+        </div>
+        <div class="admin-code-msg" id="adminCodeMsg"></div>
+      </div>
+
+      <button type="submit" class="btn-submit">ادامه به پرداخت ←</button>
+      <a href="cart.html" class="btn-back-link">← بازگشت به سبد خرید</a>
+    </form>
+  </div>
+
+  <!-- ── Order Summary ── -->
+  <div class="cart-summary" id="orderSummary">
+    <div class="summary-title">خلاصه سفارش</div>
+    <div class="summary-items" id="summaryItems"></div>
+    <div class="summary-row"><span>جمع محصولات</span><span class="val" id="summarySubtotal">—</span></div>
+    <div class="summary-row"><span>هزینه ارسال</span><span class="val" id="summaryShipping">—</span></div>
+    <div class="summary-row" id="discountRow" style="display:none"><span id="discountLabel">تخفیف</span><span class="val discount" id="summaryDiscount">—</span></div>
+    <div class="summary-row total"><span>جمع کل</span><span class="val" id="summaryTotal">—</span></div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo lat">
+        <span class="logo-icon"><svg class="logo-branch" viewBox="0 0 28 32" fill="none"><path d="M14,31 L14,20 Q13,17 12,14" stroke="#5C4030" stroke-width="1.3" stroke-linecap="round" fill="none"/><path d="M14,22 Q11,19 9,16" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/><path d="M14,20 Q17,17 19,14" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/><ellipse cx="14" cy="11" rx="9" ry="7" fill="#5C4030" opacity="0.18"/><ellipse cx="11" cy="9" rx="6.5" ry="5" fill="#6A4E38" opacity="0.25"/><ellipse cx="17" cy="10" rx="6" ry="4.5" fill="#5C4030" opacity="0.22"/><ellipse cx="14" cy="7.5" rx="7" ry="5.5" fill="#7A5A42" opacity="0.30"/><ellipse cx="14" cy="8" rx="5" ry="4" fill="#8A6A50" opacity="0.25"/></svg></span>
+        <span class="logo-caption"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></span>
+        <span class="logo-wordmark">House of PIRO</span>
+        <span class="logo-rules"><span class="logo-rule-thick"></span><span class="logo-rule-thin"></span></span>
+      </a>
+      <p>مبلمان مینیمال، هنرمندانه و باکیفیت از چوب طبیعی.</p>
+    </div>
+    <div class="footer-col"><h4>منو</h4><ul><li><a href="index.html">خانه</a></li><li><a href="shop.html">محصولات</a></li><li><a href="about.html">درباره ما</a></li></ul></div>
+    <div class="footer-col"><h4>پشتیبانی</h4><ul><li><a href="#">نحوه خرید</a></li><li><a href="#">گارانتی</a></li></ul></div>
+    <div class="footer-col footer-contact"><h4>تماس</h4><div><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>تهران، ایران</span></div></div>
+  </div>
+  <div class="footer-bottom"><p>© ۱۴۰۳ خانه پیرو — تمامی حقوق محفوظ است</p><span class="lat">© 2024 PIRO Furniture</span></div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()">×</button>
+  <h4>منو</h4>
+  <a href="index.html">خانه</a>
+  <a href="shop.html">محصولات</a>
+  <a href="about.html">درباره ما</a>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.js"></script>
+<script src="assets/main.js?v=3"></script>
+<script>
+const ADMIN_CODE = 'PIRO-ADMIN-2024';
+const SHIPPING_COST = 500000;
+
+function parsePrice(str) {
+  if (typeof str === 'number') return str;
+  return parseInt(String(str).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/,/g,'')) || 0;
+}
+function fmt(n) { return n.toLocaleString('fa-IR'); }
+
+function toShamsi(date) {
+  const j = jalaali.toJalaali(date.getFullYear(), date.getMonth() + 1, date.getDate());
+  const months = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+  return `${j.jd} ${months[j.jm - 1]} ${j.jy}`;
+}
+
+function addDays(date, days) {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+}
+
+let selectedDays = 60;
+let isAdmin = false;
+
+function selectDelivery(btn) {
+  document.querySelectorAll('.delivery-opt').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedDays = parseInt(btn.dataset.days);
+  updateDeliveryDate();
+}
+
+function updateDeliveryDate() {
+  const deliveryDate = addDays(new Date(), selectedDays);
+  const el = document.getElementById('deliveryDateDisplay');
+  if (el) {
+    el.innerHTML = `تاریخ تحویل تخمینی: <strong>${toShamsi(deliveryDate)}</strong><br>
+    <small style="color:var(--grey);font-size:12px">(${selectedDays} روز کاری از امروز — تأیید نهایی پس از بررسی کارشناس خانه پیرو)</small>`;
+  }
+  sessionStorage.setItem('piro_delivery_days', selectedDays);
+  sessionStorage.setItem('piro_delivery_date', deliveryDate.toISOString());
+}
+
+function applyAdminCode() {
+  const code = (document.getElementById('adminCodeInput')?.value || '').trim();
+  const msg = document.getElementById('adminCodeMsg');
+  if (code === ADMIN_CODE) {
+    isAdmin = true;
+    document.getElementById('deliveryOptions').classList.add('show-admin');
+    if (msg) { msg.textContent = '✓ دسترسی ادمین — گزینه‌های سریع فعال شدند'; msg.className = 'admin-code-msg ok'; }
+  } else {
+    if (msg) { msg.textContent = 'کد ادمین نادرست است'; msg.className = 'admin-code-msg err'; }
+  }
+}
+
+const CITIES = {
+  'تهران':['تهران','اسلامشهر','پاکدشت','پردیس','پیشوا','تجریش','دماوند','رباط کریم','ری','شهریار','فیروزکوه','قدس','قرچک','کرج (تهران)','ملارد','ورامین','بومهن','آبسرد','لواسان'],
+  'البرز':['کرج','فردیس','نظرآباد','هشتگرد','ساوجبلاغ','طالقان','چهارباغ'],
+  'اصفهان':['اصفهان','کاشان','خمینی‌شهر','شاهین‌شهر','نجف‌آباد','فلاورجان','مبارکه','زرین‌شهر','اردستان','آران و بیدگل','برخوار','تیران','چادگان','خوانسار','دهاقان','سمیرم','شهرضا','فریدن','فریدونشهر','گلپایگان','لنجان','نطنز','ورزنه'],
+  'فارس':['شیراز','مرودشت','جهرم','فسا','کازرون','لار','آباده','اقلید','بوانات','پاسارگاد','خرامه','خفر','داراب','رستم','زرین‌دشت','سپیدان','شیراز','فیروزآباد','قیروکارزین','لارستان','ممسنی','نی‌ریز'],
+  'خراسان رضوی':['مشهد','نیشابور','سبزوار','تربت حیدریه','تربت جام','قوچان','کاشمر','گناباد','درگز','خواف','چناران','فریمان','بجستان','بردسکن','خلیل‌آباد','داورزن','رشتخوار','سرخس','فیروزه','کلات'],
+  'آذربایجان شرقی':['تبریز','مراغه','مرند','اهر','بناب','میانه','هشترود','اسکو','ملکان','شبستر','عجب‌شیر','ورزقان','جلفا','خامنه','سراب','کلیبر'],
+  'آذربایجان غربی':['ارومیه','خوی','مهاباد','میاندوآب','بوکان','اشنویه','پیرانشهر','تکاب','چالدران','سردشت','سلماس','شاهین‌دژ','ماکو','نقده'],
+  'اردبیل':['اردبیل','مشگین‌شهر','پارس‌آباد','خلخال','گرمی','بیله‌سوار','کوثر','نمین','نیر','هیر'],
+  'سمنان':['سمنان','شاهرود','دامغان','گرمسار','مهدی‌شهر','میامی','سرخه'],
+  'گیلان':['رشت','لاهیجان','انزلی','آستارا','رودسر','فومن','صومعه‌سرا','تالش','رودبار','سیاهکل','شفت','عمارلو','لنگرود','ماسال'],
+  'مازندران':['ساری','آمل','بابل','بابلسر','بهشهر','تنکابن','جویبار','چالوس','رامسر','سوادکوه','عباس‌آباد','فریدونکنار','قائم‌شهر','گلوگاه','محمودآباد','نشتارود','نکا','نور','نوشهر'],
+  'گلستان':['گرگان','گنبد کاووس','آزادشهر','آق‌قلا','بندر گز','ترکمن','راز و جرگلان','علی‌آباد','کردکوی','کلاله','مراوه‌تپه','مینودشت'],
+  'خراسان شمالی':['بجنورد','شیروان','اسفراین','جاجرم','گرمه','فاروج','راز و جرگلان','مانه و سملقان'],
+  'خراسان جنوبی':['بیرجند','قاین','طبس','سربیشه','فردوس','بشرویه','زیرکوه','خوسف','نهبندان','درمیان'],
+  'سیستان و بلوچستان':['زاهدان','چابهار','زابل','ایرانشهر','خاش','سراوان','نیکشهر','دلگان','هیرمند','هامون'],
+  'کرمان':['کرمان','رفسنجان','بم','سیرجان','جیرفت','کهنوج','شهداد','انار','بافت','بردسیر','زرند','شهربابک','عنبرآباد','فهرج','قلعه‌گنج','کوهبنان','منوجان','نرماشیر'],
+  'هرمزگان':['بندرعباس','بندرلنگه','قشم','میناب','ابوموسی','بستک','حاجی‌آباد','خمیر','رودان','کیش','گاوبندی'],
+  'بوشهر':['بوشهر','برازجان','بندر دیر','بندر دیلم','بندر گناوه','خورموج','دشتستان','دشتی','دیر','عسلویه','کنگان'],
+  'خوزستان':['اهواز','آبادان','خرمشهر','دزفول','شوشتر','ماهشهر','بهبهان','اندیمشک','ایذه','اندیکا','باغملک','دشت آزادگان','رامشیر','رامهرمز','شادگان','شوش','لالی','مسجدسلیمان','هفتکل','هندیجان'],
+  'لرستان':['خرم‌آباد','بروجرد','الیگودرز','دورود','ازنا','پلدختر','چگنی','رومشکان','سلسله','کوهدشت','نورآباد'],
+  'چهارمحال و بختیاری':['شهرکرد','بروجن','فارسان','اردل','بن','بلداجی','کیار','لردگان'],
+  'کهگیلویه و بویراحمد':['یاسوج','گچساران','دنا','بویراحمد','کهگیلویه','لنده'],
+  'مرکزی':['اراک','ساوه','خمین','محلات','تفرش','آشتیان','دلیجان','زرندیه','شازند','کمیجان'],
+  'قم':['قم','جعفریه','کهک','قنوات'],
+  'قزوین':['قزوین','تاکستان','آبیک','البرز','آوج','بوئین‌زهرا'],
+  'زنجان':['زنجان','ابهر','خدابنده','خرمدره','ایجرود','سلطانیه','طارم','ماهنشان'],
+  'همدان':['همدان','ملایر','نهاوند','بهار','تویسرکان','اسدآباد','کبودرآهنگ','رزن'],
+  'کرمانشاه':['کرمانشاه','اسلام‌آباد غرب','هرسین','صحنه','کنگاور','سنقر','جوانرود','پاوه','دالاهو','ثلاث باباجانی','قصرشیرین','گیلانغرب','روانسر'],
+  'کردستان':['سنندج','سقز','مریوان','بانه','قروه','بیجار','دیواندره','دهگلان','کامیاران'],
+  'ایلام':['ایلام','مهران','دهلران','آبدانان','ایوان','چرداول','دره‌شهر','ملکشاهی'],
+  'یزد':['یزد','ابرکوه','اردکان','بافق','تفت','خاتم','مهریز','میبد'],
+};
+
+function updateCities() {
+  const prov = document.getElementById('province').value;
+  const cityEl = document.getElementById('city');
+  if (!prov || !CITIES[prov]) {
+    cityEl.innerHTML = '<option value="">ابتدا استان را انتخاب کنید</option>';
+    cityEl.disabled = true;
+    return;
+  }
+  cityEl.innerHTML = '<option value="">انتخاب شهر</option>' +
+    CITIES[prov].map(c => `<option value="${c}">${c}</option>`).join('');
+  cityEl.disabled = false;
+  cityEl.value = '';
+}
+
+function updateShipping() {
+  const province = document.getElementById('province')?.value || '';
+  const shipping = province === 'تهران' ? 0 : (province ? SHIPPING_COST : null);
+  renderSummary(shipping);
+}
+
+function renderSummary(shipping) {
+  const cart = getCart();
+  const itemsEl = document.getElementById('summaryItems');
+  if (itemsEl) {
+    itemsEl.innerHTML = cart.map(item => {
+      const qty = item.quantity || 1;
+      const imgHtml = item.image
+        ? `<img src="${item.image}" alt="${item.name||''}" loading="lazy">`
+        : `<div class="ph"></div>`;
+      return `
+      <div class="summary-item">
+        <div class="summary-item-img">${imgHtml}</div>
+        <div class="summary-item-info">
+          <div class="summary-item-name">${item.name || 'محصول'}</div>
+          <div class="summary-item-meta">${item.color ? 'رنگ: '+item.color : ''}${item.size ? ' — سایز: '+item.size : ''} × ${fmt(qty)}</div>
+        </div>
+        <div class="summary-item-price">${fmt(parsePrice(item.price) * qty)} <small style="font-size:10px;font-weight:400">تومان</small></div>
+      </div>`;
+    }).join('');
+  }
+
+  const subtotal = cart.reduce((s, i) => s + parsePrice(i.price) * (i.quantity || 1), 0);
+
+  const discountData = sessionStorage.getItem('piro_discount');
+  let discountPct = 0, discountCode = '';
+  if (discountData) { try { const d = JSON.parse(discountData); discountPct = d.pct||0; discountCode = d.code||''; } catch(e){} }
+  const discountAmt = Math.round(subtotal * discountPct / 100);
+
+  let shippingAmt = typeof shipping === 'number' ? shipping : null;
+  let total = subtotal - discountAmt + (shippingAmt || 0);
+
+  const subtotalEl = document.getElementById('summarySubtotal');
+  const shippingEl = document.getElementById('summaryShipping');
+  const totalEl = document.getElementById('summaryTotal');
+  const discountRow = document.getElementById('discountRow');
+  const discountEl = document.getElementById('summaryDiscount');
+  const discountLbl = document.getElementById('discountLabel');
+
+  if (subtotalEl) subtotalEl.textContent = `${fmt(subtotal)} تومان`;
+  if (shippingEl) {
+    if (shippingAmt === null) shippingEl.textContent = 'بسته به استان';
+    else if (shippingAmt === 0) { shippingEl.textContent = 'رایگان'; shippingEl.className = 'val free'; }
+    else shippingEl.textContent = `${fmt(shippingAmt)} تومان`;
+  }
+  if (discountPct > 0 && discountRow) {
+    discountRow.style.display = 'flex';
+    if (discountLbl) discountLbl.textContent = `تخفیف (${discountCode} — ${discountPct}٪)`;
+    if (discountEl) discountEl.textContent = `−${fmt(discountAmt)} تومان`;
+  }
+  if (totalEl) totalEl.textContent = `${fmt(shippingAmt !== null ? total : subtotal - discountAmt)} تومان`;
+}
+
+// ── Validation ──
+function validate() {
+  let ok = true;
+  const fields = [
+    { id: 'firstName', fg: 'fg-firstName', check: v => v.length > 0 },
+    { id: 'lastName',  fg: 'fg-lastName',  check: v => v.length > 0 },
+    { id: 'mobile',    fg: 'fg-mobile',    check: v => /^09\d{9}$/.test(v) },
+    { id: 'province',  fg: 'fg-province',  check: v => v.length > 0 },
+    { id: 'city',      fg: 'fg-city',      check: v => v.length > 0 },
+    { id: 'address',   fg: 'fg-address',   check: v => v.length > 0 },
+    { id: 'postalCode',fg: 'fg-postalCode',check: v => /^\d{10}$/.test(v) },
+  ];
+  fields.forEach(f => {
+    const el = document.getElementById(f.id);
+    const fg = document.getElementById(f.fg);
+    if (!el || !fg) return;
+    if (!f.check(el.value.trim())) {
+      fg.classList.add('has-err'); ok = false;
+    } else {
+      fg.classList.remove('has-err');
+    }
+  });
+  return ok;
+}
+
+document.getElementById('checkoutForm').addEventListener('submit', e => {
+  e.preventDefault();
+  if (!validate()) {
+    document.querySelector('.has-err')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  const province = document.getElementById('province').value;
+  const shipping = province === 'تهران' ? 0 : SHIPPING_COST;
+  const cart = getCart();
+  const subtotal = cart.reduce((s, i) => s + parsePrice(i.price) * (i.quantity || 1), 0);
+
+  const discountData = sessionStorage.getItem('piro_discount');
+  let discountPct = 0;
+  if (discountData) { try { discountPct = JSON.parse(discountData).pct || 0; } catch(e){} }
+  const discountAmt = Math.round(subtotal * discountPct / 100);
+  const total = subtotal - discountAmt + shipping;
+
+  const deliveryDate = addDays(new Date(), selectedDays);
+
+  const checkoutData = {
+    firstName: document.getElementById('firstName').value.trim(),
+    lastName:  document.getElementById('lastName').value.trim(),
+    mobile:    document.getElementById('mobile').value.trim(),
+    province,
+    city:      document.getElementById('city').value.trim(),
+    address:   document.getElementById('address').value.trim(),
+    postalCode:document.getElementById('postalCode').value.trim(),
+    notes:     document.getElementById('notes').value.trim(),
+    deliveryDays: selectedDays,
+    deliveryDate: deliveryDate.toISOString(),
+    shipping,
+    subtotal,
+    discountAmt,
+    total,
+  };
+
+  sessionStorage.setItem('piro_checkout_data', JSON.stringify(checkoutData));
+  location.href = 'payment.html';
+});
+
+// ── Init ──
+updateDeliveryDate();
+renderSummary(null);
+
+// بازیابی مقادیر ذخیره‌شده
+const saved = sessionStorage.getItem('piro_checkout_data');
+if (saved) {
+  try {
+    const d = JSON.parse(saved);
+    if (d.firstName) document.getElementById('firstName').value = d.firstName;
+    if (d.lastName)  document.getElementById('lastName').value  = d.lastName;
+    if (d.mobile)    document.getElementById('mobile').value    = d.mobile;
+    if (d.province)  { document.getElementById('province').value = d.province; updateShipping(); }
+    if (d.city)      document.getElementById('city').value      = d.city;
+    if (d.address)   document.getElementById('address').value   = d.address;
+    if (d.postalCode)document.getElementById('postalCode').value= d.postalCode;
+    if (d.notes)     document.getElementById('notes').value     = d.notes;
+    if (d.deliveryDays) {
+      selectedDays = d.deliveryDays;
+      document.querySelectorAll('.delivery-opt').forEach(b => {
+        b.classList.toggle('active', parseInt(b.dataset.days) === selectedDays);
+      });
+      updateDeliveryDate();
+    }
+  } catch(e) {}
+}
+</script>
+<script>
+(function() {
+  var btn = document.createElement('button');
+  btn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+  btn.style.cssText = 'position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:50%;background:#1a1a1a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9999;box-shadow:0 2px 12px rgba(0,0,0,0.15)';
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://khaneh-piro-chat-pqtvg5jj1-piro-co.vercel.app';
+  iframe.style.cssText = 'position:fixed;bottom:92px;left:24px;width:340px;height:480px;border:none;border-radius:16px;z-index:9998;box-shadow:0 8px 32px rgba(0,0,0,0.12);display:none';
+  btn.onclick = function() {
+    iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
+  };
+  document.body.appendChild(btn);
+  document.body.appendChild(iframe);
+})();
+</script>
+</body>
+</html>

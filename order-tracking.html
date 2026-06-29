@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پیگیری سفارش | PIRO</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .page-title {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: clamp(44px,5.5vw,72px) var(--gut) clamp(28px,3.5vw,44px);
+    border-bottom: 1px solid var(--line);
+  }
+  .page-title h1 { font-size: clamp(24px,3vw,40px); font-weight: 300; letter-spacing: -.01em; color: var(--ink); }
+
+  .tracking-wrap { max-width: 720px; margin: 0 auto; padding: clamp(40px,5vw,72px) var(--gut) clamp(80px,10vw,140px); }
+
+  /* ── Search ── */
+  .search-box {
+    display: flex; gap: 0; margin-bottom: 48px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .search-box input {
+    flex: 1; height: 52px; border: 1.5px solid var(--line); border-left: none;
+    padding: 0 20px; font-family: var(--font-fa); font-size: 15px; color: var(--ink);
+    outline: none; background: #fff; direction: ltr; text-align: center;
+    letter-spacing: 0.08em; text-transform: uppercase; transition: border-color 0.2s;
+  }
+  .search-box input:focus { border-color: var(--ink); }
+  .search-box input::placeholder { direction: rtl; text-align: right; letter-spacing: 0; text-transform: none; }
+  .search-box button {
+    height: 52px; padding: 0 28px; background: var(--burgundy); color: #fff;
+    border: none; font-family: var(--font-fa); font-size: 14px; font-weight: 500;
+    cursor: pointer; white-space: nowrap; transition: background 0.2s;
+  }
+  .search-box button:hover { background: var(--burgundy-dark); }
+
+  /* ── Not found ── */
+  .not-found { text-align: center; padding: 60px 0; color: var(--grey); font-size: 15px; }
+
+  /* ── Order header ── */
+  .order-header {
+    background: var(--bg-warm); padding: 24px 28px; margin-bottom: 36px;
+    display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;
+  }
+  .order-id { font-size: 20px; font-weight: 600; color: var(--burgundy); letter-spacing: 0.05em; font-family: monospace; direction: ltr; }
+  .order-date { font-size: 13px; color: var(--grey); margin-top: 4px; }
+  .status-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 16px; font-size: 13px; font-weight: 500; border-radius: 2px;
+  }
+  .status-chip::before { content: ''; width: 7px; height: 7px; border-radius: 50%; }
+  .status-waiting  { background: #FEF9C3; color: #854D0E; } .status-waiting::before  { background: #EAB308; }
+  .status-making   { background: #DBEAFE; color: #1E40AF; } .status-making::before   { background: #3B82F6; }
+  .status-ready    { background: #EDE9FE; color: #5B21B6; } .status-ready::before    { background: #7C3AED; }
+  .status-sent     { background: #FED7AA; color: #9A3412; } .status-sent::before     { background: #F97316; }
+  .status-delivered{ background: #D1FAE5; color: #065F46; } .status-delivered::before{ background: #10B981; }
+  .status-canceled { background: #FEE2E2; color: #991B1B; } .status-canceled::before { background: #EF4444; }
+
+  /* ── Timeline ── */
+  .timeline { margin-bottom: 40px; position: relative; }
+  .timeline::before {
+    content: ''; position: absolute; right: 15px; top: 24px;
+    bottom: 24px; width: 2px; background: var(--line); z-index: 0;
+  }
+  .tl-step { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 0; position: relative; }
+  .tl-icon {
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; position: relative; z-index: 1;
+    border: 2px solid var(--line); background: #fff;
+    transition: all 0.3s;
+  }
+  .tl-step.done .tl-icon  { background: var(--burgundy); border-color: var(--burgundy); }
+  .tl-step.active .tl-icon{ background: var(--ink); border-color: var(--ink); animation: pulse 2s infinite; }
+  .tl-step.pending .tl-icon{ background: #fff; border-color: var(--line); opacity: 0.5; }
+  @keyframes pulse {
+    0%,100%{ box-shadow: 0 0 0 0 rgba(26,26,26,0.3); }
+    50%{ box-shadow: 0 0 0 6px rgba(26,26,26,0); }
+  }
+  .tl-icon svg { width: 15px; height: 15px; fill: none; stroke: #fff; stroke-width: 2; }
+  .tl-step.pending .tl-icon svg { stroke: var(--line); }
+  .tl-content { flex: 1; padding-bottom: 32px; }
+  .tl-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .tl-step.pending .tl-title { color: var(--grey); font-weight: 400; }
+  .tl-date { font-size: 12px; color: var(--grey); }
+  .tl-note { font-size: 12px; color: var(--ink-soft); margin-top: 4px; line-height: 1.5; }
+
+  /* ── Delivery info ── */
+  .delivery-info { background: var(--bg-card); padding: 20px 24px; margin-bottom: 36px; }
+  .di-title { font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: 14px; }
+  .di-row { display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 10px; color: var(--ink-soft); }
+  .di-row .val { font-weight: 500; color: var(--ink); }
+  .di-row .val.date { color: var(--burgundy); }
+
+  /* ── Items ── */
+  .order-items-box { margin-bottom: 40px; }
+  .oi-title { font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .oi-item { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--line); align-items: center; }
+  .oi-img { width: 52px; height: 52px; background: var(--bg-card); overflow: hidden; flex-shrink: 0; }
+  .oi-img img { width: 100%; height: 100%; object-fit: cover; }
+  .oi-img .ph { width: 100%; height: 100%; background: linear-gradient(135deg, var(--wood-2), var(--wood-3)); }
+  .oi-info { flex: 1; }
+  .oi-name { font-size: 14px; color: var(--ink); margin-bottom: 2px; }
+  .oi-meta { font-size: 12px; color: var(--grey); }
+  .oi-price { font-size: 13px; color: var(--ink); font-weight: 500; white-space: nowrap; }
+
+  /* ── Action ── */
+  .track-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-outline { height: 46px; padding: 0 24px; border: 1px solid var(--line); background: none; color: var(--ink); font-family: var(--font-fa); font-size: 13px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; transition: border-color 0.2s; }
+  .btn-outline:hover { border-color: var(--ink); }
+  .btn-dark { height: 46px; padding: 0 24px; background: var(--ink); color: #fff; border: none; font-family: var(--font-fa); font-size: 13px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; transition: background 0.2s; }
+  .btn-dark:hover { background: #333; }
+
+  @media (max-width: 600px) { .order-header { flex-direction: column; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <a href="index.html" class="logo lat">
+      <span class="logo-icon">
+        <svg class="logo-branch" viewBox="0 0 28 32" fill="none">
+          <path d="M14,31 L14,20 Q13,17 12,14" stroke="#5C4030" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          <path d="M14,22 Q11,19 9,16" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <path d="M14,20 Q17,17 19,14" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <ellipse cx="14" cy="11" rx="9" ry="7" fill="#5C4030" opacity="0.18"/>
+          <ellipse cx="11" cy="9" rx="6.5" ry="5" fill="#6A4E38" opacity="0.25"/>
+          <ellipse cx="17" cy="10" rx="6" ry="4.5" fill="#5C4030" opacity="0.22"/>
+          <ellipse cx="14" cy="7.5" rx="7" ry="5.5" fill="#7A5A42" opacity="0.30"/>
+          <ellipse cx="14" cy="8" rx="5" ry="4" fill="#8A6A50" opacity="0.25"/>
+        </svg>
+      </span>
+      <span class="logo-caption"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></span>
+      <span class="logo-wordmark">House of PIRO</span>
+      <span class="logo-rules"><span class="logo-rule-thick"></span><span class="logo-rule-thin"></span></span>
+    </a>
+    <nav>
+      <ul class="mainnav">
+        <li><a href="index.html">خانه</a></li>
+        <li><a href="shop.html">محصولات</a></li>
+        <li><a href="about.html">درباره ما</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a href="account.html" class="auth-header-btn"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>ورود | ثبت‌نام</span></a>
+      <button class="icon-btn" onclick="location.href='cart.html'"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="badge" id="cartCount">0</span></button>
+      <button class="lang-btn lat" onclick="toggleLang(this)">EN</button>
+      <button class="burger" onclick="openDrawer()" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-title">
+  <h1>پیگیری سفارش</h1>
+</div>
+
+<div class="tracking-wrap">
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="شماره سفارش را وارد کنید  (مثال: PIRO-123456)"
+           value="" maxlength="12">
+    <button onclick="searchOrder()">جستجو</button>
+  </div>
+  <div id="trackingResult"></div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo lat">
+        <span class="logo-icon"><svg class="logo-branch" viewBox="0 0 28 32" fill="none"><path d="M14,31 L14,20 Q13,17 12,14" stroke="#5C4030" stroke-width="1.3" stroke-linecap="round" fill="none"/><path d="M14,22 Q11,19 9,16" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/><path d="M14,20 Q17,17 19,14" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/><ellipse cx="14" cy="11" rx="9" ry="7" fill="#5C4030" opacity="0.18"/><ellipse cx="11" cy="9" rx="6.5" ry="5" fill="#6A4E38" opacity="0.25"/><ellipse cx="17" cy="10" rx="6" ry="4.5" fill="#5C4030" opacity="0.22"/><ellipse cx="14" cy="7.5" rx="7" ry="5.5" fill="#7A5A42" opacity="0.30"/><ellipse cx="14" cy="8" rx="5" ry="4" fill="#8A6A50" opacity="0.25"/></svg></span>
+        <span class="logo-caption"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></span>
+        <span class="logo-wordmark">House of PIRO</span>
+        <span class="logo-rules"><span class="logo-rule-thick"></span><span class="logo-rule-thin"></span></span>
+      </a>
+      <p>مبلمان مینیمال، هنرمندانه و باکیفیت از چوب طبیعی.</p>
+    </div>
+    <div class="footer-col"><h4>منو</h4><ul><li><a href="index.html">خانه</a></li><li><a href="shop.html">محصولات</a></li><li><a href="about.html">درباره ما</a></li></ul></div>
+    <div class="footer-col"><h4>پشتیبانی</h4><ul><li><a href="#">نحوه خرید</a></li><li><a href="#">گارانتی</a></li></ul></div>
+    <div class="footer-col footer-contact"><h4>تماس</h4><div><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>تهران، ایران</span></div></div>
+  </div>
+  <div class="footer-bottom"><p>© ۱۴۰۳ خانه پیرو — تمامی حقوق محفوظ است</p><span class="lat">© 2024 PIRO Furniture</span></div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()">×</button>
+  <h4>منو</h4>
+  <a href="index.html">خانه</a><a href="shop.html">محصولات</a><a href="about.html">درباره ما</a>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.js"></script>
+<script src="assets/main.js?v=3"></script>
+<script>
+function parsePrice(str) {
+  if (typeof str === 'number') return str;
+  return parseInt(String(str).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/,/g,'')) || 0;
+}
+function fmt(n) { return n.toLocaleString('fa-IR'); }
+
+function toShamsi(dateStr) {
+  const d = new Date(dateStr);
+  const j = jalaali.toJalaali(d.getFullYear(), d.getMonth() + 1, d.getDate());
+  const months = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+  return `${j.jd} ${months[j.jm - 1]} ${j.jy}`;
+}
+
+const STATUS_STEPS = [
+  { key: 'ثبت',       label: 'ثبت سفارش',           icon: 'check' },
+  { key: 'انتظار',   label: 'در انتظار تأیید خانه پیرو', icon: 'clock' },
+  { key: 'تولید',    label: 'در حال تولید',          icon: 'tool'  },
+  { key: 'آماده',    label: 'آماده ارسال',           icon: 'box'   },
+  { key: 'ارسال',    label: 'ارسال شده',             icon: 'truck' },
+  { key: 'تحویل',    label: 'تحویل داده شده',        icon: 'check2'},
+];
+
+const STATUS_MAP = {
+  'در انتظار تأیید': 1,
+  'در حال تولید':    2,
+  'آماده ارسال':     3,
+  'ارسال شده':       4,
+  'تحویل داده شده':  5,
+  'لغو شده':         -1,
+};
+
+const STATUS_CLASS = {
+  'در انتظار تأیید': 'status-waiting',
+  'در حال تولید':    'status-making',
+  'آماده ارسال':     'status-ready',
+  'ارسال شده':       'status-sent',
+  'تحویل داده شده':  'status-delivered',
+  'لغو شده':         'status-canceled',
+};
+
+function iconSvg(type) {
+  const icons = {
+    check:  '<path d="M20 6L9 17l-5-5"/>',
+    clock:  '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    tool:   '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+    box:    '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>',
+    truck:  '<rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>',
+    check2: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
+  };
+  return `<svg viewBox="0 0 24 24" aria-hidden="true">${icons[type]||''}</svg>`;
+}
+
+function renderOrder(order) {
+  const activeStep = STATUS_MAP[order.status] ?? 0;
+  const isCanceled = order.status === 'لغو شده';
+  const addr = order.address || {};
+  const addrText = [addr.province ? `استان ${addr.province}` : '', addr.city, addr.address].filter(Boolean).join('، ');
+
+  const tlHtml = STATUS_STEPS.map((step, i) => {
+    let cls, dateHtml = '';
+    if (isCanceled) {
+      cls = i === 0 ? 'done' : 'pending';
+    } else if (i < activeStep) {
+      cls = 'done';
+    } else if (i === activeStep) {
+      cls = 'active';
+    } else {
+      cls = 'pending';
+    }
+    if (i === 0 && order.date) dateHtml = `<div class="tl-date">${toShamsi(order.date)}</div>`;
+    if (i === activeStep && order.date && i > 0) dateHtml = `<div class="tl-date">${toShamsi(new Date().toISOString())}</div>`;
+
+    const cancelNote = isCanceled && i === 1
+      ? `<div class="tl-note" style="color:#EF4444">سفارش لغو شد${order.cancelReason ? ': '+order.cancelReason : ''}</div>`
+      : '';
+
+    return `
+    <div class="tl-step ${cls}">
+      <div class="tl-icon">${iconSvg(step.icon)}</div>
+      <div class="tl-content">
+        <div class="tl-title">${step.label}</div>
+        ${dateHtml}
+        ${cancelNote}
+      </div>
+    </div>`;
+  }).join('');
+
+  const itemsHtml = (order.items || []).map(item => {
+    const qty = item.quantity || 1;
+    const imgHtml = item.image ? `<img src="${item.image}" alt="" loading="lazy">` : `<div class="ph"></div>`;
+    const meta = [item.color?'رنگ: '+item.color:'', item.size?'سایز: '+item.size:''].filter(Boolean).join(' — ');
+    return `<div class="oi-item">
+      <div class="oi-img">${imgHtml}</div>
+      <div class="oi-info">
+        <div class="oi-name">${item.name || 'محصول'}</div>
+        <div class="oi-meta">${meta}${qty>1?' × '+fmt(qty):''}</div>
+      </div>
+      <div class="oi-price">${fmt(parsePrice(item.price)*qty)} تومان</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('trackingResult').innerHTML = `
+    <div class="order-header">
+      <div>
+        <div class="order-id">${order.orderId}</div>
+        <div class="order-date">تاریخ ثبت: ${toShamsi(order.date)}</div>
+      </div>
+      <div class="status-chip ${STATUS_CLASS[order.status]||''}">${order.status}</div>
+    </div>
+
+    <div class="timeline">${tlHtml}</div>
+
+    <div class="delivery-info">
+      <div class="di-title">اطلاعات تحویل</div>
+      <div class="di-row"><span>تاریخ تحویل تخمینی</span><span class="val date">${order.deliveryDate ? toShamsi(order.deliveryDate) : '—'}</span></div>
+      <div class="di-row"><span>آدرس</span><span class="val" style="text-align:left;max-width:320px">${addrText || '—'}</span></div>
+      ${addr.postalCode?`<div class="di-row"><span>کد پستی</span><span class="val">${addr.postalCode}</span></div>`:''}
+      ${addr.mobile?`<div class="di-row"><span>موبایل</span><span class="val" dir="ltr">${addr.mobile}</span></div>`:''}
+      <div class="di-row"><span>مبلغ کل</span><span class="val">${fmt(order.total||0)} تومان</span></div>
+    </div>
+
+    ${itemsHtml ? `<div class="order-items-box"><div class="oi-title">محصولات</div>${itemsHtml}</div>` : ''}
+
+    <div class="track-actions">
+      <a href="shop.html" class="btn-outline">بازگشت به فروشگاه</a>
+      ${order.cancelable ? `<button class="btn-dark" onclick="cancelOrder('${order.orderId}')">لغو سفارش</button>` : ''}
+    </div>`;
+}
+
+function searchOrder() {
+  const input = (document.getElementById('searchInput')?.value || '').trim().toUpperCase();
+  if (!input) return;
+  const orders = JSON.parse(localStorage.getItem('piro_orders') || '[]');
+  const order = orders.find(o => o.orderId === input);
+  if (!order) {
+    document.getElementById('trackingResult').innerHTML = `<div class="not-found">سفارشی با این شماره یافت نشد. لطفاً شماره سفارش را بررسی کنید.</div>`;
+    return;
+  }
+  renderOrder(order);
+}
+
+function cancelOrder(orderId) {
+  if (!confirm('آیا مطمئن هستید که می‌خواهید این سفارش را لغو کنید؟')) return;
+  const orders = JSON.parse(localStorage.getItem('piro_orders') || '[]');
+  const idx = orders.findIndex(o => o.orderId === orderId);
+  if (idx < 0) return;
+  orders[idx].status = 'لغو شده';
+  orders[idx].cancelable = false;
+  localStorage.setItem('piro_orders', JSON.stringify(orders));
+  renderOrder(orders[idx]);
+}
+
+// Auto-fill از URL param
+const params = new URLSearchParams(location.search);
+const idParam = params.get('id');
+if (idParam) {
+  document.getElementById('searchInput').value = idParam;
+  searchOrder();
+}
+</script>
+<script>
+(function() {
+  var btn = document.createElement('button');
+  btn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+  btn.style.cssText = 'position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:50%;background:#1a1a1a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9999;box-shadow:0 2px 12px rgba(0,0,0,0.15)';
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://khaneh-piro-chat-pqtvg5jj1-piro-co.vercel.app';
+  iframe.style.cssText = 'position:fixed;bottom:92px;left:24px;width:340px;height:480px;border:none;border-radius:16px;z-index:9998;box-shadow:0 8px 32px rgba(0,0,0,0.12);display:none';
+  btn.onclick = function() {
+    iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
+  };
+  document.body.appendChild(btn);
+  document.body.appendChild(iframe);
+})();
+</script>
+</body>
+</html>

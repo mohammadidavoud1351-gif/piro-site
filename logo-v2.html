@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIRO — Logo V2 (Carl Hansen Style)</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #f5f2ee;
+    padding: 80px 60px;
+    font-family: 'Jost', sans-serif;
+  }
+
+  .page-title {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #aaa;
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .concepts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: #fff;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    position: relative;
+  }
+  .card.dark { background: #111; }
+  .card.parchment { background: #F0EBE2; }
+
+  .card-tag {
+    position: absolute;
+    bottom: 18px;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #ccc;
+  }
+  .card.dark .card-tag { color: #444; }
+
+  /* ═══════════════════════════
+     VARIANT 1 — Carl Hansen exact style
+     Badge · Bold Name · Double rule
+  ═══════════════════════════ */
+  .v1 {
+    text-align: left;
+    width: 280px;
+  }
+  .v1 .badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  .v1 .badge svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+  .v1 .badge-text {
+    font-size: 7px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #555;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .v1 .name {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 38px;
+    letter-spacing: 4px;
+    color: #111;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .v1 .rules {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 100%;
+  }
+  .v1 .rule { height: 1px; background: #111; }
+  .v1 .rule.thin { height: 0.5px; background: #888; }
+
+  /* ═══════════════════════════
+     VARIANT 2 — با نشانه درخت/چوب
+  ═══════════════════════════ */
+  .v2 {
+    text-align: left;
+    width: 300px;
+  }
+  .v2 .top-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .v2 .badge-text {
+    font-size: 7px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #666;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  .v2 .name {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 42px;
+    letter-spacing: 5px;
+    color: #111;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .v2 .rules { display: flex; flex-direction: column; gap: 3px; }
+  .v2 .rule { height: 1px; background: #111; }
+  .v2 .rule.thin { height: 0.5px; background: #aaa; }
+
+  /* ═══════════════════════════
+     VARIANT 3 — Dark bg
+  ═══════════════════════════ */
+  .v3 {
+    text-align: left;
+    width: 280px;
+  }
+  .v3 .badge {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 4px;
+  }
+  .v3 .badge-text {
+    font-size: 7px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #777;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .v3 .name {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 38px;
+    letter-spacing: 4px;
+    color: #F0EBE2;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .v3 .rules { display: flex; flex-direction: column; gap: 3px; }
+  .v3 .rule { height: 1px; background: #F0EBE2; opacity: 0.8; }
+  .v3 .rule.thin { height: 0.5px; background: #F0EBE2; opacity: 0.3; }
+
+  /* ═══════════════════════════
+     VARIANT 4 — Serif نام ایرانی
+  ═══════════════════════════ */
+  .v4 {
+    text-align: left;
+    width: 300px;
+  }
+  .v4 .badge {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 4px;
+  }
+  .v4 .badge-text {
+    font-size: 7px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .v4 .name {
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: 40px;
+    letter-spacing: 6px;
+    color: #111;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 10px;
+    margin-right: -6px;
+  }
+  .v4 .rules { display: flex; flex-direction: column; gap: 3px; }
+  .v4 .rule { height: 1px; background: #111; }
+  .v4 .rule.thin { height: 0.5px; background: #aaa; }
+
+  /* ═══════════════════════════
+     ANALYSIS BOX
+  ═══════════════════════════ */
+  .analysis {
+    max-width: 1100px;
+    margin: 3px auto 0;
+    background: #fff;
+    padding: 50px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+  }
+  .analysis h3 {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 20px;
+  }
+  .analysis p {
+    font-size: 13px;
+    line-height: 1.9;
+    color: #555;
+    direction: rtl;
+    font-family: 'Vazirmatn', 'Jost', sans-serif;
+  }
+  .analysis strong { color: #111; }
+
+  /* ═══════════════════════════
+     SIZE SHOWCASE — Variant 1
+  ═══════════════════════════ */
+  .sizes-row {
+    max-width: 1100px;
+    margin: 3px auto 0;
+    background: #fff;
+    padding: 50px 60px;
+  }
+  .sizes-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #ccc;
+    margin-bottom: 40px;
+  }
+  .size-items {
+    display: flex;
+    align-items: flex-end;
+    gap: 60px;
+    flex-wrap: wrap;
+  }
+  .size-item { display: flex; flex-direction: column; gap: 12px; }
+  .size-caption {
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ccc;
+  }
+
+  /* small */
+  .logo-xs .name { font-family:'Jost',sans-serif; font-weight:500; font-size:14px; letter-spacing:2px; color:#111; text-transform:uppercase; }
+  .logo-xs .rule { height:0.5px; background:#111; margin-top:3px; }
+
+  /* medium */
+  .logo-s .name { font-family:'Jost',sans-serif; font-weight:500; font-size:22px; letter-spacing:3px; color:#111; text-transform:uppercase; }
+  .logo-s .rule { height:0.7px; background:#111; margin-top:5px; }
+  .logo-s .rule2 { height:0.3px; background:#888; margin-top:2px; }
+
+  /* large */
+  .logo-m .badge-text { font-size:7px; letter-spacing:1.5px; text-transform:uppercase; color:#666; line-height:1.5; margin-bottom:2px; }
+  .logo-m .name { font-family:'Jost',sans-serif; font-weight:500; font-size:38px; letter-spacing:4px; color:#111; text-transform:uppercase; margin-bottom:8px; }
+  .logo-m .rule { height:1px; background:#111; }
+  .logo-m .rule2 { height:0.5px; background:#aaa; margin-top:3px; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<p class="page-title">PIRO — Logo V2 · Inspired by Carl Hansen & Søn</p>
+
+<div class="concepts-grid">
+
+  <!-- V1: Carl Hansen exact structure, clean -->
+  <div class="card">
+    <div class="v1">
+      <div class="badge">
+        <!-- Wood/craft emblem: simple tree rings -->
+        <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="11" cy="11" r="10" stroke="#333" stroke-width="0.6"/>
+          <circle cx="11" cy="11" r="7" stroke="#333" stroke-width="0.4"/>
+          <circle cx="11" cy="11" r="4" stroke="#333" stroke-width="0.4"/>
+          <circle cx="11" cy="11" r="1.5" fill="#333"/>
+          <!-- grain lines -->
+          <line x1="11" y1="1" x2="11" y2="4.5" stroke="#333" stroke-width="0.4"/>
+          <line x1="11" y1="17.5" x2="11" y2="21" stroke="#333" stroke-width="0.4"/>
+        </svg>
+        <div class="badge-text">HANDCRAFTED IN IRAN<br>NATURAL SOLID WOOD</div>
+      </div>
+      <div class="name">PIRO</div>
+      <div class="rules">
+        <div class="rule"></div>
+        <div class="rule thin"></div>
+      </div>
+    </div>
+    <span class="card-tag">1 — ساختار Carl Hansen</span>
+  </div>
+
+  <!-- V2: با نشانه شاخه/جوانه -->
+  <div class="card parchment">
+    <div class="v2">
+      <div class="top-row">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <!-- Stylized leaf/branch -->
+          <path d="M10 18 L10 8" stroke="#5C3D2E" stroke-width="0.8" stroke-linecap="round"/>
+          <path d="M10 8 Q6 5 3 3 Q5 7 10 8" fill="#5C3D2E" opacity="0.7"/>
+          <path d="M10 11 Q14 8 17 6 Q15 10 10 11" fill="#5C3D2E" opacity="0.5"/>
+          <path d="M10 14 Q7 11 4 10 Q6 13 10 14" fill="#5C3D2E" opacity="0.3"/>
+        </svg>
+        <div class="badge-text">EST. ١٣٨٥ · TEHRAN<br>MASTER CRAFTSMANSHIP</div>
+      </div>
+      <div class="name">PIRO</div>
+      <div class="rules">
+        <div class="rule"></div>
+        <div class="rule thin"></div>
+      </div>
+    </div>
+    <span class="card-tag">2 — با نشانه جوانه</span>
+  </div>
+
+  <!-- V3: dark background -->
+  <div class="card dark">
+    <div class="v3">
+      <div class="badge">
+        <svg width="20" height="20" viewBox="0 0 22 22" fill="none">
+          <circle cx="11" cy="11" r="10" stroke="#777" stroke-width="0.6"/>
+          <circle cx="11" cy="11" r="7" stroke="#555" stroke-width="0.4"/>
+          <circle cx="11" cy="11" r="4" stroke="#555" stroke-width="0.4"/>
+          <circle cx="11" cy="11" r="1.5" fill="#777"/>
+          <line x1="11" y1="1" x2="11" y2="4.5" stroke="#777" stroke-width="0.4"/>
+          <line x1="11" y1="17.5" x2="11" y2="21" stroke="#777" stroke-width="0.4"/>
+        </svg>
+        <div class="badge-text">HANDCRAFTED IN IRAN<br>NATURAL SOLID WOOD</div>
+      </div>
+      <div class="name">PIRO</div>
+      <div class="rules">
+        <div class="rule"></div>
+        <div class="rule thin"></div>
+      </div>
+    </div>
+    <span class="card-tag">3 — روی تیره</span>
+  </div>
+
+  <!-- V4: Libre Baskerville serif bold -->
+  <div class="card">
+    <div class="v4">
+      <div class="badge">
+        <!-- Hexagonal craft seal -->
+        <svg width="20" height="22" viewBox="0 0 20 22" fill="none">
+          <path d="M10 1 L19 6 L19 16 L10 21 L1 16 L1 6 Z" stroke="#333" stroke-width="0.7" fill="none"/>
+          <path d="M10 4 L16.5 7.5 L16.5 14.5 L10 18 L3.5 14.5 L3.5 7.5 Z" stroke="#333" stroke-width="0.4" fill="none"/>
+          <text x="10" y="13.5" text-anchor="middle" font-family="serif" font-size="7" fill="#333">P</text>
+        </svg>
+        <div class="badge-text">SINCE 1385 · TEHRAN<br>FINE WOOD FURNITURE</div>
+      </div>
+      <div class="name">PIRO</div>
+      <div class="rules">
+        <div class="rule"></div>
+        <div class="rule thin"></div>
+      </div>
+    </div>
+    <span class="card-tag">4 — Serif Bold + مهر</span>
+  </div>
+
+</div>
+
+<!-- SIZE SHOWCASE -->
+<div class="sizes-row">
+  <p class="sizes-label">Scale Test — Variant 1</p>
+  <div class="size-items">
+
+    <div class="size-item">
+      <div class="logo-xs">
+        <div class="name">PIRO</div>
+        <div class="rule"></div>
+      </div>
+      <span class="size-caption">فاویکان · ۳۲px</span>
+    </div>
+
+    <div class="size-item">
+      <div class="logo-s">
+        <div class="name">PIRO</div>
+        <div class="rule"></div>
+        <div class="rule2"></div>
+      </div>
+      <span class="size-caption">هدر موبایل</span>
+    </div>
+
+    <div class="size-item">
+      <div class="logo-m">
+        <div class="badge-text">HANDCRAFTED IN IRAN · NATURAL WOOD</div>
+        <div class="name">PIRO</div>
+        <div class="rule"></div>
+        <div class="rule2"></div>
+      </div>
+      <span class="size-caption">هدر دسکتاپ</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ANALYSIS -->
+<div class="analysis">
+  <div>
+    <h3>چرا Carl Hansen کار می‌کند</h3>
+    <p>
+      <strong>لایه اول: اعتبار ارثی</strong> — تاج + «By Appointment to the Royal Danish Court» یعنی پادشاه دانمارک از این برند می‌خرد. این یک سیگنال اجتماعی قدرتمندتر از هر طراحی است.<br><br>
+      <strong>لایه دوم: اسم محکم</strong> — Jost Medium یا Grotesque bold. نه ظریف و مبهوم. با اعتماد به نفس.<br><br>
+      <strong>لایه سوم: خطوط پایین</strong> — مثل خط تیر زیر امضا. تمام‌کننده.
+    </p>
+  </div>
+  <div>
+    <h3>معادل خانه پیرو</h3>
+    <p>
+      اعتبار ارثی خانه پیرو چیست؟<br><br>
+      • <strong>«HANDCRAFTED IN IRAN»</strong> — دستساز ایرانی، خودش یک داستان است<br>
+      • <strong>«EST. ١٣٨٥»</strong> — قدمت برند<br>
+      • <strong>«MASTER CRAFTSMANSHIP»</strong> — استادان سازنده<br>
+      • یا اگر جایزه یا مجوز خاصی دارید — همان را بگذارید<br><br>
+      <strong>توصیه:</strong> Variant 1 با «HANDCRAFTED IN IRAN · NATURAL SOLID WOOD» — ساده‌ترین و قوی‌ترین.
+    </p>
+  </div>
+</div>
+
+<script>
+(function() {
+  var btn = document.createElement('button');
+  btn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+  btn.style.cssText = 'position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:50%;background:#1a1a1a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9999;box-shadow:0 2px 12px rgba(0,0,0,0.15)';
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://khaneh-piro-chat-pqtvg5jj1-piro-co.vercel.app';
+  iframe.style.cssText = 'position:fixed;bottom:92px;left:24px;width:340px;height:480px;border:none;border-radius:16px;z-index:9998;box-shadow:0 8px 32px rgba(0,0,0,0.12);display:none';
+  btn.onclick = function() {
+    iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
+  };
+  document.body.appendChild(btn);
+  document.body.appendChild(iframe);
+})();
+</script>
+</body>
+</html>

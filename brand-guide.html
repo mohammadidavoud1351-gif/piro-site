@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>House of PIRO — Brand Identity Guidelines 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --burgundy:   #8B2635;
+  --ink:        #1C1410;
+  --ink-mid:    #3D2E26;
+  --ink-light:  #7A6A60;
+  --cream:      #EDEBE6;
+  --parchment:  #F0EBE4;
+  --linen:      #E8E2D8;
+  --white:      #FFFFFF;
+  --wd:         #5C4030;
+  --wd-m:       #6A4E38;
+  --wd-l:       #8B6B52;
+  --wd-p:       #C4A882;
+  --border:     rgba(28,20,16,.10);
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --sans:  'Jost', sans-serif;
+  --fa:    'Vazirmatn', Tahoma, sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--fa);background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;direction:rtl}
+.lat{font-family:var(--sans);direction:ltr;unicode-bidi:embed}
+.ser{font-family:var(--serif);direction:ltr;unicode-bidi:embed}
+
+/* ── BEECH WOOD GRAIN (realistic) ── */
+.grain {
+  background:
+    repeating-linear-gradient(93deg,
+      transparent 0,transparent 22px,
+      rgba(210,165,95,.07) 22px,rgba(210,165,95,.07) 25px,
+      transparent 25px,transparent 52px,
+      rgba(190,145,80,.05) 52px,rgba(190,145,80,.05) 54px,
+      transparent 54px,transparent 88px),
+    repeating-linear-gradient(89.6deg,
+      transparent 0,transparent 2px,
+      rgba(148,98,48,.08) 2px,rgba(148,98,48,.08) 3px,
+      transparent 3px,transparent 9px,
+      rgba(168,115,62,.06) 9px,rgba(168,115,62,.06) 10px,
+      transparent 10px,transparent 21px,
+      rgba(155,108,55,.04) 21px,rgba(155,108,55,.04) 22px,
+      transparent 22px,transparent 34px),
+    repeating-linear-gradient(90.4deg,
+      transparent 0,transparent 40px,
+      rgba(185,138,75,.045) 40px,rgba(185,138,75,.045) 44px),
+    linear-gradient(170deg,
+      #D8C4A2 0%,#CDB086 12%,
+      #C6A87C 26%,#BC9868 40%,
+      #C4A47A 54%,#CCAE84 66%,
+      #D2B88C 78%,#C8A87C 88%,#BF9E6E 100%);
+}
+.grain-dark {
+  background:
+    repeating-linear-gradient(89.7deg,
+      transparent 0,transparent 3px,
+      rgba(80,50,20,.12) 3px,rgba(80,50,20,.12) 4px,
+      transparent 4px,transparent 14px,
+      rgba(65,38,15,.08) 14px,rgba(65,38,15,.08) 15px,
+      transparent 15px,transparent 28px),
+    repeating-linear-gradient(92deg,
+      transparent 0,transparent 30px,
+      rgba(90,58,25,.07) 30px,rgba(90,58,25,.07) 33px,
+      transparent 33px,transparent 70px),
+    linear-gradient(168deg,
+      #6A4E38 0%,#5C4030 25%,#4E3428 48%,
+      #5A3C2C 62%,#6A4E38 78%,#5C4030 100%);
+}
+
+/* ── LOGO ── */
+.logo{display:inline-flex;flex-direction:column;align-items:flex-start;text-decoration:none}
+.logo-badge{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.logo-branch{width:13px;height:16px;flex-shrink:0}
+.logo-badge-text{display:flex;flex-direction:column;gap:2px}
+.logo-badge-text span{font-family:var(--sans);font-weight:400;font-size:7px;letter-spacing:1.6px;text-transform:uppercase;line-height:1;color:#5E5248}
+.logo-house{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--ink);line-height:1}
+.logo-wordmark{font-family:var(--serif);font-weight:700;text-transform:uppercase;line-height:1;color:var(--ink);margin-bottom:7px}
+.logo-rules{display:flex;flex-direction:column;gap:4px;min-width:130px}
+.logo-rule-t{display:block;height:1px;background:var(--ink)}
+.logo-rule-n{display:block;height:1px;background:rgba(28,20,16,.22)}
+
+.lxl .logo-house{font-size:16px;letter-spacing:7px;margin-bottom:2px}
+.lxl .logo-wordmark{font-size:56px;letter-spacing:6px;margin-bottom:10px}
+.lxl .logo-rules{min-width:240px}
+.lxl .logo-branch{width:20px;height:24px}
+.lxl .logo-badge-text span{font-size:7.5px}
+
+.llg .logo-house{font-size:13px;letter-spacing:5.5px}
+.llg .logo-wordmark{font-size:40px;letter-spacing:5px;margin-bottom:9px}
+.llg .logo-rules{min-width:178px}
+
+.lmd .logo-house{font-size:10px;letter-spacing:4.5px}
+.lmd .logo-wordmark{font-size:28px;letter-spacing:4px;margin-bottom:7px}
+.lmd .logo-rules{min-width:126px}
+.lmd .logo-branch{width:14px;height:17px}
+.lmd .logo-badge{gap:5px;margin-bottom:5px}
+
+.lsm .logo-house{font-size:8.5px;letter-spacing:3.5px;margin-bottom:1px}
+.lsm .logo-wordmark{font-size:19px;letter-spacing:3px;margin-bottom:5px}
+.lsm .logo-rules{min-width:90px}
+.lsm .logo-branch{width:11px;height:14px}
+.lsm .logo-badge{gap:5px;margin-bottom:4px}
+.lsm .logo-badge-text span{font-size:6px;letter-spacing:1.4px}
+
+.dk .logo-badge-text span{color:rgba(237,235,230,.45)}
+.dk .logo-house{color:var(--cream)}
+.dk .logo-wordmark{color:var(--cream)}
+.dk .logo-rule-t{background:var(--cream)}
+.dk .logo-rule-n{background:rgba(237,235,230,.28)}
+
+/* ── NAV ── */
+.nav{position:fixed;left:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;z-index:200}
+.nd{width:6px;height:6px;border-radius:50%;background:rgba(28,20,16,.2);cursor:pointer;transition:.3s;position:relative;text-decoration:none;display:block}
+.nd:hover,.nd.on{background:var(--ink);transform:scale(1.5)}
+.nd::after{content:attr(data-l);position:absolute;left:16px;top:50%;transform:translateY(-50%);font-family:var(--sans);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);white-space:nowrap;opacity:0;transition:.2s;pointer-events:none}
+.nd:hover::after{opacity:1}
+
+/* ── LAYOUT ── */
+section{position:relative;overflow:hidden}
+.W{max-width:1140px;margin:0 auto;padding:0 80px}
+.pad{padding:96px 0}
+.pad-lg{padding:120px 0}
+
+/* labels & rules */
+.slabel{font-family:var(--sans);font-size:8px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:var(--ink-light);display:block;margin-bottom:10px}
+.stitle{font-family:var(--serif);font-size:clamp(26px,3.2vw,42px);font-weight:700;color:var(--ink);line-height:1.1;direction:ltr;margin-bottom:5px}
+.stitle-fa{font-size:clamp(16px,2.2vw,24px);font-weight:500;color:var(--ink-mid);margin-bottom:40px}
+.rule{width:40px;height:1px;background:var(--ink);display:block;margin-bottom:48px}
+.rule-v{display:none}
+
+/* grid helpers */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+
+.body{font-size:14px;font-weight:300;line-height:2.1;color:var(--ink-light)}
+.body-en{font-family:var(--sans);font-size:13px;font-weight:300;line-height:1.95;color:var(--ink-light);direction:ltr}
+
+/* ════════════════════════════════
+   0 · COVER
+════════════════════════════════ */
+#cover{min-height:100vh;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px}
+#cover::before{content:'';position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(93deg,
+      transparent 0,transparent 22px,
+      rgba(210,165,95,.04) 22px,rgba(210,165,95,.04) 25px,
+      transparent 25px,transparent 52px,
+      rgba(190,145,80,.03) 52px,rgba(190,145,80,.03) 54px),
+    repeating-linear-gradient(89.6deg,
+      transparent 0,transparent 2px,
+      rgba(148,98,48,.05) 2px,rgba(148,98,48,.05) 3px,
+      transparent 3px,transparent 9px,
+      rgba(168,115,62,.035) 9px,rgba(168,115,62,.035) 10px),
+    linear-gradient(170deg,#1C1410 0%,#241810 50%,#1A130F 100%);
+  pointer-events:none}
+#cover > *{position:relative;z-index:1}
+.cv-top{font-family:var(--sans);font-size:8px;letter-spacing:5px;text-transform:uppercase;color:rgba(237,235,230,.25);margin-bottom:80px;direction:ltr}
+.cv-divider{width:1px;height:56px;background:rgba(237,235,230,.15);margin:52px auto}
+.cv-tagline{font-family:var(--serif);font-size:clamp(13px,1.8vw,18px);font-weight:400;font-style:italic;color:rgba(237,235,230,.45);letter-spacing:2px;direction:ltr;margin-bottom:8px}
+.cv-tagline-fa{font-size:clamp(12px,1.5vw,15px);font-weight:300;color:rgba(237,235,230,.25);margin-bottom:0}
+.cv-foot{position:absolute;bottom:40px;left:0;right:0;display:flex;justify-content:space-between;padding:0 80px;font-family:var(--sans);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(237,235,230,.18);direction:ltr}
+
+/* ════════════════════════════════
+   1 · MANIFESTO
+════════════════════════════════ */
+#manifesto{background:var(--parchment);padding:0}
+.mf-inner{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.mf-left{background:var(--ink);display:flex;align-items:center;justify-content:center;padding:80px}
+.mf-left-content{max-width:420px;text-align:center}
+.mf-quote{font-family:var(--serif);font-size:clamp(22px,2.8vw,36px);font-weight:400;font-style:italic;color:var(--cream);line-height:1.6;direction:ltr;margin-bottom:24px}
+.mf-attr{font-family:var(--sans);font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(237,235,230,.35);direction:ltr}
+.mf-right{display:flex;flex-direction:column;justify-content:space-between;padding:80px}
+.mf-num{font-family:var(--serif);font-size:clamp(100px,14vw,180px);font-weight:700;color:rgba(28,20,16,.04);line-height:1;direction:ltr;user-select:none}
+.mf-text-en{font-family:var(--sans);font-size:clamp(14px,1.8vw,20px);font-weight:300;line-height:1.9;color:var(--ink-mid);direction:ltr;margin-bottom:20px}
+.mf-text-fa{font-size:clamp(13px,1.6vw,18px);font-weight:300;line-height:2.2;color:var(--ink-light)}
+.mf-brand-line{font-family:var(--sans);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--ink-light);direction:ltr}
+
+/* ════════════════════════════════
+   2 · BRAND
+════════════════════════════════ */
+#brand{background:var(--white)}
+.pillar{padding:40px 36px;border:1px solid var(--border);background:var(--parchment)}
+.p-n{font-family:var(--serif);font-size:10px;font-weight:700;letter-spacing:3px;color:var(--ink-light);margin-bottom:16px;display:block;direction:ltr}
+.p-en{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--ink);margin-bottom:3px;direction:ltr}
+.p-fa{font-size:13px;font-weight:500;color:var(--ink-mid);margin-bottom:14px}
+.p-body{font-size:12.5px;font-weight:300;line-height:1.95;color:var(--ink-light)}
+.audience{display:flex;gap:0;margin-top:48px;border:1px solid var(--border)}
+.aud-item{flex:1;padding:24px 28px;border-left:1px solid var(--border)}
+.aud-item:last-child{border-left:none}
+.aud-l{font-family:var(--sans);font-size:7.5px;letter-spacing:3px;text-transform:uppercase;color:var(--ink-light);display:block;margin-bottom:6px}
+.aud-v{font-size:13px;font-weight:500;color:var(--ink)}
+
+/* japandi principles */
+.japandi{margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.jp-card{padding:32px 24px;background:var(--cream);border:1px solid var(--border);text-align:center}
+.jp-icon{width:32px;height:32px;margin:0 auto 16px;opacity:.6}
+.jp-en{font-family:var(--serif);font-size:14px;font-weight:700;color:var(--ink);direction:ltr;display:block;margin-bottom:3px}
+.jp-fa{font-size:12px;font-weight:500;color:var(--ink-mid);display:block;margin-bottom:10px}
+.jp-body{font-size:11px;font-weight:300;color:var(--ink-light);line-height:1.8}
+
+/* ════════════════════════════════
+   3 · LOGO
+════════════════════════════════ */
+#logo{background:var(--cream)}
+.logo-panel{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin:40px 0}
+.lp{padding:64px 52px;display:flex;flex-direction:column;justify-content:space-between;min-height:240px}
+.lp-tag{font-family:var(--sans);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-light);margin-top:20px}
+.lp.ink{background:var(--ink)}
+.lp.ink .lp-tag{color:rgba(237,235,230,.3)}
+.lp.white{background:#fff;border:1px solid var(--border)}
+.lp.parch{background:var(--parchment)}
+
+.size-strip{border:1px solid var(--border);background:var(--white);padding:40px 48px;margin:40px 0;display:flex;flex-direction:column;gap:36px}
+.size-row{display:flex;align-items:center;gap:40px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+.size-row:last-child{border-bottom:none;padding-bottom:0}
+.size-spec{font-family:var(--sans);font-size:9px;color:var(--ink-light);letter-spacing:1.5px;min-width:160px;flex-shrink:0;direction:ltr}
+
+.donts{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:40px}
+.dont{padding:28px 20px;background:#F8F6F3;border:1px solid var(--border);position:relative}
+.dont::before{content:'✕';position:absolute;top:10px;right:12px;font-family:var(--sans);font-size:9px;color:var(--burgundy);letter-spacing:1px}
+.dont-label{font-family:var(--sans);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-light);display:block;margin-top:16px}
+.dont-preview{height:64px;display:flex;align-items:center;overflow:hidden}
+
+/* ════════════════════════════════
+   4 · COLOUR
+════════════════════════════════ */
+#colour{background:var(--parchment)}
+.pal-group{margin-bottom:48px}
+.pal-label{font-family:var(--sans);font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--ink-light);display:block;margin-bottom:14px;direction:ltr}
+.swatches{display:flex;gap:2px}
+.sw{display:flex;flex-direction:column;justify-content:flex-end;padding:20px 18px;min-height:168px;flex:1}
+.sw.tall{min-height:210px;flex:1.5}
+.sw-n{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.3px;margin-bottom:4px}
+.sw-h{font-family:var(--sans);font-size:10px;font-weight:300;letter-spacing:2px;opacity:.7;direction:ltr;display:block}
+.sw-u{font-size:10.5px;font-weight:300;margin-top:5px;opacity:.65;display:block}
+.on-dark .sw-n,.on-dark .sw-h,.on-dark .sw-u{color:rgba(237,235,230,.85)}
+.on-light .sw-n,.on-light .sw-h,.on-light .sw-u{color:var(--ink)}
+
+/* ════════════════════════════════
+   5 · TYPOGRAPHY
+════════════════════════════════ */
+#type{background:var(--white)}
+.font-block{padding:48px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:220px 1fr;gap:56px;align-items:start}
+.font-block:last-child{border-bottom:none}
+.fm{padding-top:4px}
+.fm-name{font-family:var(--sans);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ink);display:block;margin-bottom:8px}
+.fm-info{font-family:var(--sans);font-size:9px;color:var(--ink-light);line-height:1.9;display:block}
+.type-scale{border:1px solid var(--border);margin-top:48px}
+.ts-row{display:grid;grid-template-columns:96px 1fr 180px;align-items:center;padding:14px 24px;border-bottom:1px solid var(--border);gap:20px}
+.ts-row:last-child{border-bottom:none}
+.ts-tag{font-family:var(--sans);font-size:7.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-light)}
+.ts-spec{font-family:var(--sans);font-size:8.5px;color:var(--ink-light);text-align:right;direction:ltr}
+
+/* ════════════════════════════════
+   5 · WOOD
+════════════════════════════════ */
+#wood{background:var(--cream)}
+.wood-full{height:400px;position:relative;margin:40px 0;overflow:hidden}
+.wood-full-bg{position:absolute;inset:0}
+.wood-full-bg.grain{background:
+    repeating-linear-gradient(93deg,
+      transparent 0,transparent 22px,
+      rgba(210,165,95,.09) 22px,rgba(210,165,95,.09) 25px,
+      transparent 25px,transparent 52px,
+      rgba(190,145,80,.065) 52px,rgba(190,145,80,.065) 54px,
+      transparent 54px,transparent 88px),
+    repeating-linear-gradient(89.6deg,
+      transparent 0,transparent 2px,
+      rgba(148,98,48,.1) 2px,rgba(148,98,48,.1) 3px,
+      transparent 3px,transparent 9px,
+      rgba(168,115,62,.075) 9px,rgba(168,115,62,.075) 10px,
+      transparent 10px,transparent 21px,
+      rgba(155,108,55,.05) 21px,rgba(155,108,55,.05) 22px,
+      transparent 22px,transparent 34px),
+    repeating-linear-gradient(90.4deg,
+      transparent 0,transparent 40px,
+      rgba(185,138,75,.06) 40px,rgba(185,138,75,.06) 44px),
+    linear-gradient(170deg,
+      #D8C4A2 0%,#CDB086 12%,
+      #C6A87C 26%,#BC9868 40%,
+      #C4A47A 54%,#CCAE84 66%,
+      #D2B88C 78%,#C8A87C 88%,#BF9E6E 100%);
+}
+.wood-full-overlay{position:absolute;inset:0;background:rgba(28,20,16,.38);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px}
+.wf-t{font-family:var(--serif);font-size:clamp(20px,3vw,38px);font-weight:700;color:#fff;letter-spacing:2px;direction:ltr;margin-bottom:8px}
+.wf-fa{font-size:clamp(14px,1.8vw,18px);font-weight:300;color:rgba(255,255,255,.65)}
+.wf-sub{font-family:var(--sans);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:16px;direction:ltr}
+
+.wood-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin:40px 0}
+.wc{padding:36px 30px;background:var(--white);border:1px solid var(--border)}
+.wc-bar{height:3px;width:48px;margin-bottom:22px}
+.wc-en{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--ink);direction:ltr;display:block;margin-bottom:3px}
+.wc-fa{font-size:13px;font-weight:500;color:var(--ink-mid);margin-bottom:12px;display:block}
+.wc-body{font-size:12.5px;font-weight:300;line-height:1.95;color:var(--ink-light)}
+
+.grain-row{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin:40px 0}
+.gr{height:200px;position:relative;overflow:hidden}
+.gr-tag{position:absolute;bottom:0;left:0;right:0;padding:9px 12px;background:rgba(28,20,16,.55);font-family:var(--sans);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(237,235,230,.8);direction:ltr}
+.gr1{background:
+  repeating-linear-gradient(89.8deg,transparent 0,transparent 2px,rgba(148,98,48,.06) 2px,rgba(148,98,48,.06) 3px,transparent 3px,transparent 10px),
+  linear-gradient(180deg,#E0CDB0 0%,#D4BE9C 50%,#CCB48E 100%)}
+.gr2{background:
+  repeating-linear-gradient(89.7deg,transparent 0,transparent 3px,rgba(148,98,48,.08) 3px,rgba(148,98,48,.08) 4px,transparent 4px,transparent 12px,rgba(168,115,62,.05) 12px,rgba(168,115,62,.05) 13px,transparent 13px,transparent 24px),
+  linear-gradient(175deg,#CCAE84 0%,#C4A47A 50%,#BA9870 100%)}
+.gr3{background:
+  repeating-linear-gradient(89.6deg,transparent 0,transparent 2px,rgba(148,98,48,.09) 2px,rgba(148,98,48,.09) 3px,transparent 3px,transparent 8px,rgba(138,88,38,.06) 8px,rgba(138,88,38,.06) 9px,transparent 9px,transparent 20px),
+  repeating-linear-gradient(93deg,transparent 0,transparent 30px,rgba(190,140,75,.07) 30px,rgba(190,140,75,.07) 33px,transparent 33px,transparent 70px),
+  linear-gradient(170deg,#B89870 0%,#A88860 50%,#B09068 100%)}
+.gr4{background:
+  repeating-linear-gradient(89.5deg,transparent 0,transparent 3px,rgba(100,60,20,.11) 3px,rgba(100,60,20,.11) 4px,transparent 4px,transparent 12px,rgba(80,45,15,.07) 12px,rgba(80,45,15,.07) 13px),
+  repeating-linear-gradient(92deg,transparent 0,transparent 24px,rgba(100,65,25,.08) 24px,rgba(100,65,25,.08) 27px),
+  linear-gradient(168deg,#8B6B52 0%,#7A5A40 40%,#6A4E38 70%,#7A5A40 100%)}
+.gr5{background:
+  repeating-linear-gradient(89.4deg,transparent 0,transparent 2px,rgba(70,38,12,.12) 2px,rgba(70,38,12,.12) 3px,transparent 3px,transparent 9px,rgba(55,30,8,.08) 9px,rgba(55,30,8,.08) 10px),
+  repeating-linear-gradient(91.5deg,transparent 0,transparent 20px,rgba(80,45,15,.09) 20px,rgba(80,45,15,.09) 24px,transparent 24px,transparent 55px),
+  linear-gradient(165deg,#5C4030 0%,#4E3428 35%,#3E2820 60%,#5C4030 100%)}
+
+.wood-quote-block{padding:64px 80px;background:var(--wd);margin:0;position:relative;overflow:hidden}
+.wood-quote-block::before{content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(89.6deg,transparent 0,transparent 2px,rgba(80,50,20,.1) 2px,rgba(80,50,20,.1) 3px,transparent 3px,transparent 9px,rgba(65,38,15,.06) 9px,rgba(65,38,15,.06) 10px);
+  pointer-events:none}
+.wq-en{font-family:var(--serif);font-size:clamp(16px,2.2vw,26px);font-weight:400;font-style:italic;color:rgba(237,235,230,.9);line-height:1.75;direction:ltr;margin-bottom:16px;position:relative}
+.wq-fa{font-size:clamp(14px,1.8vw,20px);font-weight:300;line-height:2.2;color:rgba(237,235,230,.55);position:relative}
+
+/* ════════════════════════════════
+   7 · VOICE
+════════════════════════════════ */
+#voice{background:var(--parchment)}
+.traits{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin:40px 0}
+.trait{padding:36px 20px;background:var(--white);border:1px solid var(--border);text-align:center}
+.trait-en{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--ink);direction:ltr;display:block;margin-bottom:4px}
+.trait-fa{font-size:12px;font-weight:500;color:var(--ink-mid);display:block;margin-bottom:12px}
+.trait-body{font-size:11px;font-weight:300;color:var(--ink-light);line-height:1.85}
+
+.voice-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:40px 0}
+.vdo{background:#F3F6F1;border-right:3px solid #6B8F5E;padding:36px 40px}
+.vdont{background:#FAF3F4;border-right:3px solid var(--burgundy);padding:36px 40px}
+.vtag{font-family:var(--sans);font-size:8px;letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:20px}
+.vdo .vtag{color:#6B8F5E}
+.vdont .vtag{color:var(--burgundy)}
+.vline{font-family:var(--serif);font-size:13.5px;color:var(--ink);line-height:1.7;direction:ltr;padding:9px 0;border-bottom:1px solid rgba(28,20,16,.06)}
+.vline-fa{font-size:13px;font-weight:300;color:var(--ink-mid);line-height:2;padding:9px 0;border-bottom:1px solid rgba(28,20,16,.06)}
+.vline:last-child,.vline-fa:last-child{border-bottom:none}
+
+.kw{display:flex;flex-wrap:wrap;gap:8px;margin-top:40px}
+.kw span{padding:7px 18px;border:1px solid rgba(28,20,16,.2);font-family:var(--sans);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink)}
+.kw span.fa-kw{font-family:var(--fa);font-size:11px;letter-spacing:0;text-transform:none}
+
+/* ════════════════════════════════
+   8 · IMAGERY
+════════════════════════════════ */
+#imagery{background:var(--white)}
+.img-compare{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:40px 0}
+.img-mock{aspect-ratio:16/10;position:relative;overflow:hidden}
+.img-do{background:
+  radial-gradient(ellipse at 25% 65%,rgba(220,185,140,.5) 0%,transparent 55%),
+  radial-gradient(ellipse at 75% 35%,rgba(200,165,115,.3) 0%,transparent 45%),
+  linear-gradient(140deg,#D8C8A8 0%,#C8B090 25%,#B89868 50%,#D4C0A0 75%,#E0D0B0 100%)}
+.img-dont{background:linear-gradient(135deg,#F0F0F0 0%,#E8E8E8 100%);display:flex;align-items:center;justify-content:center}
+.img-dont-prod{width:100px;height:70px;background:#D8D8D8;border-radius:3px;box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.img-label{position:absolute;bottom:0;left:0;right:0;padding:12px 16px;display:flex;align-items:center;gap:10px}
+.img-do .img-label{background:rgba(28,20,16,.55)}
+.img-dont .img-label{background:rgba(139,38,53,.7)}
+.img-badge{font-family:var(--sans);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(237,235,230,.9);padding:3px 8px;border:1px solid rgba(237,235,230,.3)}
+.img-cap{font-family:var(--sans);font-size:9px;color:rgba(237,235,230,.7);letter-spacing:.5px}
+
+.photo-rules{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:40px}
+.pr{padding:28px;background:var(--parchment);border:1px solid var(--border)}
+.pr-n{font-family:var(--serif);font-size:26px;font-weight:700;color:rgba(28,20,16,.08);direction:ltr;display:block;margin-bottom:6px}
+.pr-en{font-family:var(--sans);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);display:block;margin-bottom:3px}
+.pr-fa{font-size:12px;font-weight:500;color:var(--ink-mid);margin-bottom:10px;display:block}
+.pr-body{font-size:12px;font-weight:300;line-height:1.9;color:var(--ink-light)}
+
+/* ════════════════════════════════
+   9 · APPLICATIONS
+════════════════════════════════ */
+#apps{background:var(--cream)}
+.app-section{margin-bottom:64px}
+.app-label{font-family:var(--sans);font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--ink-light);display:block;margin-bottom:24px;direction:ltr}
+
+/* Business Card */
+.cards-row{display:flex;gap:16px;flex-wrap:wrap}
+.bcard{width:280px;height:160px;position:relative;box-shadow:0 12px 40px rgba(28,20,16,.12)}
+.bcard-front{background:#fff;height:100%;padding:22px 26px;display:flex;flex-direction:column;justify-content:space-between}
+.bcard-back{background:var(--ink);height:100%;display:flex;align-items:center;justify-content:center}
+.bc-name{font-size:12px;font-weight:500;color:var(--ink)}
+.bc-role{font-family:var(--sans);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-light);direction:ltr}
+.bc-info{font-family:var(--sans);font-size:8px;color:var(--ink-light);direction:ltr;line-height:1.8}
+.card-spec{font-family:var(--sans);font-size:9px;color:var(--ink-light);direction:ltr;letter-spacing:.5px;margin-top:10px}
+
+/* Product Tag */
+.tag-wrap{display:flex;align-items:flex-start;gap:32px;flex-wrap:wrap}
+.ptag{width:100px;background:var(--cream);border:1px solid rgba(28,20,16,.15);display:inline-flex;flex-direction:column;align-items:center;padding:22px 12px 18px;position:relative;box-shadow:0 4px 20px rgba(28,20,16,.08)}
+.ptag::before{content:'';width:8px;height:8px;border-radius:50%;border:1px solid rgba(28,20,16,.3);position:absolute;top:11px}
+.pt-logo{margin-top:10px;margin-bottom:16px}
+.pt-rule{width:40px;height:1px;background:rgba(28,20,16,.15);margin:10px 0}
+.pt-text{font-family:var(--sans);font-size:6px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-light);text-align:center;direction:ltr;line-height:1.9}
+
+/* Website header */
+.hdr-mock{border:1px solid var(--border);overflow:hidden;box-shadow:0 16px 48px rgba(28,20,16,.1)}
+.hdr-bar{background:rgba(255,255,255,.96);backdrop-filter:blur(12px);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.hdr-nav{display:flex;gap:24px}
+.hdr-nav span{font-size:11px;font-weight:400;color:var(--ink);cursor:pointer}
+.hdr-hero{height:200px;background:
+  linear-gradient(rgba(28,20,16,.28),rgba(28,20,16,.50)),
+  repeating-linear-gradient(89.6deg,transparent 0,transparent 2px,rgba(148,98,48,.08) 2px,rgba(148,98,48,.08) 3px,transparent 3px,transparent 9px,rgba(168,115,62,.05) 9px,rgba(168,115,62,.05) 10px),
+  linear-gradient(155deg,#D0B890 0%,#C4A47A 35%,#A88860 60%,#C0A070 100%);
+  display:flex;align-items:center;padding:0 32px}
+.hdr-headline{font-family:var(--serif);font-size:26px;font-weight:700;color:#fff;direction:ltr;letter-spacing:.5px}
+
+/* Bag */
+.bag-outer{position:relative;display:inline-block;margin-top:20px}
+.bag-handle{position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:44px;height:24px;border:1.5px solid rgba(28,20,16,.35);border-bottom:none;border-radius:22px 22px 0 0}
+.bag{width:130px;height:160px;background:var(--cream);border:1px solid rgba(28,20,16,.18);display:flex;align-items:center;justify-content:center;box-shadow:5px 8px 28px rgba(28,20,16,.1)}
+
+/* ════════════════════════════════
+   FOOTER
+════════════════════════════════ */
+footer{background:var(--ink);padding:56px 80px;display:flex;align-items:center;justify-content:space-between;gap:40px}
+.ft-right{text-align:right}
+.ft-copy{font-family:var(--sans);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(237,235,230,.25);direction:ltr;display:block;margin-top:10px}
+.ft-note{font-family:var(--sans);font-size:10px;font-weight:300;color:rgba(237,235,230,.4);direction:ltr;line-height:1.8;max-width:360px;text-align:right}
+
+@media print{
+  .nav{display:none}
+  section{break-inside:avoid;page-break-inside:avoid}
+  #cover,#manifesto{page-break-after:always}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nd on" href="#cover"    data-l="Cover"></a>
+  <a class="nd"    href="#manifesto"data-l="Manifesto"></a>
+  <a class="nd"    href="#brand"    data-l="Brand"></a>
+  <a class="nd"    href="#logo"     data-l="Logo"></a>
+  <a class="nd"    href="#colour"   data-l="Colour"></a>
+  <a class="nd"    href="#type"     data-l="Type"></a>
+  <a class="nd"    href="#wood"     data-l="Wood"></a>
+  <a class="nd"    href="#voice"    data-l="Voice"></a>
+  <a class="nd"    href="#imagery"  data-l="Imagery"></a>
+  <a class="nd"    href="#apps"     data-l="In Use"></a>
+</nav>
+
+<!-- ════ 0 · COVER ════ -->
+<section id="cover">
+  <p class="cv-top lat">House of PIRO · Brand Identity Guidelines · 2025</p>
+  <div class="logo lxl dk">
+    <div class="logo-badge">
+      <svg class="logo-branch" viewBox="0 0 18 22" fill="none">
+        <line x1="9" y1="21" x2="9" y2="7" stroke="#C4A882" stroke-width="0.9" stroke-linecap="round"/>
+        <path d="M9 7 Q5.5 4.5 2.5 2.5 Q4 6.5 9 7Z" fill="#D4B896" opacity="0.80"/>
+        <path d="M9 10.5 Q12.5 8 15.5 6 Q14 10 9 10.5Z" fill="#C4A882" opacity="0.60"/>
+        <path d="M9 14 Q6 11.5 3.5 10 Q5.5 13 9 14Z" fill="#B0956A" opacity="0.40"/>
+      </svg>
+      <div class="logo-badge-text"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></div>
+    </div>
+    <span class="logo-house">House of</span>
+    <span class="logo-wordmark">PIRO</span>
+    <div class="logo-rules"><span class="logo-rule-t"></span><span class="logo-rule-n"></span></div>
+  </div>
+  <div class="cv-divider"></div>
+  <p class="cv-tagline ser">Where Wood Tells Stories</p>
+  <p class="cv-tagline-fa">جایی که چوب روایت می‌کند</p>
+  <div class="cv-foot">
+    <span>Brand Identity Guidelines</span>
+    <span>Confidential · 2025</span>
+    <span>Tehran, Iran</span>
+  </div>
+</section>
+
+<!-- ════ 1 · MANIFESTO ════ -->
+<section id="manifesto">
+  <div class="mf-inner">
+    <div class="mf-left">
+      <div class="mf-left-content">
+        <p class="mf-quote">"Beauty has<br>meaning in<br>simplicity."</p>
+        <p class="mf-attr lat">— The PIRO Principle</p>
+      </div>
+    </div>
+    <div class="mf-right">
+      <p class="mf-num ser">PIRO</p>
+      <div>
+        <p class="mf-text-en lat">We believe that a well-made piece of furniture is more than an object. It is a conversation between the craftsman, the tree, and the person who lives with it every day. At PIRO, we make furniture that earns its place — quiet, honest, and built to last generations.</p>
+        <p class="mf-text-fa" style="margin-top:16px;">ما معتقدیم که یک مبل خوب چیزی بیشتر از یک شیء است. این یک گفت‌وگو میان صنعتگر، درخت، و انسانی است که هر روز با آن زندگی می‌کند. در خانه پیرو، مبلی می‌سازیم که جایگاهش را به دست می‌آورد — آرام، صادق، و برای ماندن.</p>
+        <p class="mf-brand-line lat" style="margin-top:32px;">Japandi · Scandinavian · Natural Beech · Handcrafted in Iran</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 2 · BRAND ════ -->
+<section id="brand" class="bg-white">
+  <div class="W pad">
+    <span class="slabel lat">02 · Brand Identity</span>
+    <h2 class="stitle">Who We Are</h2>
+    <p class="stitle-fa">هویت برند خانه پیرو</p>
+    <span class="rule"></span>
+
+    <div class="g2">
+      <p class="body">خانه پیرو یک تیم خلاق طراحی و تولید مبلمان با تمرکز ویژه بر فرم‌های ارگانیک، چوب طبیعی باکیفیت و صنعت‌گری دقیق است. هدف ما ساختن محصولاتی است که هم چشم را نوازش می‌دهند و هم زندگی روزمره را بهتر می‌کنند.</p>
+      <p class="body-en">PIRO is a creative furniture design and manufacturing team with a special focus on organic forms, premium natural beech wood, and refined craftsmanship — creating pieces that are both beautiful and functional, designed to improve everyday life.</p>
+    </div>
+
+    <div class="g3" style="margin-top:40px;">
+      <div class="pillar">
+        <span class="p-n">01</span>
+        <span class="p-en ser">Organic Forms</span>
+        <p class="p-fa">فرم‌های ارگانیک</p>
+        <p class="p-body">طراحی الهام‌گرفته از طبیعت. خطوط نرم، تناسبات انسانی و هیچ عنصر اضافه‌ای. هر خط دلیلی دارد.</p>
+      </div>
+      <div class="pillar">
+        <span class="p-n">02</span>
+        <span class="p-en ser">Beech Wood Only</span>
+        <p class="p-fa">فقط چوب راش</p>
+        <p class="p-body">تنها از چوب راش تمام‌عیار استفاده می‌شود. رگه هر تخته منحصربه‌فرد است — هیچ دو قطعه‌ای یکسان نیستند.</p>
+      </div>
+      <div class="pillar">
+        <span class="p-n">03</span>
+        <span class="p-en ser">Handcrafted</span>
+        <p class="p-fa">دست‌ساز</p>
+        <p class="p-body">هر قطعه توسط صنعتگران ساخته می‌شود. ترکیب مهارت سنتی با تکنیک مدرن، کیفیتی نسل‌پذیر می‌آفریند.</p>
+      </div>
+    </div>
+
+    <!-- Japandi Principles -->
+    <div style="margin-top:60px;">
+      <span class="slabel lat">Design Philosophy · Japandi</span>
+      <div class="japandi">
+        <div class="jp-card">
+          <svg class="jp-icon" viewBox="0 0 32 32" fill="none">
+            <rect x="4" y="14" width="24" height="1" fill="#1C1410" opacity=".4"/>
+            <rect x="4" y="17" width="16" height="1" fill="#1C1410" opacity=".25"/>
+          </svg>
+          <span class="jp-en ser">Ma · 間</span>
+          <span class="jp-fa">فضای منفی</span>
+          <p class="jp-body">سکوت بصری به اندازه شکل اهمیت دارد. فضای خالی معنا ایجاد می‌کند.</p>
+        </div>
+        <div class="jp-card">
+          <svg class="jp-icon" viewBox="0 0 32 32" fill="none">
+            <circle cx="12" cy="16" r="6" stroke="#1C1410" stroke-width=".8" opacity=".4"/>
+            <line x1="20" y1="10" x2="28" y2="10" stroke="#1C1410" stroke-width=".8" opacity=".25"/>
+            <line x1="20" y1="16" x2="26" y2="16" stroke="#1C1410" stroke-width=".8" opacity=".25"/>
+          </svg>
+          <span class="jp-en ser">Wabi-Sabi</span>
+          <span class="jp-fa">زیبایی ناقص</span>
+          <p class="jp-body">کمال در ناکاملی. رگه طبیعی چوب، شاهد گذر زمان است.</p>
+        </div>
+        <div class="jp-card">
+          <svg class="jp-icon" viewBox="0 0 32 32" fill="none">
+            <path d="M6 26 Q16 8 26 26" stroke="#1C1410" stroke-width=".8" fill="none" opacity=".4"/>
+            <circle cx="16" cy="16" r="2" fill="#1C1410" opacity=".3"/>
+          </svg>
+          <span class="jp-en ser">Organic</span>
+          <span class="jp-fa">طبیعت‌محور</span>
+          <p class="jp-body">الهام از دنیای طبیعی. هیچ خط کاملاً راستی در طبیعت وجود ندارد.</p>
+        </div>
+        <div class="jp-card">
+          <svg class="jp-icon" viewBox="0 0 32 32" fill="none">
+            <rect x="6" y="6" width="8" height="20" rx="1" stroke="#1C1410" stroke-width=".8" opacity=".35" fill="none"/>
+            <rect x="17" y="10" width="9" height="12" rx="1" stroke="#1C1410" stroke-width=".8" opacity=".22" fill="none"/>
+          </svg>
+          <span class="jp-en ser">Functional</span>
+          <span class="jp-fa">کارکردی</span>
+          <p class="jp-body">زیبایی بدون کارکرد، تزئین است. هر فرم باید هدفی داشته باشد.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audience -->
+    <div class="audience">
+      <div class="aud-item"><span class="aud-l lat">Target</span><span class="aud-v">زنان ۲۵–۵۵ سال</span></div>
+      <div class="aud-item"><span class="aud-l lat">Location</span><span class="aud-v">شهرهای بزرگ</span></div>
+      <div class="aud-item"><span class="aud-l lat">Home</span><span class="aud-v">آپارتمان‌نشین</span></div>
+      <div class="aud-item"><span class="aud-l lat">Style</span><span class="aud-v lat">Japandi · Minimal</span></div>
+      <div class="aud-item"><span class="aud-l lat">Products</span><span class="aud-v lat">101+ Pieces</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 3 · LOGO ════ -->
+<section id="logo" style="background:var(--cream)">
+  <div class="W pad">
+    <span class="slabel lat">03 · Logo System</span>
+    <h2 class="stitle">The Mark</h2>
+    <p class="stitle-fa">سیستم لوگو</p>
+    <span class="rule"></span>
+
+    <div class="g2" style="margin-bottom:48px;">
+      <p class="body-en lat">The PIRO logo is built from three layers: a botanical branch icon representing natural growth, the serif wordmark "PIRO" as the dominant visual anchor, and the "House of" caption in geometric light capitals — grounded by two parallel rules that echo the grain lines of beech wood.</p>
+      <p class="body">لوگوی خانه پیرو از سه لایه ساخته شده: آیکون شاخه گیاهی نماد رشد طبیعی، تایپوگرافی سریف «PIRO» به عنوان لنگر بصری اصلی، و عبارت «House of» در حروف هندسی سبک — همه با دو خط موازی که رگه‌های چوب راش را تداعی می‌کنند.</p>
+    </div>
+
+    <div class="logo-panel">
+      <div class="lp white">
+        <div class="logo llg">
+          <div class="logo-badge"><svg class="logo-branch" viewBox="0 0 18 22" fill="none"><line x1="9" y1="21" x2="9" y2="7" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round"/><path d="M9 7 Q5.5 4.5 2.5 2.5 Q4 6.5 9 7Z" fill="#6A4E38" opacity="0.80"/><path d="M9 10.5 Q12.5 8 15.5 6 Q14 10 9 10.5Z" fill="#5C4030" opacity="0.60"/><path d="M9 14 Q6 11.5 3.5 10 Q5.5 13 9 14Z" fill="#4E3428" opacity="0.40"/></svg><div class="logo-badge-text"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></div></div>
+          <span class="logo-house">House of</span><span class="logo-wordmark">PIRO</span>
+          <div class="logo-rules"><span class="logo-rule-t"></span><span class="logo-rule-n"></span></div>
+        </div>
+        <span class="lp-tag lat">On White · Primary</span>
+      </div>
+      <div class="lp parch">
+        <div class="logo llg">
+          <div class="logo-badge"><svg class="logo-branch" viewBox="0 0 18 22" fill="none"><line x1="9" y1="21" x2="9" y2="7" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round"/><path d="M9 7 Q5.5 4.5 2.5 2.5 Q4 6.5 9 7Z" fill="#6A4E38" opacity="0.80"/><path d="M9 10.5 Q12.5 8 15.5 6 Q14 10 9 10.5Z" fill="#5C4030" opacity="0.60"/><path d="M9 14 Q6 11.5 3.5 10 Q5.5 13 9 14Z" fill="#4E3428" opacity="0.40"/></svg><div class="logo-badge-text"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></div></div>
+          <span class="logo-house">House of</span><span class="logo-wordmark">PIRO</span>
+          <div class="logo-rules"><span class="logo-rule-t"></span><span class="logo-rule-n"></span></div>
+        </div>
+        <span class="lp-tag lat">On Parchment · Warm</span>
+      </div>
+      <div class="lp ink">
+        <div class="logo llg dk">
+          <div class="logo-badge"><svg class="logo-branch" viewBox="0 0 18 22" fill="none"><line x1="9" y1="21" x2="9" y2="7" stroke="#C4A882" stroke-width="0.9" stroke-linecap="round"/><path d="M9 7 Q5.5 4.5 2.5 2.5 Q4 6.5 9 7Z" fill="#D4B896" opacity="0.80"/><path d="M9 10.5 Q12.5 8 15.5 6 Q14 10 9 10.5Z" fill="#C4A882" opacity="0.60"/><path d="M9 14 Q6 11.5 3.5 10 Q5.5 13 9 14Z" fill="#B0956A" opacity="0.40"/></svg><div class="logo-badge-text"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></div></div>
+          <span class="logo-house">House of</span><span class="logo-wordmark">PIRO</span>
+          <div class="logo-rules"><span class="logo-rule-t"></span><span class="logo-rule-n"></span></div>
+        </div>
+        <span class="lp-tag lat">On Dark · Premium</span>
+      </div>
+    </div>
+
+    <!-- Size Strip -->
+    <div class="size-strip">
+      <span class="slabel lat" style="margin-bottom:8px;">Size Scale</span>
+      <div class="size-row">
+        <span class="size-spec lat">XL · 56px · Hero &amp; Print</span>
+        <div class="logo lxl"><div class="logo-badge"><svg class="logo-branch" viewBox="0 0 18 22" fill="none"><line x1="9" y1="21" x2="9" y2="7" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round"/><path d="M9 7 Q5.5 4.5 2.5 2.5 Q4 6.5 9 7Z" fill="#6A4E38" opacity="0.80"/><path d="M9 10.5 Q12.5 8 15.5 6 Q14 10 9 10.5Z" fill="#5C4030" opacity="0.60"/><path d="M9 14 Q6 11.5 3.5 10 Q5.5 13 9 14Z" fill="#4E3428" opacity="0.40"/></svg><div class="logo-badge-text"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></div></div><span class="logo-house">House of</span><span class="logo-wordmark">PIRO</span><div class="logo-rules"><span class="logo-rule-t"></span><span class="logo-rule-n"></span></div></div>
+      </div>
+      <div class="size-row">
+        <span class="size-spec lat">MD · 28px · Web Header</span>
+        <div class="logo lmd"><div class="logo-badge"><svg class="logo-branch" viewBox="0 0 18 22" fill="none"><line x1="9" y1="21" x2="9" y2="7" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round"/><path d="M9 7 Q5.5 4.5 2.5 2.5 Q4 6.5 9 7Z" fill="#6A4E38" opacity="0.80"/><path d="M9 10.5 Q12.5 8 15.5 6 Q14 10 9 10.5Z" fill="#5C4030" opacity="0.60"/><path d="M9 14 Q6 11.5 3.5 10 Q5.5 13 9 14Z" fill="#4E3428" opacity="0.40"/></svg><div class="logo-badge-text"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></div></div><span class="logo-house">House of</span><span class="logo-wordmark">PIRO</span><div class="logo-rules"><span class="logo-rule-t"></span><span class="logo-rule-n"></span></div></div>
+      </div>
+      <div class="size-row" style="border-bottom:none;padding-bottom:0">
+        <span class="size-spec lat">SM · 19px · Mobile / Tags</span>
+        <div class="logo lsm"><div class="logo-badge"><svg class="logo-branch" viewBox="0 0 18 22" fill="none"><line x1="9" y1="21" x2="9" y2="7" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round"/><path d="M9 7 Q5.5 4.5 2.5 2.5 Q4 6.5 9 7Z" fill="#6A4E38" opacity="0.80"/><path d="M9 10.5 Q12.5 8 15.5 6 Q14 10 9 10.5Z" fill="#5C4030" opacity="0.60"/><path d="M9 14 Q6 11.5 3.5 10 Q5.5 13 9 14Z" fill="#4E3428" opacity="0.40"/></svg><div class="logo-badge-text"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></div></div><span class="logo-house">House of</span><span class="logo-wordmark">PIRO</span><div class="logo-rules"><span class="logo-rule-t"></span><span class="logo-rule-n"></span></div></div>
+      </div>
+    </div>
+
+    <!-- Don'ts -->
+    <div style="margin-top:40px">
+      <span class="slabel lat" style="margin-bottom:16px">Logo Don'ts — ممنوع</span>
+      <div class="donts">
+        <div class="dont"><div class="dont-preview"><div class="logo lsm" style="transform:scaleX(1.55);transform-origin:right"><span class="logo-house">House of</span><span class="logo-wordmark">PIRO</span></div></div><span class="dont-label lat">Do not stretch</span></div>
+        <div class="dont"><div class="dont-preview"><div class="logo lsm" style="transform:rotate(-18deg);transform-origin:center"><span class="logo-house">House of</span><span class="logo-wordmark">PIRO</span></div></div><span class="dont-label lat">Do not rotate</span></div>
+        <div class="dont"><div class="dont-preview"><div class="logo lsm"><span class="logo-house" style="color:var(--burgundy)">House of</span><span class="logo-wordmark" style="color:var(--burgundy)">PIRO</span></div></div><span class="dont-label lat">Do not recolour</span></div>
+        <div class="dont"><div class="dont-preview"><div class="logo lsm" style="opacity:.22"><span class="logo-house">House of</span><span class="logo-wordmark">PIRO</span></div></div><span class="dont-label lat">Do not use low contrast</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 4 · COLOUR ════ -->
+<section id="colour" style="background:var(--parchment)">
+  <div class="W pad">
+    <span class="slabel lat">04 · Colour</span>
+    <h2 class="stitle">Brand Palette</h2>
+    <p class="stitle-fa">پالت رنگ برند</p>
+    <span class="rule"></span>
+
+    <div class="pal-group">
+      <span class="pal-label">01 · Primary Accent</span>
+      <div class="swatches">
+        <div class="sw tall on-dark" style="background:#8B2635"><span class="sw-n lat">Burgundy</span><span class="sw-h">#8B2635</span><span class="sw-u">دکمه · CTA · اکسنت</span></div>
+        <div class="sw on-dark" style="background:#6E1D29"><span class="sw-n lat">Burgundy Dark</span><span class="sw-h">#6E1D29</span><span class="sw-u">Hover</span></div>
+      </div>
+    </div>
+
+    <div class="pal-group">
+      <span class="pal-label">02 · Typography Ink</span>
+      <div class="swatches">
+        <div class="sw tall on-dark" style="background:#1C1410"><span class="sw-n lat">Deep Ink</span><span class="sw-h">#1C1410</span><span class="sw-u">متن اصلی · لوگو</span></div>
+        <div class="sw on-dark" style="background:#3D2E26"><span class="sw-n lat">Ink Mid</span><span class="sw-h">#3D2E26</span><span class="sw-u">متن ثانویه</span></div>
+        <div class="sw on-dark" style="background:#7A6A60"><span class="sw-n lat">Ink Light</span><span class="sw-h">#7A6A60</span><span class="sw-u">Caption · Label</span></div>
+      </div>
+    </div>
+
+    <div class="pal-group">
+      <span class="pal-label">03 · Warm Neutrals</span>
+      <div class="swatches">
+        <div class="sw on-light" style="background:#FFFFFF;border:1px solid rgba(28,20,16,.08)"><span class="sw-n lat">White</span><span class="sw-h">#FFFFFF</span><span class="sw-u">پس‌زمینه اصلی</span></div>
+        <div class="sw on-light" style="background:#F0EBE4"><span class="sw-n lat">Parchment</span><span class="sw-h">#F0EBE4</span><span class="sw-u">بخش‌های کرم</span></div>
+        <div class="sw on-light" style="background:#EDEBE6"><span class="sw-n lat">Cream</span><span class="sw-h">#EDEBE6</span><span class="sw-u">پس‌زمینه فرعی</span></div>
+        <div class="sw on-light" style="background:#E8E2D8"><span class="sw-n lat">Linen</span><span class="sw-h">#E8E2D8</span><span class="sw-u">بخش‌های تیره‌تر</span></div>
+      </div>
+    </div>
+
+    <div class="pal-group" style="margin-bottom:0">
+      <span class="pal-label">04 · Beech Wood Spectrum</span>
+      <div class="swatches">
+        <div class="sw on-light" style="background:#E0CEB0"><span class="sw-n lat">Pale</span><span class="sw-h">#E0CEB0</span><span class="sw-u">روشن</span></div>
+        <div class="sw on-light" style="background:#C4A882"><span class="sw-n lat">Natural</span><span class="sw-h">#C4A882</span><span class="sw-u">طبیعی</span></div>
+        <div class="sw on-light" style="background:#A07848"><span class="sw-n lat">Warm</span><span class="sw-h">#A07848</span><span class="sw-u">گرم</span></div>
+        <div class="sw on-dark" style="background:#6A4E38"><span class="sw-n lat">Deep</span><span class="sw-h">#6A4E38</span><span class="sw-u">تیره</span></div>
+        <div class="sw on-dark" style="background:#5C4030"><span class="sw-n lat">Dark</span><span class="sw-h">#5C4030</span><span class="sw-u">شاخه</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 5 · TYPOGRAPHY ════ -->
+<section id="type" style="background:var(--white)">
+  <div class="W pad">
+    <span class="slabel lat">05 · Typography</span>
+    <h2 class="stitle">Type System</h2>
+    <p class="stitle-fa">سیستم تایپوگرافی</p>
+    <span class="rule"></span>
+
+    <div class="font-block">
+      <div class="fm"><span class="fm-name lat">Libre Baskerville</span><span class="fm-info lat">Bold 700 · Italic 400<br>Headlines · Logo<br>Latin only<br>Google Fonts</span></div>
+      <div>
+        <p class="ser" style="font-size:clamp(36px,5vw,68px);font-weight:700;line-height:1.05;color:var(--ink)">Simple.<br>Modern.<br>Minimal.</p>
+        <p class="ser" style="font-size:13px;font-weight:400;color:var(--ink-light);margin-top:18px;direction:ltr;line-height:1.8;font-style:italic">"Every Piro piece tells the story of a tree." — Libre Baskerville Italic</p>
+        <p class="lat" style="font-family:'Libre Baskerville',serif;font-size:12px;color:var(--ink-light);margin-top:12px;direction:ltr;opacity:.6">Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm · 0123456789</p>
+      </div>
+    </div>
+
+    <div class="font-block">
+      <div class="fm"><span class="fm-name lat">Jost</span><span class="fm-info lat">200 Thin · 300 Light · 400<br>Body · Labels · UI · Nav<br>Latin only<br>Google Fonts</span></div>
+      <div>
+        <p class="lat" style="font-family:'Jost',sans-serif;font-size:clamp(22px,3vw,40px);font-weight:200;letter-spacing:6px;text-transform:uppercase;color:var(--ink);direction:ltr">House of PIRO</p>
+        <p class="lat" style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;line-height:1.9;color:var(--ink-light);margin-top:16px;direction:ltr;max-width:520px">Natural solid wood furniture for the modern home. Crafted by artisans in Tehran, designed with the quiet restraint of Japandi — each piece carrying the fingerprint of its grain.</p>
+        <p class="lat" style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--ink-light);margin-top:14px;direction:ltr">Aa Bb Cc Dd Ee Ff · Natural · Minimal · Handcrafted</p>
+      </div>
+    </div>
+
+    <div class="font-block" style="border-bottom:none">
+      <div class="fm"><span class="fm-name lat">Vazirmatn</span><span class="fm-info lat">300 · 400 · 500 · 700<br>All Persian text<br>RTL · Farsi<br>Google Fonts</span></div>
+      <div>
+        <p style="font-family:var(--fa);font-size:clamp(24px,3.5vw,50px);font-weight:700;line-height:1.4;color:var(--ink)">خانه‌ای از جنس چوب</p>
+        <p style="font-family:var(--fa);font-size:14px;font-weight:300;line-height:2.1;color:var(--ink-light);margin-top:16px;max-width:520px">مبلمان چوب طبیعی، دست‌ساز و مینیمال برای خانه‌ای با هویت. هر محصول خانه پیرو روایت یک درخت است — رگه‌اش اثر انگشت، گرمایش روح.</p>
+        <p style="font-family:var(--fa);font-size:11px;color:var(--ink-light);margin-top:14px;opacity:.6">الف ب پ ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن و ه ی</p>
+      </div>
+    </div>
+
+    <div class="type-scale" style="margin-top:48px">
+      <div class="ts-row"><span class="ts-tag lat">Hero</span><span class="ser" style="font-size:52px;font-weight:700;color:var(--ink);line-height:1">PIRO</span><span class="ts-spec lat">Baskerville · 52px · 700</span></div>
+      <div class="ts-row"><span class="ts-tag lat">H1</span><span class="ser" style="font-size:34px;font-weight:700;color:var(--ink);line-height:1.1">Where Wood Tells Stories</span><span class="ts-spec lat">Baskerville · 34px · 700</span></div>
+      <div class="ts-row"><span class="ts-tag lat">H2</span><span class="ser" style="font-size:24px;font-weight:700;color:var(--ink);line-height:1.2">Organic Forms in Beech Wood</span><span class="ts-spec lat">Baskerville · 24px · 700</span></div>
+      <div class="ts-row"><span class="ts-tag lat">Body</span><span class="lat" style="font-family:'Jost',sans-serif;font-size:15px;font-weight:300;color:var(--ink-mid)">Every Piro piece tells the story of a tree.</span><span class="ts-spec lat">Jost · 15px · 300</span></div>
+      <div class="ts-row"><span class="ts-tag lat">Label</span><span class="lat" style="font-family:'Jost',sans-serif;font-size:9px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:var(--ink-light)">Natural Solid Wood</span><span class="ts-spec lat">Jost · 9px · 400 · +4px</span></div>
+      <div class="ts-row" style="border-bottom:none"><span class="ts-tag">فارسی</span><span style="font-size:18px;font-weight:500;font-family:var(--fa);color:var(--ink)">چوب طبیعی، طراحی مینیمال</span><span class="ts-spec lat">Vazirmatn · 18px · 500</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 6 · WOOD ════ -->
+<section id="wood" style="background:var(--cream)">
+  <div class="W pad">
+    <span class="slabel lat">06 · Material Identity</span>
+    <h2 class="stitle">The Beech Wood</h2>
+    <p class="stitle-fa">چوب راش — هویت مادی برند</p>
+    <span class="rule"></span>
+  </div>
+
+  <!-- Full-bleed grain hero -->
+  <div class="wood-full">
+    <div class="wood-full-bg grain"></div>
+    <div class="wood-full-overlay">
+      <p class="wf-t ser">Fagus sylvatica · European Beech</p>
+      <p class="wf-fa">چوب راش اروپایی — قلب محصولات خانه پیرو</p>
+      <p class="wf-sub lat">The fingerprint of every piece is different. No two grains are the same.</p>
+    </div>
+  </div>
+
+  <div class="W" style="padding-bottom:0">
+    <div class="wood-cards">
+      <div class="wc">
+        <span class="wc-bar" style="background:linear-gradient(90deg,#E0CDB0,#C4A882)"></span>
+        <span class="wc-en ser">Natural Grain</span>
+        <span class="wc-fa">رگه و موج طبیعی</span>
+        <p class="wc-body">هر تخته چوب راش دارای الگوی رگه منحصربه‌فردی است. موج ظریف و خطوط موازی، زیبایی‌ای ایجاد می‌کنند که هیچ ماشینی نمی‌تواند تکرار کند — این اثر انگشت طبیعت است.</p>
+      </div>
+      <div class="wc">
+        <span class="wc-bar" style="background:linear-gradient(90deg,#8B6B52,#6A4E38)"></span>
+        <span class="wc-en ser">Durability</span>
+        <span class="wc-fa">استحکام ماندگار</span>
+        <p class="wc-body">راش یکی از سخت‌ترین چوب‌های اروپایی با سختی ۱۴۵۰ نیوتون جانکا است. مقاومت بالا در برابر سایش، عمر مفیدی چند نسلی را تضمین می‌کند.</p>
+      </div>
+      <div class="wc">
+        <span class="wc-bar" style="background:linear-gradient(90deg,#C4A882,#A07848)"></span>
+        <span class="wc-en ser">Warmth &amp; Tone</span>
+        <span class="wc-fa">گرمای رنگ</span>
+        <p class="wc-body">رنگ طبیعی راش از کرم مایل‌به‌صورتی تا قهوه‌ای گرم متغیر است. این طیف رنگی با پالت خنثی و گرم برند خانه پیرو هماهنگی کاملی دارد.</p>
+      </div>
+    </div>
+
+    <!-- Grain spectrum -->
+    <div style="margin-top:8px">
+      <span class="slabel lat" style="margin-bottom:12px">Grain Spectrum · طیف رگه چوب راش</span>
+      <div class="grain-row">
+        <div class="gr gr1"><span class="gr-tag lat">Pale Beech</span></div>
+        <div class="gr gr2"><span class="gr-tag lat">Natural</span></div>
+        <div class="gr gr3"><span class="gr-tag lat">Warm Oak</span></div>
+        <div class="gr gr4"><span class="gr-tag lat">Deep</span></div>
+        <div class="gr gr5"><span class="gr-tag lat">Dark Walnut</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quote block full-bleed -->
+  <div class="wood-quote-block" style="margin-top:48px">
+    <div class="W">
+      <p class="wq-en">"Every piece of PIRO furniture tells the story of a tree —<br>its grain is its fingerprint, its warmth is its soul."</p>
+      <p class="wq-fa" style="margin-top:12px">«هر قطعه مبل خانه پیرو داستان یک درخت را روایت می‌کند — رگه‌اش اثر انگشت اوست و گرمایش، روح او.»</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 7 · VOICE ════ -->
+<section id="voice" style="background:var(--parchment)">
+  <div class="W pad">
+    <span class="slabel lat">07 · Brand Voice</span>
+    <h2 class="stitle">Tone &amp; Language</h2>
+    <p class="stitle-fa">لحن و زبان برند</p>
+    <span class="rule"></span>
+
+    <div class="traits">
+      <div class="trait"><span class="trait-en ser">Minimal</span><span class="trait-fa">مینیمال</span><p class="trait-body">بدون اغراق. هر کلمه ضروری است.</p></div>
+      <div class="trait"><span class="trait-en ser">Poetic</span><span class="trait-fa">شاعرانه</span><p class="trait-body">استعاره‌های طبیعی. روایت‌گر.</p></div>
+      <div class="trait"><span class="trait-en ser">Warm</span><span class="trait-fa">گرم</span><p class="trait-body">صمیمی اما نه ساده‌انگار.</p></div>
+      <div class="trait"><span class="trait-en ser">Honest</span><span class="trait-fa">صادق</span><p class="trait-body">بدون ادعاهای اغراق‌آمیز.</p></div>
+      <div class="trait"><span class="trait-en ser">Understated</span><span class="trait-fa">فروتن</span><p class="trait-body">لاکچری بدون فریاد زدن.</p></div>
+    </div>
+
+    <div class="voice-grid">
+      <div class="vdo">
+        <span class="vtag lat">✓ Write this</span>
+        <p class="vline ser">"Where Wood Tells Stories"</p>
+        <p class="vline-fa">«جایی که چوب روایت می‌کند»</p>
+        <p class="vline ser">"Crafted for generations."</p>
+        <p class="vline-fa">«ساخته‌شده برای نسل‌ها»</p>
+        <p class="vline ser">"The grain is its fingerprint."</p>
+        <p class="vline-fa">«رگه، اثر انگشت چوب است»</p>
+        <p class="vline ser">"Simple. Modern. Minimal."</p>
+        <p class="vline-fa">«ساده. مدرن. مینیمال.»</p>
+      </div>
+      <div class="vdont">
+        <span class="vtag lat">✕ Avoid this</span>
+        <p class="vline lat">"BEST furniture in Iran! 🔥🔥"</p>
+        <p class="vline-fa">«بهترین مبل ایران!!! فقط همین الان!!!»</p>
+        <p class="vline lat">"Luxury for the elite."</p>
+        <p class="vline-fa">«محصول ویژه ثروتمندان»</p>
+        <p class="vline lat">"Unbeatable cheap prices!"</p>
+        <p class="vline-fa">«قیمت استثنایی، تخفیف ویژه!!!»</p>
+        <p class="vline lat">"100% perfect, guaranteed!"</p>
+        <p class="vline-fa">«تضمین بهترین کیفیت جهان»</p>
+      </div>
+    </div>
+
+    <div class="kw">
+      <span class="lat">Natural Wood</span><span class="fa-kw">چوب راش</span>
+      <span class="lat">Minimal</span><span class="lat">Japandi</span>
+      <span class="fa-kw">دست‌ساز</span><span class="lat">Scandinavian</span>
+      <span class="fa-kw">ارگانیک</span><span class="lat">Handcrafted</span>
+      <span class="fa-kw">سادگی</span><span class="lat">Grain</span>
+      <span class="lat">Organic</span><span class="fa-kw">طبیعت</span>
+      <span class="lat">Warmth</span><span class="fa-kw">کیفیت</span>
+      <span class="lat">Tehran · Iran</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 8 · IMAGERY ════ -->
+<section id="imagery" style="background:var(--white)">
+  <div class="W pad">
+    <span class="slabel lat">08 · Photography</span>
+    <h2 class="stitle">Visual Direction</h2>
+    <p class="stitle-fa">اصول تصویربرداری</p>
+    <span class="rule"></span>
+
+    <div class="g2" style="margin-bottom:40px">
+      <p class="body">تصاویر خانه پیرو باید داستان‌گو باشند. هر عکس احساس زندگی با مبل را منتقل کند. تمرکز بر رگه، موج و جنس چوب راش — این تفاوت اصلی خانه پیرو با رقباست.</p>
+      <p class="body-en lat">PIRO images must tell a story, not just display a product. Every frame should feel like a lived-in space. The grain, the wave, and the tactile quality of the beech wood must be visible — this is the brand's key visual differentiator.</p>
+    </div>
+
+    <div class="img-compare">
+      <div class="img-mock img-do">
+        <div class="img-label"><span class="img-badge lat">✓ CORRECT</span><span class="img-cap lat">Decorative · Natural light · Lifestyle setting</span></div>
+      </div>
+      <div class="img-mock img-dont">
+        <div class="img-dont-prod"></div>
+        <div class="img-label"><span class="img-badge lat">✕ AVOID</span><span class="img-cap lat">White studio · Isolated product · No context</span></div>
+      </div>
+    </div>
+
+    <div class="photo-rules">
+      <div class="pr"><span class="pr-n ser">01</span><span class="pr-en lat">Decorative Setting</span><span class="pr-fa">چیدمان دکوراتیو</span><p class="pr-body">محصول در فضای واقعی زندگی. پس‌زمینه باید جو و حس خانه را منتقل کند، نه پس‌زمینه سفید استودیو.</p></div>
+      <div class="pr"><span class="pr-n ser">02</span><span class="pr-en lat">Grain Must Show</span><span class="pr-fa">نمایش رگه چوب</span><p class="pr-body">رگه، موج و نقش صفحه چوب باید به وضوح دیده شود. این مهم‌ترین ویژگی بصری محصول است.</p></div>
+      <div class="pr"><span class="pr-n ser">03</span><span class="pr-en lat">Natural Light</span><span class="pr-fa">نور طبیعی</span><p class="pr-body">نور طبیعی یا شبیه‌سازی آن. سایه‌های نرم و گرم. هیچ فلاش مستقیم یا نور سرد استودیویی.</p></div>
+      <div class="pr"><span class="pr-n ser">04</span><span class="pr-en lat">Colour Range</span><span class="pr-fa">رنگ تصاویر</span><p class="pr-body">رنگ‌های کرم، سفید طبیعی، قهوه‌ای گرم. اشیاء دکوری: گیاه، سنگ، کتاب، پارچه کتان.</p></div>
+      <div class="pr"><span class="pr-n ser">05</span><span class="pr-en lat">Framing</span><span class="pr-fa">قاب‌بندی</span><p class="pr-body">زاویه کمی پایین‌تر از چشم. فضای منفی کافی. هیچ زاویه اغراق‌آمیز یا اشیاء مقیاسی‌ساز نامتناسب.</p></div>
+      <div class="pr"><span class="pr-n ser">06</span><span class="pr-en lat">Resolution</span><span class="pr-fa">رزولوشن</span><p class="pr-body">Hero: حداقل ۳۰۰۰px. کارت محصول: ۱۵۰۰–۱۶۰۰px. کیفیت خروجی: ۸۸–۹۰٪ JPEG.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 9 · APPLICATIONS ════ -->
+<section id="apps" style="background:var(--cream)">
+  <div class="W pad">
+    <span class="slabel lat">09 · In Use</span>
+    <h2 class="stitle">Brand Applications</h2>
+    <p class="stitle-fa">کاربردهای برند</p>
+    <span class="rule"></span>
+
+    <!-- Business Card -->
+    <div class="app-section">
+      <span class="app-label lat">01 · Business Card — کارت ویزیت</span>
+      <div class="cards-row">
+        <div class="bcard">
+          <div class="bcard-front">
+            <div class="logo lsm"><div class="logo-badge"><svg class="logo-branch" viewBox="0 0 18 22" fill="none"><line x1="9" y1="21" x2="9" y2="7" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round"/><path d="M9 7 Q5.5 4.5 2.5 2.5 Q4 6.5 9 7Z" fill="#6A4E38" opacity="0.80"/><path d="M9 10.5 Q12.5 8 15.5 6 Q14 10 9 10.5Z" fill="#5C4030" opacity="0.60"/><path d="M9 14 Q6 11.5 3.5 10 Q5.5 13 9 14Z" fill="#4E3428" opacity="0.40"/></svg><div class="logo-badge-text"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></div></div><span class="logo-house">House of</span><span class="logo-wordmark">PIRO</span><div class="logo-rules"><span class="logo-rule-t"></span><span class="logo-rule-n"></span></div></div>
+            <div>
+              <p class="bc-name">داود محمدی</p>
+              <p class="bc-role lat">Creative Director</p>
+              <p class="bc-info lat" style="margin-top:6px">piro_ir · pirofurniture.com<br>Tehran, Sa'adatabad</p>
+            </div>
+          </div>
+        </div>
+        <div class="bcard">
+          <div class="bcard-back">
+            <div class="logo lsm dk"><div class="logo-badge"><svg class="logo-branch" viewBox="0 0 18 22" fill="none"><line x1="9" y1="21" x2="9" y2="7" stroke="#C4A882" stroke-width="0.9" stroke-linecap="round"/><path d="M9 7 Q5.5 4.5 2.5 2.5 Q4 6.5 9 7Z" fill="#D4B896" opacity="0.80"/><path d="M9 10.5 Q12.5 8 15.5 6 Q14 10 9 10.5Z" fill="#C4A882" opacity="0.60"/><path d="M9 14 Q6 11.5 3.5 10 Q5.5 13 9 14Z" fill="#B0956A" opacity="0.40"/></svg><div class="logo-badge-text"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></div></div><span class="logo-house">House of</span><span class="logo-wordmark">PIRO</span><div class="logo-rules"><span class="logo-rule-t"></span><span class="logo-rule-n"></span></div></div>
+          </div>
+        </div>
+      </div>
+      <p class="card-spec lat">85 × 55 mm · White matte 350 gsm · Silk lamination</p>
+    </div>
+
+    <div class="g2" style="gap:64px">
+      <!-- Product Tag -->
+      <div class="app-section" style="margin-bottom:0">
+        <span class="app-label lat">02 · Product Tag — تگ محصول</span>
+        <div class="tag-wrap">
+          <div class="ptag">
+            <div class="pt-logo">
+              <div class="logo lsm"><div class="logo-badge"><svg class="logo-branch" viewBox="0 0 18 22" fill="none"><line x1="9" y1="21" x2="9" y2="7" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round"/><path d="M9 7 Q5.5 4.5 2.5 2.5 Q4 6.5 9 7Z" fill="#6A4E38" opacity="0.80"/><path d="M9 10.5 Q12.5 8 15.5 6 Q14 10 9 10.5Z" fill="#5C4030" opacity="0.60"/><path d="M9 14 Q6 11.5 3.5 10 Q5.5 13 9 14Z" fill="#4E3428" opacity="0.40"/></svg><div class="logo-badge-text"><span>Handcrafted</span><span>Solid Wood</span></div></div><span class="logo-house">House of</span><span class="logo-wordmark">PIRO</span><div class="logo-rules"><span class="logo-rule-t"></span><span class="logo-rule-n"></span></div></div>
+            </div>
+            <div class="pt-rule"></div>
+            <p class="pt-text">Made in Iran<br>Beech Wood<br>Handcrafted</p>
+          </div>
+          <div style="align-self:flex-end">
+            <p class="card-spec lat">50 × 90 mm · Kraft paper 300 gsm</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shopping Bag -->
+      <div class="app-section" style="margin-bottom:0">
+        <span class="app-label lat">03 · Shopping Bag — کیسه خرید</span>
+        <div class="bag-outer">
+          <div class="bag-handle"></div>
+          <div class="bag">
+            <div class="logo lsm"><div class="logo-badge"><svg class="logo-branch" viewBox="0 0 18 22" fill="none"><line x1="9" y1="21" x2="9" y2="7" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round"/><path d="M9 7 Q5.5 4.5 2.5 2.5 Q4 6.5 9 7Z" fill="#6A4E38" opacity="0.80"/><path d="M9 10.5 Q12.5 8 15.5 6 Q14 10 9 10.5Z" fill="#5C4030" opacity="0.60"/><path d="M9 14 Q6 11.5 3.5 10 Q5.5 13 9 14Z" fill="#4E3428" opacity="0.40"/></svg><div class="logo-badge-text"><span>Handcrafted</span><span>Natural Wood</span></div></div><span class="logo-house">House of</span><span class="logo-wordmark">PIRO</span><div class="logo-rules"><span class="logo-rule-t"></span><span class="logo-rule-n"></span></div></div>
+          </div>
+        </div>
+        <p class="card-spec lat" style="margin-top:28px">Cream kraft · Brown cotton cord</p>
+      </div>
+    </div>
+
+    <!-- Website Header -->
+    <div class="app-section" style="margin-bottom:0;margin-top:56px">
+      <span class="app-label lat">04 · Website Header &amp; Hero — هدر و Hero سایت</span>
+      <div class="hdr-mock">
+        <div class="hdr-bar">
+          <div class="logo lsm"><div class="logo-badge"><svg class="logo-branch" viewBox="0 0 18 22" fill="none"><line x1="9" y1="21" x2="9" y2="7" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round"/><path d="M9 7 Q5.5 4.5 2.5 2.5 Q4 6.5 9 7Z" fill="#6A4E38" opacity="0.80"/><path d="M9 10.5 Q12.5 8 15.5 6 Q14 10 9 10.5Z" fill="#5C4030" opacity="0.60"/><path d="M9 14 Q6 11.5 3.5 10 Q5.5 13 9 14Z" fill="#4E3428" opacity="0.40"/></svg><div class="logo-badge-text"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></div></div><span class="logo-house">House of</span><span class="logo-wordmark">PIRO</span><div class="logo-rules"><span class="logo-rule-t"></span><span class="logo-rule-n"></span></div></div>
+          <div class="hdr-nav"><span>فروشگاه</span><span>مجموعه‌ها</span><span>درباره ما</span><span>تماس</span></div>
+        </div>
+        <div class="hdr-hero">
+          <div>
+            <p class="hdr-headline ser">Where Wood<br>Tells Stories</p>
+            <p class="lat" style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:12px;direction:ltr">Natural Beech · Handcrafted in Iran</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo lsm dk">
+    <div class="logo-badge"><svg class="logo-branch" viewBox="0 0 18 22" fill="none"><line x1="9" y1="21" x2="9" y2="7" stroke="#C4A882" stroke-width="0.9" stroke-linecap="round"/><path d="M9 7 Q5.5 4.5 2.5 2.5 Q4 6.5 9 7Z" fill="#D4B896" opacity="0.80"/><path d="M9 10.5 Q12.5 8 15.5 6 Q14 10 9 10.5Z" fill="#C4A882" opacity="0.60"/><path d="M9 14 Q6 11.5 3.5 10 Q5.5 13 9 14Z" fill="#B0956A" opacity="0.40"/></svg><div class="logo-badge-text"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></div></div>
+    <span class="logo-house">House of</span><span class="logo-wordmark">PIRO</span>
+    <div class="logo-rules"><span class="logo-rule-t"></span><span class="logo-rule-n"></span></div>
+  </div>
+  <div class="ft-right">
+    <p class="ft-note lat">This document is the official brand identity guide for House of PIRO. All guidelines herein must be followed in every communication and application of the brand.</p>
+    <span class="ft-copy lat">© 2025 House of PIRO · Brand Identity Guidelines · Tehran, Iran</span>
+  </div>
+</footer>
+
+<script>
+const secs = document.querySelectorAll('section[id]');
+const dots = document.querySelectorAll('.nd');
+const obs = new IntersectionObserver(e => {
+  e.forEach(en => {
+    if(en.isIntersecting){
+      dots.forEach(d=>d.classList.remove('on'));
+      const a = document.querySelector(`.nd[href="#${en.target.id}"]`);
+      if(a) a.classList.add('on');
+    }
+  });
+},{threshold:0.35});
+secs.forEach(s=>obs.observe(s));
+</script>
+<script>
+(function() {
+  var btn = document.createElement('button');
+  btn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+  btn.style.cssText = 'position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:50%;background:#1a1a1a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9999;box-shadow:0 2px 12px rgba(0,0,0,0.15)';
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://khaneh-piro-chat-pqtvg5jj1-piro-co.vercel.app';
+  iframe.style.cssText = 'position:fixed;bottom:92px;left:24px;width:340px;height:480px;border:none;border-radius:16px;z-index:9998;box-shadow:0 8px 32px rgba(0,0,0,0.12);display:none';
+  btn.onclick = function() {
+    iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
+  };
+  document.body.appendChild(btn);
+  document.body.appendChild(iframe);
+})();
+</script>
+</body>
+</html>

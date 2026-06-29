@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خانه پیرو | PIRO — مبلمان مینیمال چوب طبیعی</title>
+<meta name="description" content="خانه پیرو — مبلمان مینیمال، هنرمندانه و باکیفیت از چوب طبیعی. طراحی جپندی و اسکاندیناوی برای خانه شما.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/chatbot.css">
+<style>
+
+/* ============================================================
+   HERO — Carl Hansen style:
+   Full screen, very light overlay, text bottom-right (RTL)
+   ============================================================ */
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 620px;
+  overflow: hidden;
+  background: #111;
+}
+.hero-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 44%;
+}
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to top,
+    rgba(0,0,0,.30) 0%,
+    rgba(0,0,0,.04) 52%,
+    rgba(0,0,0,0)   100%);
+}
+.hero-content {
+  position: absolute; bottom: 0; right: 0; z-index: 2;
+  padding: 0 clamp(40px,6vw,108px) clamp(72px,10vh,112px);
+  max-width: 620px;
+  animation: heroUp 1.4s var(--ease) .12s both;
+}
+@keyframes heroUp {
+  from { opacity:0; transform:translateY(28px) }
+  to   { opacity:1; transform:none }
+}
+.hero-tag {
+  display: block;
+  font-family: var(--font-lat); font-size: 10.5px;
+  letter-spacing: .24em; text-transform: uppercase;
+  color: rgba(255,255,255,.6); margin-bottom: 18px;
+}
+.hero-content h1 {
+  font-family: var(--font-lat); font-weight: 200;
+  font-size: clamp(50px,8vw,110px); line-height: .93;
+  letter-spacing: -.03em; color: #fff;
+  margin-bottom: 10px;
+}
+.hero-content .h1-fa {
+  font-family: var(--font-fa); font-weight: 300;
+  font-size: clamp(14px,1.3vw,18px); color: rgba(255,255,255,.65);
+  display: block; margin-bottom: 32px;
+}
+.hero-cta-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-lat); font-size: 11px; font-weight: 300;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: #fff; text-decoration: none;
+  padding-bottom: 3px; border-bottom: 1px solid rgba(255,255,255,.42);
+  transition: border-color .25s;
+}
+.hero-cta-link:hover { border-color: #fff; }
+.hero-cta-link svg {
+  width: 13px; height: 13px;
+  stroke: currentColor; fill: none; stroke-width: 1.8;
+  transform: rotate(180deg);
+}
+
+/* Carl Hansen style — gap between sections */
+section + section { margin-top: 48px; }
+
+/* ============================================================
+   SHARED SECTION HEADER
+   ============================================================ */
+.s-head {
+  max-width: var(--maxw); margin: 0 auto;
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: 0 var(--gut); margin-bottom: 40px;
+}
+.s-head h2 {
+  font-size: clamp(26px,3.4vw,44px); font-weight: 300;
+  letter-spacing: -.01em; line-height: 1;
+}
+.s-head a {
+  font-family: var(--font-lat); font-size: 11px;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--grey); border-bottom: 1px solid currentColor;
+  padding-bottom: 2px; transition: color .2s; text-decoration: none;
+}
+.s-head a:hover { color: var(--ink); }
+
+/* ============================================================
+   NEW IN — 4 product cards
+   ============================================================ */
+.newin {
+  padding: clamp(72px,9vw,116px) 0 clamp(64px,8vw,100px);
+}
+.pgrid {
+  max-width: var(--maxw); margin: 0 auto;
+  padding: 0 var(--gut);
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 32px;
+}
+.pcard { cursor: pointer; }
+.pcard .pimg {
+  aspect-ratio: 3/4; position: relative; overflow: hidden;
+  margin-bottom: 18px; background: var(--bg-card);
+}
+.pcard .pimg img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; transition: transform .8s var(--ease);
+}
+.pcard:hover .pimg img { transform: scale(1.04); }
+.pcard .pimg .ph2 { opacity: 0; transition: opacity .5s ease; }
+.pcard:hover .pimg .ph2 { opacity: 1; }
+.pcard:hover .pimg .ph  { opacity: 0; }
+.pbadge {
+  position: absolute; top: 14px; right: 14px; z-index: 2;
+  background: var(--ink); color: #fff;
+  font-family: var(--font-lat); font-size: 9px;
+  letter-spacing: .1em; text-transform: uppercase; padding: 5px 11px;
+}
+.pfav {
+  position: absolute; top: 12px; left: 12px; z-index: 2;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,255,255,.9);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity .2s;
+}
+.pcard:hover .pfav { opacity: 1; }
+.pfav svg { width: 14px; height: 14px; stroke: var(--ink); fill: none; stroke-width: 1.5; }
+.pcat {
+  font-family: var(--font-fa); font-size: 11px;
+  color: #b0a89e; margin-bottom: 8px;
+}
+.pname { font-size: 15.5px; font-weight: 400; color: var(--ink); margin-bottom: 5px; }
+.pprice { display: none; }
+.pcard-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-fa); font-size: 11px;
+  color: #aaa; margin-top: 12px;
+}
+.pcard-cta svg { width: 10px; height: 10px; stroke: currentColor; fill: none; stroke-width: 2; transform: rotate(180deg); }
+
+/* ============================================================
+   BRAND STATEMENT
+   ============================================================ */
+.statement {
+  padding: clamp(80px,11vw,148px) var(--gut);
+  text-align: center; border-top: 1px solid var(--line);
+}
+.statement-vline {
+  display: block; width: 1px; height: 52px;
+  background: var(--line); margin: 0 auto 48px;
+}
+.statement blockquote {
+  font-family: var(--font-fa); font-weight: 300;
+  font-size: clamp(22px,3.2vw,50px); line-height: 1.55;
+  max-width: 860px; margin: 0 auto; color: var(--ink);
+}
+.statement .en-q {
+  font-family: var(--font-lat); font-weight: 300;
+  font-size: clamp(11.5px,.95vw,13.5px);
+  color: var(--grey); letter-spacing: .1em;
+  margin-top: 24px; display: block;
+}
+
+/* ============================================================
+   COLLECTIONS — Carl Hansen editorial grid
+   ============================================================ */
+.collections {
+  padding-bottom: clamp(72px,9vw,116px);
+  border-top: 1px solid var(--line);
+}
+.coll-header {
+  max-width: var(--maxw); margin: 0 auto;
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: clamp(56px,7vw,88px) var(--gut) 36px;
+}
+.coll-header h2 { font-size: clamp(26px,3.4vw,44px); font-weight: 300; }
+.coll-header a {
+  font-family: var(--font-lat); font-size: 11px;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--grey); border-bottom: 1px solid currentColor;
+  padding-bottom: 2px; transition: color .2s; text-decoration: none;
+}
+.coll-header a:hover { color: var(--ink); }
+.coll-row1 {
+  display: grid; grid-template-columns: 57fr 43fr; gap: 3px;
+  margin-bottom: 3px;
+}
+.coll-row2 {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px;
+}
+.coll-tile {
+  position: relative; overflow: hidden; cursor: pointer;
+  background: var(--bg-soft); display: block; text-decoration: none;
+}
+.coll-row1 .coll-tile { height: clamp(340px,38vw,600px); }
+.coll-row2 .coll-tile { height: clamp(180px,20vw,340px); }
+.coll-tile img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; transition: transform .9s var(--ease);
+}
+.coll-tile:hover img { transform: scale(1.04); }
+.coll-tile::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.42) 0%, transparent 56%);
+  pointer-events: none;
+}
+.coll-info {
+  position: absolute; bottom: 0; right: 0; left: 0; z-index: 2;
+  padding: 22px 26px;
+}
+.coll-info .name {
+  font-family: var(--font-fa); font-size: clamp(15px,1.7vw,22px);
+  font-weight: 400; color: #fff; display: block; margin-bottom: 3px;
+}
+.coll-info .en {
+  font-family: var(--font-lat); font-size: 9.5px;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,.56); display: block;
+}
+.coll-discover {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--font-lat); font-size: 9.5px;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.75); margin-top: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.3); padding-bottom: 2px;
+  opacity: 0; transition: opacity .25s;
+}
+.coll-tile:hover .coll-discover { opacity: 1; }
+.coll-discover svg { width: 10px; height: 10px; stroke: currentColor; fill: none; stroke-width: 2; transform: rotate(180deg); }
+
+/* ============================================================
+   OUR CRAFT
+   ============================================================ */
+.craft-split {
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 560px; overflow: hidden;
+}
+.craft-text {
+  padding: clamp(64px,8vw,116px) clamp(36px,5vw,88px);
+  background: var(--bg-warm);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.craft-text .eyebrow {
+  font-family: var(--font-lat); font-size: 9.5px;
+  letter-spacing: .24em; text-transform: uppercase;
+  color: var(--grey); margin-bottom: 26px;
+}
+.craft-text h2 {
+  font-size: clamp(26px,3vw,44px); font-weight: 300;
+  line-height: 1.25; margin-bottom: 20px;
+}
+.craft-text p {
+  font-size: clamp(13.5px,1.1vw,15.5px); color: var(--ink-soft);
+  line-height: 1.95; max-width: 380px; margin-bottom: 38px;
+}
+.craft-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-fa); font-size: 14px; font-weight: 400;
+  color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid currentColor; padding-bottom: 3px;
+  transition: color .2s; align-self: flex-start;
+}
+.craft-link:hover { color: var(--burgundy); }
+.craft-link svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; transform: rotate(180deg); }
+.craft-img { position: relative; overflow: hidden; min-height: 400px; }
+.craft-img img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; transition: transform .9s var(--ease);
+}
+.craft-split:hover .craft-img img { transform: scale(1.03); }
+
+/* ============================================================
+   USP
+   ============================================================ */
+.usp { border-bottom: 1px solid var(--line); }
+.usp-grid {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4,1fr);
+}
+.usp-item {
+  display: flex; align-items: center; gap: 18px;
+  padding: 34px var(--gut); border-right: 1px solid var(--line);
+}
+.usp-item:last-child { border-right: none; }
+.usp-item svg { width: 22px; height: 22px; stroke: var(--ink); fill: none; stroke-width: 1.3; flex-shrink: 0; }
+.usp-item .fa { font-size: 13.5px; font-weight: 400; }
+.usp-item .en { font-family: var(--font-lat); font-size: 10px; color: var(--grey); display: block; margin-top: 3px; }
+
+/* ============================================================
+   NEWSLETTER — Carl Hansen underline-only style
+   ============================================================ */
+.news {
+  padding: clamp(72px,10vw,120px) var(--gut);
+  text-align: center;
+}
+.news .eyebrow { color: var(--grey); }
+.news h2 { font-size: clamp(24px,3vw,42px); font-weight: 300; margin: 14px 0 12px; }
+.news p { color: var(--ink-soft); max-width: 400px; margin: 0 auto 38px; font-size: 14.5px; line-height: 1.9; }
+.news-form {
+  display: flex; max-width: 400px; margin: 0 auto;
+  border-bottom: 1.5px solid var(--ink); align-items: center;
+}
+.news-form input {
+  flex: 1; padding: 10px 4px; border: none;
+  font-family: var(--font-fa); font-size: 14px;
+  background: transparent; outline: none; color: var(--ink);
+}
+.news-form button {
+  background: none; color: var(--ink); border: none;
+  font-family: var(--font-lat); font-size: 10.5px;
+  letter-spacing: .18em; text-transform: uppercase;
+  padding: 10px 0; cursor: pointer; transition: color .2s; white-space: nowrap;
+}
+.news-form button:hover { color: var(--burgundy); }
+
+/* ============================================================
+   BRAND EDITORIAL — full-width image + centered overlay text
+   ============================================================ */
+.brand-ed {
+  position: relative; height: 72vh; min-height: 480px; overflow: hidden;
+}
+.brand-ed img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; transition: transform 10s ease;
+}
+.brand-ed:hover img { transform: scale(1.04); }
+.brand-ed-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.06) 0%, rgba(0,0,0,.42) 100%);
+}
+.brand-ed-content {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; color: #fff; padding: var(--gut);
+}
+.brand-ed-content h2 {
+  font-family: var(--font-lat); font-weight: 200;
+  font-size: clamp(38px,6vw,84px); letter-spacing: -.02em; line-height: 1;
+  margin: 16px 0 28px;
+}
+.brand-ed-content p {
+  font-size: clamp(13px,1.1vw,15px); color: rgba(255,255,255,.72);
+  max-width: 380px; line-height: 1.85; margin-bottom: 32px;
+}
+.brand-ed-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+  color: #fff; text-decoration: none;
+  padding-bottom: 3px; border-bottom: 1px solid rgba(255,255,255,.45);
+  transition: border-color .25s;
+}
+.brand-ed-cta:hover { border-color: #fff; }
+.brand-ed-cta svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+/* ============================================================
+   DUO FEATURE — 2 large cards side by side
+   ============================================================ */
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.duo-card { position: relative; overflow: hidden; aspect-ratio: 4/5; background: var(--bg-soft); }
+.duo-card img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; transition: transform .9s var(--ease);
+}
+.duo-card:hover img { transform: scale(1.04); }
+.duo-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.52) 0%, rgba(0,0,0,.03) 60%);
+}
+.duo-info { position: absolute; bottom: 0; z-index: 2; padding: 32px 36px; color: #fff; }
+.duo-tag {
+  display: block; font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(255,255,255,.6); margin-bottom: 10px;
+}
+.duo-info h3 { font-size: clamp(20px,2.4vw,32px); font-weight: 300; margin-bottom: 8px; }
+.duo-info p { font-size: 13.5px; color: rgba(255,255,255,.72); line-height: 1.7; margin-bottom: 20px; max-width: 280px; }
+.duo-info a {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,.85); text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,.35); padding-bottom: 2px;
+  opacity: 0; transform: translateY(8px); transition: opacity .3s, transform .3s, border-color .2s;
+}
+.duo-card:hover .duo-info a { opacity: 1; transform: none; }
+.duo-info a:hover { border-color: #fff; }
+.duo-info a svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* ============================================================
+   FEATURE SPLIT — 50/50 image + text
+   ============================================================ */
+.feat { display: grid; grid-template-columns: 1fr 1fr; min-height: 620px; }
+.feat-img { position: relative; overflow: hidden; min-height: 400px; }
+.feat-img img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; transition: transform .9s var(--ease);
+}
+.feat:hover .feat-img img { transform: scale(1.03); }
+.feat-text {
+  padding: clamp(64px,8vw,116px) clamp(40px,5.5vw,96px);
+  background: #fff; display: flex; flex-direction: column; justify-content: center;
+}
+.feat-text .eyebrow { margin-bottom: 28px; }
+.feat-text h2 { font-size: clamp(28px,3.2vw,48px); font-weight: 300; line-height: 1.2; margin-bottom: 22px; }
+.feat-text p { font-size: clamp(13.5px,1.1vw,15.5px); color: var(--ink-soft); line-height: 1.95; max-width: 380px; margin-bottom: 40px; }
+
+/* ============================================================
+   SPOTLIGHT — full-width image with bottom-left text
+   ============================================================ */
+.spotlight { position: relative; height: 68vh; min-height: 440px; overflow: hidden; }
+.spotlight img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; transition: transform 10s ease;
+}
+.spotlight:hover img { transform: scale(1.04); }
+.spotlight-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to left, rgba(0,0,0,.02) 0%, rgba(0,0,0,.42) 60%);
+}
+.spotlight-content {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: clamp(40px,6vw,88px); max-width: 520px; color: #fff;
+}
+.spotlight-content .eyebrow { color: rgba(255,255,255,.6); margin-bottom: 16px; }
+.spotlight-content h2 {
+  font-family: var(--font-lat); font-weight: 200;
+  font-size: clamp(34px,5vw,68px); letter-spacing: -.02em; line-height: 1.05; margin-bottom: 14px;
+}
+.spotlight-content p { font-size: 14.5px; color: rgba(255,255,255,.72); line-height: 1.8; margin-bottom: 32px; }
+.spotlight-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+  color: #fff; text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,.4); padding-bottom: 3px;
+  transition: border-color .25s; align-self: flex-start;
+}
+.spotlight-cta:hover { border-color: #fff; }
+.spotlight-cta svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+/* ============================================================
+   TRIO — 3-column product grid
+   ============================================================ */
+.trio-section { padding: clamp(72px,9vw,116px) 0; }
+.trio {
+  max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gut);
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;
+}
+.trio-card { text-decoration: none; color: var(--ink); display: block; }
+.trio-img { aspect-ratio: 3/4; overflow: hidden; background: var(--bg-soft); margin-bottom: 18px; position: relative; }
+.trio-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+.trio-card:hover .trio-img img { transform: scale(1.04); }
+.trio-cat { display: block; font-family: var(--font-fa); font-size: 11px; color: #b0a89e; margin-bottom: 8px; }
+.trio-name { display: block; font-size: 15.5px; font-weight: 400; margin-bottom: 5px; }
+.trio-price { display: none; }
+
+/* ============================================================
+   CATALOGUE SECTION — 3 editorial cards
+   ============================================================ */
+.cat-section { padding: clamp(72px,9vw,116px) 0; }
+.cat-grid { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gut); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+.cat-card { text-decoration: none; color: var(--ink); display: block; }
+.cat-img { aspect-ratio: 4/5; overflow: hidden; background: var(--bg-soft); margin-bottom: 16px; position: relative; }
+.cat-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+.cat-card:hover .cat-img img { transform: scale(1.04); }
+.cat-tag { display: block; font-family: var(--font-fa); font-size: 11px; color: #b0a89e; margin-bottom: 8px; }
+.cat-card h3 { font-size: 15px; font-weight: 400; }
+
+/* ============================================================
+   NEWSLETTER v2 — with name fields
+   ============================================================ */
+.news-form-full { max-width: 520px; margin: 0 auto; }
+.news-row { display: flex; gap: 12px; margin-bottom: 14px; }
+.news-input {
+  flex: 1; padding: 12px 0; border: none;
+  border-bottom: 1.5px solid var(--line);
+  font-family: var(--font-fa); font-size: 14px;
+  background: transparent; outline: none; color: var(--ink); text-align: center;
+  transition: border-color .2s;
+}
+.news-input:focus { border-color: var(--ink); }
+.news-input::placeholder { color: var(--grey); }
+.news-sub-btn {
+  background: var(--ink); color: #fff; border: none;
+  font-family: var(--font-lat); font-size: 11px;
+  letter-spacing: .18em; text-transform: uppercase;
+  padding: 14px 32px; cursor: pointer; transition: background .2s; white-space: nowrap;
+}
+.news-sub-btn:hover { background: var(--burgundy); }
+
+/* ============================================================
+   RESPONSIVE — new sections
+   ============================================================ */
+@media (max-width:1100px) {
+  .pgrid { grid-template-columns: repeat(2,1fr); gap: 16px; }
+  .usp-grid { grid-template-columns: 1fr 1fr; }
+  .usp-item:nth-child(2) { border-right: none; }
+  .usp-item:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+@media (max-width:840px) {
+  .duo { grid-template-columns: 1fr; }
+  .feat { grid-template-columns: 1fr; }
+  .feat-img { height: 320px; min-height: unset; position: relative; }
+  .feat-img img { position: absolute; }
+  .craft-split { grid-template-columns: 1fr; }
+  .craft-img { height: 300px; position: relative; }
+  .craft-img img { position: absolute; }
+  .hero-content { right: 0; left: 0; max-width: 100%; padding: 0 28px clamp(60px,10vh,88px); }
+  .trio { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .cat-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width:560px) {
+  .pgrid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .trio { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cat-grid { grid-template-columns: 1fr; }
+  .usp-grid { grid-template-columns: 1fr; }
+  .usp-item { border-right: none; border-top: 1px solid var(--line); }
+  .usp-item:first-child { border-top: none; }
+  .news-row { flex-direction: column; }
+  .news-sub-btn { padding: 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="header-row">
+    <a href="index.html" class="logo lat">
+      <span class="logo-icon">
+        <svg class="logo-branch" viewBox="0 0 28 32" fill="none">
+          <path d="M14,31 L14,20 Q13,17 12,14" stroke="#5C4030" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          <path d="M14,22 Q11,19 9,16" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <path d="M14,20 Q17,17 19,14" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <ellipse cx="14" cy="11" rx="9" ry="7" fill="#5C4030" opacity="0.18"/>
+          <ellipse cx="11" cy="9" rx="6.5" ry="5" fill="#6A4E38" opacity="0.25"/>
+          <ellipse cx="17" cy="10" rx="6" ry="4.5" fill="#5C4030" opacity="0.22"/>
+          <ellipse cx="14" cy="7.5" rx="7" ry="5.5" fill="#7A5A42" opacity="0.30"/>
+          <ellipse cx="14" cy="8" rx="5" ry="4" fill="#8A6A50" opacity="0.25"/>
+        </svg>
+      </span>
+      <span class="logo-caption">
+        <span>Handcrafted in Iran</span>
+        <span>Natural Solid Wood</span>
+      </span>
+      <span class="logo-wordmark">House of PIRO</span>
+      <span class="logo-rules">
+        <span class="logo-rule-thick"></span>
+        <span class="logo-rule-thin"></span>
+      </span>
+    </a>
+    <nav>
+      <ul class="mainnav">
+        <li><a href="index.html" data-en="Home">خانه</a></li>
+        <li class="has-mega">
+          <a href="javascript:void(0)" data-en="Products ▾">محصولات ▾</a>
+          <div class="mega">
+            <div class="mega-inner">
+              <div class="mega-col">
+                <h4 data-en="Living Room"><a href="shop.html?cat=living" style="color:inherit">نشیمن</a></h4>
+                <ul>
+                  <li><a href="shop.html?cat=living&sub=lounge" data-en="Lounge Chair">مبل راحتی</a></li>
+                  <li><a href="shop.html?cat=living&sub=chair" data-en="Chair">صندلی</a></li>
+                  <li><a href="shop.html?cat=living&sub=barstool" data-en="Barstool">استول</a></li>
+                  <li><a href="shop.html?cat=living&sub=bench" data-en="Bench">نیمکت</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <h4 data-en="Bedroom"><a href="shop.html?cat=bedroom" style="color:inherit">سرویس خواب</a></h4>
+                <ul>
+                  <li><a href="shop.html?cat=bedroom&sub=bed" data-en="Bed">تخت‌خواب</a></li>
+                  <li><a href="shop.html?cat=bedroom&sub=bed" data-en="Bed Frame">باف تخت</a></li>
+                  <li><a href="shop.html?cat=bedroom&sub=nightstand" data-en="Nightstand">پاتختی</a></li>
+                  <li><a href="shop.html?cat=bedroom&sub=dresser" data-en="Dresser">دراور</a></li>
+                  <li><a href="shop.html?cat=bedroom&sub=hanger" data-en="Wardrobe">رخت آویز</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <h4 data-en="Tables"><a href="shop.html?cat=tables" style="color:inherit">میز</a></h4>
+                <ul>
+                  <li><a href="shop.html?cat=tables&sub=dining" data-en="Dining Table">میز ناهارخوری</a></li>
+                  <li><a href="shop.html?cat=tables&sub=coffee" data-en="Coffee Table">میز جلو مبلی</a></li>
+                  <li><a href="shop.html?cat=tables&sub=sidetable" data-en="Side Table">میز عسلی</a></li>
+                  <li><a href="shop.html?cat=tables&sub=bartable" data-en="Bar Table">میز بار</a></li>
+                  <li><a href="shop.html?cat=tables&sub=desk" data-en="Writing Desk">میز تحریر</a></li>
+                  <li><a href="shop.html?cat=tables&sub=vanity" data-en="Vanity Table">میز آرایش</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <h4 data-en="Console & Accessories">کنسول و اکسسوری</h4>
+                <ul>
+                  <li><a href="shop.html?cat=console&sub=sideboard" data-en="Sideboard">سایدبورد</a></li>
+                  <li><a href="shop.html?cat=console&sub=consoleunit" data-en="Console">کنسول</a></li>
+                  <li><a href="shop.html?cat=console&sub=tv" data-en="TV Unit">میز تلویزیون</a></li>
+                  <li><a href="shop.html?cat=console&sub=cabinet" data-en="Cabinet & Shoe Rack">کابینت و جاکفشی</a></li>
+                  <li><a href="shop.html?cat=console" data-en="Mirror">آینه</a></li>
+                  <li><a href="shop.html?cat=console" data-en="Shelf">شلف</a></li>
+                  <li><a href="shop.html?cat=console" data-en="Lighting">آباژور و روشنایی</a></li>
+                </ul>
+              </div>
+              <a href="product.html" class="mega-feature">
+                <img src="images/alto-2.jpg" alt="میز بار آلتو" loading="lazy">
+                <span class="tag" data-en="New · NEW">جدید · NEW</span>
+                <h5 class="lat">Alto Bar Table</h5>
+                <p data-en="Alto Bar Table — Natural Wood, Minimal Design">میز بار آلتو — چوب طبیعی، طراحی مینیمال</p>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li class="has-mega">
+          <a href="#" data-en="Designers ▾">طراحان ▾</a>
+          <div class="mega">
+            <div class="mega-inner">
+              <div class="mega-col">
+                <h4 data-en="Piro Design Team">تیم طراحی خانه پیرو</h4>
+                <ul>
+                  <li><a href="about.html" data-en="Piro Design Studio">استودیو طراحی خانه پیرو</a></li>
+                  <li><a href="about.html" data-en="Design Philosophy">فلسفه طراحی</a></li>
+                  <li><a href="about.html" data-en="Craftsmanship Process">روند ساخت</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <h4 data-en="Collaboration">همکاری</h4>
+                <ul>
+                  <li><a href="#" data-en="Architects & Designers">معماران و دیزاینرها</a></li>
+                  <li><a href="#" data-en="Commercial Projects">پروژه‌های تجاری</a></li>
+                  <li><a href="#" data-en="Partnership Request">درخواست همکاری</a></li>
+                </ul>
+              </div>
+              <div class="mega-col"></div>
+              <div class="mega-col"></div>
+              <a href="about.html" class="mega-feature">
+                <img src="images/detail.jpg" alt="استودیو طراحی خانه پیرو" loading="lazy">
+                <span class="tag" data-en="Studio">استودیو</span>
+                <h5 class="lat">Design Studio</h5>
+                <p data-en="Designers who bring wood to life">طراحانی که چوب را زنده می‌کنند</p>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li><a href="catalogue.html" data-en="Catalogue">کاتالوگ</a></li>
+        <li><a href="installments.html" data-en="Installments">فروش اقساطی</a></li>
+        <li><a href="about.html" data-en="About">درباره ما</a></li>
+        <li><a href="contact.html" data-en="Contact">تماس</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="جستجو" title="جستجو"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <button class="icon-btn" aria-label="علاقه‌مندی‌ها" title="علاقه‌مندی"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+      <a id="authBtn" href="account.html" class="auth-header-btn"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span id="authBtnTxt" data-en="Sign In | Register">ورود | ثبت‌نام</span></a>
+      <button class="icon-btn" aria-label="سبد خرید" title="سبد خرید"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="badge" id="cartCount" aria-live="polite">0</span></button>
+      <button class="lang-btn lat" onclick="toggleLang(this)" aria-label="تغییر زبان">EN</button>
+      <button class="burger" onclick="openDrawer()" aria-label="منوی موبایل" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <img src="images/hero-alto.jpg" class="hero-img" alt="خانه پیرو — مبلمان مینیمال چوب طبیعی" fetchpriority="high" decoding="async">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="lat">Where Wood<br>Tells Stories</h1>
+    <span class="h1-fa" data-en="Furniture born of nature, made to last">جایی که چوب داستان می‌گوید</span>
+    <a href="shop.html" class="hero-cta-link" data-en="Explore Collection">
+      مشاهده محصولات
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ===== BRAND EDITORIAL ===== -->
+<section class="brand-ed">
+  <img src="images/gordo-living.jpg" alt="کلکسیون نشیمن خانه پیرو — چوب راش طبیعی" loading="lazy">
+  <div class="brand-ed-overlay"></div>
+  <div class="brand-ed-content reveal">
+    <span class="eyebrow lat">NEW COLLECTION · 2025</span>
+    <h2 class="lat">Shaped by Nature</h2>
+    <p data-en="Natural European beech, crafted to last a lifetime.">راش طبیعی اروپایی، ساخته شده برای یک عمر</p>
+    <a href="shop.html" class="brand-ed-cta lat">
+      Explore Collection
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ===== NEW IN ===== -->
+<section class="newin">
+  <div class="s-head reveal">
+    <h2 class="lat">New In</h2>
+    <a href="shop.html" class="lat" data-en="View All">View All</a>
+  </div>
+  <div class="pgrid">
+
+    <article class="pcard reveal">
+      <a href="product.html?id=alto" class="pcard-link" aria-label="مشاهده میز بار آلتو"></a>
+      <div class="pimg">
+        <img src="images/alto.jpg" alt="میز بار آلتو" class="ph" loading="lazy">
+        <img src="images/alto-2.jpg" alt="میز بار آلتو — جزئیات" class="ph ph2" loading="lazy">
+        <span class="pbadge lat">New</span>
+        <button class="pfav" onclick="favToggle(event,this)" aria-label="افزودن به علاقه‌مندی‌ها"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+      </div>
+      <div class="pcat" data-en="Tables">میز</div>
+      <div class="pname" data-en="Alto Bar Table">میز بار آلتو</div>
+      <span class="pcard-cta" data-en="Discover">مشاهده <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </article>
+
+    <article class="pcard reveal" style="transition-delay:.07s">
+      <a href="product.html?id=en" class="pcard-link" aria-label="مشاهده میز جلو مبلی EN"></a>
+      <div class="pimg">
+        <img src="images/en.jpg" alt="میز جلو مبلی EN" class="ph" loading="lazy">
+        <img src="images/en-living.jpg" alt="میز جلو مبلی EN — چیدمان" class="ph ph2" loading="lazy">
+        <button class="pfav" onclick="favToggle(event,this)" aria-label="افزودن به علاقه‌مندی‌ها"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+      </div>
+      <div class="pcat" data-en="Tables">میز</div>
+      <div class="pname" data-en="EN Coffee Table">میز جلو مبلی EN</div>
+      <span class="pcard-cta" data-en="Discover">مشاهده <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </article>
+
+    <article class="pcard reveal" style="transition-delay:.14s">
+      <a href="product.html?id=zen" class="pcard-link" aria-label="مشاهده صندلی زن"></a>
+      <div class="pimg">
+        <img src="images/zen.jpg" alt="صندلی زن" class="ph" loading="lazy">
+        <img src="images/zen-living.jpg" alt="صندلی زن — چیدمان" class="ph ph2" loading="lazy">
+        <span class="pbadge lat">Best Seller</span>
+        <button class="pfav" onclick="favToggle(event,this)" aria-label="افزودن به علاقه‌مندی‌ها"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+      </div>
+      <div class="pcat" data-en="Chairs">صندلی</div>
+      <div class="pname" data-en="Zen Chair">صندلی زن</div>
+      <span class="pcard-cta" data-en="Discover">مشاهده <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </article>
+
+  </div>
+</section>
+
+<!-- ===== FEATURE SPLIT ===== -->
+<section class="feat reveal">
+  <div class="feat-img">
+    <img src="images/arasbaran.jpg" alt="میز ناهارخوری ارسباران خانه پیرو" loading="lazy">
+  </div>
+  <div class="feat-text">
+    <span class="eyebrow lat">DINING · NEW ARRIVAL</span>
+    <h2 data-en="The Art of Gathering">هنر دور هم<br>بودن</h2>
+    <p data-en="The Arasbaran dining table — solid European beech, seats 6 to 8. A centerpiece that brings the family together for generations.">میز ناهارخوری ارسباران — راش یکپارچه اروپایی، ۶ تا ۸ نفره. قطعه‌ای که خانواده را برای نسل‌ها دور هم جمع می‌کند.</p>
+    <a href="shop.html?cat=tables&sub=dining" class="craft-link lat">
+      Explore Dining Tables
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ===== SPOTLIGHT ===== -->
+<section class="spotlight">
+  <img src="images/nosha.jpg" alt="سرویس خواب نوشا خانه پیرو" loading="lazy">
+  <div class="spotlight-overlay"></div>
+  <div class="spotlight-content reveal">
+    <span class="eyebrow lat">BEDROOM SERIES</span>
+    <h2 class="lat">The Bedroom<br>Reimagined</h2>
+    <p data-en="Complete bedroom collections in natural solid wood — beds, nightstands, dressers.">کلکسیون کامل سرویس خواب در چوب طبیعی — تخت، پاتختی، دراور</p>
+    <a href="shop.html?cat=bedroom" class="spotlight-cta lat">
+      Explore Bedroom
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ===== TRIO GRID ===== -->
+<section class="trio-section">
+  <div class="s-head reveal" style="max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);margin-bottom:40px;">
+    <h2 data-en="Popular This Season">محبوب این فصل</h2>
+    <a href="shop.html" class="lat">View All</a>
+  </div>
+  <div class="trio">
+    <a href="product.html?id=sheen" class="trio-card reveal">
+      <div class="trio-img">
+        <img src="images/sheen.jpg" alt="شلف شین خانه پیرو" loading="lazy">
+      </div>
+      <span class="trio-cat" data-en="Accessories">اکسسوری</span>
+      <span class="trio-name" data-en="Sheen Shelf">شلف شین</span>
+    </a>
+    <a href="product.html?id=alto" class="trio-card reveal" style="transition-delay:.08s">
+      <div class="trio-img">
+        <img src="images/alto-s.jpg" alt="میز بار آلتو خانه پیرو" loading="lazy">
+      </div>
+      <span class="trio-cat" data-en="Tables">میز</span>
+      <span class="trio-name" data-en="Alto Bar Table">میز بار آلتو</span>
+    </a>
+    <a href="product.html?id=console" class="trio-card reveal" style="transition-delay:.16s">
+      <div class="trio-img">
+        <img src="images/console.jpg" alt="کنسول مود خانه پیرو" loading="lazy">
+      </div>
+      <span class="trio-cat" data-en="Console">کنسول</span>
+      <span class="trio-name" data-en="Mood Console">کنسول مود</span>
+    </a>
+  </div>
+</section>
+
+<!-- ===== CATALOGUES ===== -->
+<section class="cat-section">
+  <div class="s-head reveal" style="max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);margin-bottom:40px;">
+    <h2 data-en="Every Piece Has a Story">هر قطعه، داستانی دارد</h2>
+    <a href="catalogue.html" class="lat">All Catalogues</a>
+  </div>
+  <div class="cat-grid">
+    <a href="catalogue.html" class="cat-card reveal">
+      <div class="cat-img">
+        <img src="images/gordo-living.jpg" alt="کاتالوگ نشیمن خانه پیرو" loading="lazy">
+      </div>
+      <span class="cat-tag" data-en="Living Room">نشیمن</span>
+      <h3 data-en="Living Room Catalogue 2025">کاتالوگ نشیمن ۱۴۰۴</h3>
+    </a>
+    <a href="catalogue.html" class="cat-card reveal" style="transition-delay:.08s">
+      <div class="cat-img">
+        <img src="images/nosha.jpg" alt="کاتالوگ سرویس خواب خانه پیرو" loading="lazy">
+      </div>
+      <span class="cat-tag" data-en="Bedroom">سرویس خواب</span>
+      <h3 data-en="Bedroom Catalogue 2025">کاتالوگ سرویس خواب ۱۴۰۴</h3>
+    </a>
+    <a href="catalogue.html" class="cat-card reveal" style="transition-delay:.16s">
+      <div class="cat-img">
+        <img src="images/arasbaran.jpg" alt="کاتالوگ میز ناهارخوری خانه پیرو" loading="lazy">
+      </div>
+      <span class="cat-tag" data-en="Dining">ناهارخوری</span>
+      <h3 data-en="Dining Collection 2025">کاتالوگ میز ناهارخوری ۱۴۰۴</h3>
+    </a>
+  </div>
+</section>
+
+<!-- ===== NOTES ON A HOME ===== -->
+<section class="craft-split reveal">
+  <div class="craft-text">
+    <span class="eyebrow lat">NOTES ON A HOME</span>
+    <h2 data-en="Made from Nature,<br>Built for Generations">ساخته از طبیعت،<br>ماندگار برای نسل‌ها</h2>
+    <p data-en="Every Piro piece is hand-crafted from carefully selected natural woods. Our belief is simple: beauty lives in simplicity, and quality in every detail.">هر قطعه از مبلمان خانه پیرو با دست‌های ماهر از چوب‌های طبیعی انتخاب‌شده ساخته می‌شود. اعتقاد ما ساده است: زیبایی در سادگی معنا می‌گیرد و کیفیت در هر جزئیات زندگی می‌کند.</p>
+    <a href="about.html" class="craft-link" data-en="Our Story →">داستان ما
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="craft-img">
+    <img src="images/detail.jpg" alt="جزئیات ساخت چوب خانه پیرو" loading="lazy">
+  </div>
+</section>
+
+<!-- ===== USP ===== -->
+<section class="usp">
+  <div class="usp-grid">
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      <div><span class="fa" data-en="Free Delivery in Tehran">ارسال رایگان تهران</span><span class="en lat">Free Delivery</span></div>
+    </div>
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <div><span class="fa" data-en="60 Working Days">۶۰ روز کاری تحویل</span><span class="en lat">60 Working Days</span></div>
+    </div>
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      <div><span class="fa" data-en="DigiPay Installments">اقساط دیجی‌پی</span><span class="en lat">DigiPay Installments</span></div>
+    </div>
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <div><span class="fa" data-en="Quality Guarantee">ضمانت کیفیت</span><span class="en lat">Quality Guarantee</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEWSLETTER ===== -->
+<section class="news reveal">
+  <span class="eyebrow lat">PIRO NEWSLETTER</span>
+  <h2 data-en="Stay in the World of Piro">در دنیای خانه پیرو بمانید</h2>
+  <p data-en="New collections, design stories, and exclusive offers — directly to you.">کالکشن‌های جدید، داستان‌های طراحی و پیشنهادهای ویژه — مستقیم برای شما.</p>
+  <form class="news-form-full" onsubmit="return subscribe(event)" role="form" aria-label="عضویت در خبرنامه خانه پیرو">
+    <div class="news-row">
+      <input type="text" class="news-input" placeholder="نام / First name" autocomplete="given-name">
+      <input type="text" class="news-input" placeholder="نام خانوادگی / Last name" autocomplete="family-name">
+    </div>
+    <div class="news-row">
+      <input id="newsEmail" type="email" class="news-input" placeholder="ایمیل / Email" required autocomplete="email" aria-required="true">
+      <button type="submit" class="news-sub-btn lat">Subscribe</button>
+    </div>
+  </form>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo lat">
+      <span class="logo-icon">
+        <svg class="logo-branch" viewBox="0 0 28 32" fill="none">
+          <path d="M14,31 L14,20 Q13,17 12,14" stroke="#5C4030" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          <path d="M14,22 Q11,19 9,16" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <path d="M14,20 Q17,17 19,14" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <ellipse cx="14" cy="11" rx="9" ry="7" fill="#5C4030" opacity="0.18"/>
+          <ellipse cx="11" cy="9" rx="6.5" ry="5" fill="#6A4E38" opacity="0.25"/>
+          <ellipse cx="17" cy="10" rx="6" ry="4.5" fill="#5C4030" opacity="0.22"/>
+          <ellipse cx="14" cy="7.5" rx="7" ry="5.5" fill="#7A5A42" opacity="0.30"/>
+          <ellipse cx="14" cy="8" rx="5" ry="4" fill="#8A6A50" opacity="0.25"/>
+        </svg>
+      </span>
+      <span class="logo-caption">
+        <span>Handcrafted in Iran</span>
+        <span>Natural Solid Wood</span>
+      </span>
+      <span class="logo-wordmark">House of PIRO</span>
+      <span class="logo-rules">
+        <span class="logo-rule-thick"></span>
+        <span class="logo-rule-thin"></span>
+      </span>
+    </a>
+      <p data-en="Minimal, artful, high-quality furniture in natural wood. Japandi & Scandinavian design for your home.">مبلمان مینیمال، هنرمندانه و باکیفیت از چوب طبیعی. طراحی جپندی و اسکاندیناوی برای خانه شما.</p>
+      <div class="socials">
+        <a href="https://instagram.com/piro_ir" target="_blank" aria-label="خانه پیرو در اینستاگرام"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.4A4 4 0 1 1 12.6 8 4 4 0 0 1 16 11.4z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" aria-label="خانه پیرو در تلگرام"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg></a>
+        <a href="#" aria-label="پشتیبانی واتساپ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4 data-en="Main Menu">منو اصلی</h4>
+      <ul>
+        <li><a href="index.html" data-en="Home">خانه</a></li>
+        <li><a href="shop.html" data-en="Products">محصولات</a></li>
+        <li><a href="#">طراحان</a></li>
+        <li><a href="catalogue.html" data-en="Catalogue">کاتالوگ</a></li>
+        <li><a href="installments.html" data-en="Installments">فروش اقساطی</a></li>
+        <li><a href="#">درخواست همکاری</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 data-en="Categories">دسته‌بندی</h4>
+      <ul>
+        <li><a href="shop.html" data-en="Living Room">نشیمن</a></li>
+        <li><a href="shop.html" data-en="Bedroom">سرویس خواب</a></li>
+        <li><a href="shop.html" data-en="Tables">میز</a></li>
+        <li><a href="shop.html" data-en="Console & Sideboard">کنسول و سایدبورد</a></li>
+        <li><a href="shop.html" data-en="Accessories">اکسسوری</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 data-en="Support">پشتیبانی</h4>
+      <ul>
+        <li><a href="guide.html#how-to-buy" data-en="How to Buy">نحوه خرید</a></li>
+        <li><a href="guide.html#shipping" data-en="Shipping & Delivery">ارسال و تحویل</a></li>
+        <li><a href="guide.html#warranty" data-en="Warranty">گارانتی</a></li>
+        <li><a href="about.html" data-en="About Us">درباره ما</a></li>
+        <li><a href="contact.html" data-en="Contact Us">تماس با ما</a></li>
+      </ul>
+    </div>
+    <div class="footer-col footer-contact">
+      <h4 data-en="Contact">تماس</h4>
+      <div><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-en="Tehran, Iran">تهران، ایران</span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>info@pirofurniture.com</span></div>
+      <div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-en="Sat–Thu, 9am–6pm">شنبه تا پنجشنبه ۹–۱۸</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p data-en="© 2024 PIRO Furniture — All Rights Reserved">© ۱۴۰۳ خانه پیرو — تمامی حقوق محفوظ است</p>
+    <span class="lat">© 2024 PIRO Furniture — All Rights Reserved</span>
+  </div>
+</footer>
+
+<!-- ===== MOBILE DRAWER ===== -->
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()">×</button>
+  <h4 data-en="Menu">منو</h4>
+  <a href="index.html" data-en="Home">خانه</a>
+  <a href="shop.html" data-en="Products">محصولات</a>
+  <a href="#" data-en="Designers">طراحان</a>
+  <a href="catalogue.html" data-en="Catalogue">کاتالوگ</a>
+  <a href="installments.html" data-en="Installments">فروش اقساطی</a>
+  <a href="about.html" data-en="About Us">درباره ما</a>
+  <a href="contact.html" data-en="Contact">تماس</a>
+  <h4 data-en="Categories">دسته‌بندی</h4>
+  <a href="shop.html" data-en="Living Room">نشیمن</a>
+  <a href="shop.html" data-en="Bedroom">سرویس خواب</a>
+  <a href="shop.html" data-en="Tables">میز</a>
+  <a href="shop.html" data-en="Console & Sideboard">کنسول و سایدبورد</a>
+  <a href="shop.html" data-en="Accessories">اکسسوری</a>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/db.js"></script>
+<script src="assets/main.js?v=2"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/chatbot.js"></script>
+<script>
+(function() {
+  var btn = document.createElement('button');
+  btn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+  btn.style.cssText = 'position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:50%;background:#1a1a1a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9999;box-shadow:0 2px 12px rgba(0,0,0,0.15)';
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://khaneh-piro-chat-pqtvg5jj1-piro-co.vercel.app';
+  iframe.style.cssText = 'position:fixed;bottom:92px;left:24px;width:340px;height:480px;border:none;border-radius:16px;z-index:9998;box-shadow:0 8px 32px rgba(0,0,0,0.12);display:none';
+  btn.onclick = function() {
+    iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
+  };
+  document.body.appendChild(btn);
+  document.body.appendChild(iframe);
+})();
+</script>
+</body>
+</html>

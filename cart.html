@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سبد خرید | PIRO</title>
+<meta name="description" content="سبد خرید مبلمان خانه پیرو">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .page-title {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: clamp(44px,5.5vw,72px) var(--gut) clamp(28px,3.5vw,44px);
+    border-bottom: 1px solid var(--line);
+  }
+  .page-title h1 {
+    font-size: clamp(28px,3.8vw,48px); font-weight: 300;
+    letter-spacing: -.01em; color: var(--ink);
+  }
+
+  .cart-wrap {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: clamp(32px,4vw,56px) var(--gut) clamp(80px,10vw,140px);
+    display: grid; grid-template-columns: 1fr 360px; gap: 56px; align-items: start;
+  }
+
+  /* ── Empty state ── */
+  .cart-empty {
+    grid-column: 1/-1; text-align: center;
+    padding: 100px 0;
+  }
+  .cart-empty svg { width: 64px; height: 64px; stroke: var(--line); margin-bottom: 24px; }
+  .cart-empty p { color: var(--grey); font-size: 16px; margin-bottom: 32px; }
+
+  /* ── Cart Items ── */
+  .cart-items { display: flex; flex-direction: column; gap: 0; }
+  .cart-item {
+    display: grid; grid-template-columns: 96px 1fr auto;
+    gap: 20px; align-items: start;
+    padding: 24px 0; border-bottom: 1px solid var(--line);
+  }
+  .cart-item:first-child { border-top: 1px solid var(--line); }
+  .cart-img {
+    width: 96px; height: 96px; background: var(--bg-card);
+    overflow: hidden; flex-shrink: 0;
+  }
+  .cart-img img { width: 100%; height: 100%; object-fit: cover; }
+  .cart-img .img-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--wood-2), var(--wood-3));
+  }
+  .cart-meta { min-width: 0; }
+  .cart-name { font-size: 15px; font-weight: 400; color: var(--ink); margin-bottom: 6px; line-height: 1.4; }
+  .cart-variant { font-size: 12px; color: var(--grey); margin-bottom: 12px; }
+  .cart-variant span { margin-left: 12px; }
+  .cart-qty {
+    display: inline-flex; align-items: center; gap: 0;
+    border: 1px solid var(--line); height: 36px;
+  }
+  .qty-btn {
+    width: 36px; height: 36px; background: none; border: none;
+    font-size: 18px; color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .qty-btn:hover { background: var(--bg-warm); }
+  .qty-val { width: 36px; text-align: center; font-size: 14px; color: var(--ink); }
+  .cart-price-col { text-align: left; white-space: nowrap; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+  .cart-price { font-size: 15px; font-weight: 500; color: var(--ink); }
+  .cart-price small { font-size: 11px; font-weight: 400; color: var(--grey); }
+  .cart-remove {
+    background: none; border: none; cursor: pointer; padding: 4px;
+    color: var(--grey); font-size: 12px; display: flex; align-items: center; gap: 4px;
+    transition: color 0.2s;
+  }
+  .cart-remove:hover { color: #c00; }
+  .cart-remove svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+  /* ── Discount ── */
+  .discount-row {
+    display: flex; gap: 0; margin-top: 28px;
+  }
+  .discount-row input {
+    flex: 1; height: 44px; border: 1px solid var(--line);
+    border-left: none; padding: 0 16px;
+    font-family: var(--font-fa); font-size: 13px; color: var(--ink);
+    outline: none; direction: ltr; text-align: center; letter-spacing: 0.1em;
+    text-transform: uppercase; background: #fff;
+  }
+  .discount-row input::placeholder { direction: rtl; text-align: right; letter-spacing: 0; text-transform: none; }
+  .discount-row input:focus { border-color: var(--ink); }
+  .discount-row button {
+    height: 44px; padding: 0 20px; background: var(--ink); color: #fff;
+    border: none; font-family: var(--font-fa); font-size: 13px; cursor: pointer;
+    white-space: nowrap; transition: background 0.2s;
+  }
+  .discount-row button:hover { background: #333; }
+  .discount-msg { margin-top: 8px; font-size: 12px; }
+  .discount-msg.ok { color: #2a7a3b; }
+  .discount-msg.err { color: #c00; }
+
+  /* ── Order Summary ── */
+  .cart-summary {
+    background: var(--bg-warm); padding: 28px;
+    position: sticky; top: 96px;
+  }
+  .summary-title { font-size: 14px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: 20px; }
+  .summary-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 14px; color: var(--ink-soft); }
+  .summary-row.total { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 16px; font-size: 16px; font-weight: 600; color: var(--ink); }
+  .summary-row .val { font-weight: 500; }
+  .summary-row .val.discount { color: #2a7a3b; }
+  .summary-row .val.free { color: #2a7a3b; font-size: 12px; }
+  .summary-shipping-note { font-size: 11.5px; color: var(--grey); margin-top: 4px; margin-bottom: 16px; line-height: 1.5; }
+
+  .btn-checkout {
+    display: block; width: 100%; height: 52px;
+    background: var(--burgundy); color: #fff;
+    border: none; font-family: var(--font-fa); font-size: 15px; font-weight: 500;
+    cursor: pointer; transition: background 0.2s; text-align: center;
+    text-decoration: none; line-height: 52px; margin-top: 20px;
+  }
+  .btn-checkout:hover { background: var(--burgundy-dark); }
+  .btn-back {
+    display: block; text-align: center; margin-top: 14px;
+    font-size: 13px; color: var(--grey); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .btn-back:hover { color: var(--ink); }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .cart-wrap { grid-template-columns: 1fr; gap: 40px; }
+    .cart-summary { position: static; }
+  }
+  @media (max-width: 600px) {
+    .cart-item { grid-template-columns: 76px 1fr; }
+    .cart-price-col { grid-column: 2; }
+    .cart-img { width: 76px; height: 76px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <a href="index.html" class="logo lat">
+      <span class="logo-icon">
+        <svg class="logo-branch" viewBox="0 0 28 32" fill="none">
+          <path d="M14,31 L14,20 Q13,17 12,14" stroke="#5C4030" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          <path d="M14,22 Q11,19 9,16" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <path d="M14,20 Q17,17 19,14" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <ellipse cx="14" cy="11" rx="9" ry="7" fill="#5C4030" opacity="0.18"/>
+          <ellipse cx="11" cy="9" rx="6.5" ry="5" fill="#6A4E38" opacity="0.25"/>
+          <ellipse cx="17" cy="10" rx="6" ry="4.5" fill="#5C4030" opacity="0.22"/>
+          <ellipse cx="14" cy="7.5" rx="7" ry="5.5" fill="#7A5A42" opacity="0.30"/>
+          <ellipse cx="14" cy="8" rx="5" ry="4" fill="#8A6A50" opacity="0.25"/>
+        </svg>
+      </span>
+      <span class="logo-caption">
+        <span>Handcrafted in Iran</span>
+        <span>Natural Solid Wood</span>
+      </span>
+      <span class="logo-wordmark">House of PIRO</span>
+      <span class="logo-rules">
+        <span class="logo-rule-thick"></span>
+        <span class="logo-rule-thin"></span>
+      </span>
+    </a>
+    <nav>
+      <ul class="mainnav">
+        <li><a href="index.html" data-en="Home">خانه</a></li>
+        <li class="has-mega">
+          <a href="javascript:void(0)" data-en="Products ▾">محصولات ▾</a>
+          <div class="mega">
+            <div class="mega-inner">
+              <div class="mega-col">
+                <h4 data-en="Living Room"><a href="shop.html?cat=living" style="color:inherit">نشیمن</a></h4>
+                <ul>
+                  <li><a href="shop.html?cat=living&sub=lounge" data-en="Lounge Chair">مبل راحتی</a></li>
+                  <li><a href="shop.html?cat=living&sub=chair" data-en="Chair">صندلی</a></li>
+                  <li><a href="shop.html?cat=living&sub=barstool" data-en="Barstool">استول</a></li>
+                  <li><a href="shop.html?cat=living&sub=bench" data-en="Bench">نیمکت</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <h4 data-en="Bedroom"><a href="shop.html?cat=bedroom" style="color:inherit">سرویس خواب</a></h4>
+                <ul>
+                  <li><a href="shop.html?cat=bedroom&sub=bed" data-en="Bed">تخت‌خواب</a></li>
+                  <li><a href="shop.html?cat=bedroom&sub=nightstand" data-en="Nightstand">پاتختی</a></li>
+                  <li><a href="shop.html?cat=bedroom&sub=dresser" data-en="Dresser">دراور</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <h4 data-en="Tables"><a href="shop.html?cat=tables" style="color:inherit">میز</a></h4>
+                <ul>
+                  <li><a href="shop.html?cat=tables&sub=dining" data-en="Dining Table">میز ناهارخوری</a></li>
+                  <li><a href="shop.html?cat=tables&sub=coffee" data-en="Coffee Table">میز جلو مبلی</a></li>
+                  <li><a href="shop.html?cat=tables&sub=bartable" data-en="Bar Table">میز بار</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <h4 data-en="Console & Accessories">کنسول و اکسسوری</h4>
+                <ul>
+                  <li><a href="shop.html?cat=console&sub=sideboard" data-en="Sideboard">سایدبورد</a></li>
+                  <li><a href="shop.html?cat=console&sub=tv" data-en="TV Unit">میز تلویزیون</a></li>
+                </ul>
+              </div>
+              <a href="product.html" class="mega-feature">
+                <img src="images/alto-d.jpg" alt="میز بار آلتو" loading="lazy">
+                <span class="tag" data-en="New · NEW">جدید · NEW</span>
+                <h5 class="lat">Alto Bar Table</h5>
+                <p data-en="Alto Bar Table — Natural Wood, Minimal Design">میز بار آلتو — چوب طبیعی، طراحی مینیمال</p>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li><a href="about.html" data-en="About">درباره ما</a></li>
+        <li><a href="#" data-en="Contact">تماس</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="جستجو"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <button class="icon-btn" aria-label="علاقه‌مندی‌ها"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+      <a id="authBtn" href="account.html" class="auth-header-btn"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span data-en="Sign In | Register">ورود | ثبت‌نام</span></a>
+      <button class="icon-btn" aria-label="سبد خرید" onclick="location.href='cart.html'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="badge" id="cartCount" aria-live="polite">0</span></button>
+      <button class="lang-btn lat" onclick="toggleLang(this)" aria-label="تغییر زبان">EN</button>
+      <button class="burger" onclick="openDrawer()" aria-label="منوی موبایل" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-title">
+  <h1 data-en="Shopping Cart">سبد خرید</h1>
+</div>
+
+<div class="cart-wrap" id="cartWrap">
+  <!-- JS renders content here -->
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo lat">
+        <span class="logo-icon">
+          <svg class="logo-branch" viewBox="0 0 28 32" fill="none">
+            <path d="M14,31 L14,20 Q13,17 12,14" stroke="#5C4030" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+            <path d="M14,22 Q11,19 9,16" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+            <path d="M14,20 Q17,17 19,14" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+            <ellipse cx="14" cy="11" rx="9" ry="7" fill="#5C4030" opacity="0.18"/>
+            <ellipse cx="11" cy="9" rx="6.5" ry="5" fill="#6A4E38" opacity="0.25"/>
+            <ellipse cx="17" cy="10" rx="6" ry="4.5" fill="#5C4030" opacity="0.22"/>
+            <ellipse cx="14" cy="7.5" rx="7" ry="5.5" fill="#7A5A42" opacity="0.30"/>
+            <ellipse cx="14" cy="8" rx="5" ry="4" fill="#8A6A50" opacity="0.25"/>
+          </svg>
+        </span>
+        <span class="logo-caption"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></span>
+        <span class="logo-wordmark">House of PIRO</span>
+        <span class="logo-rules"><span class="logo-rule-thick"></span><span class="logo-rule-thin"></span></span>
+      </a>
+      <p data-en="Minimal, artful, high-quality furniture in natural wood.">مبلمان مینیمال، هنرمندانه و باکیفیت از چوب طبیعی.</p>
+      <div class="socials">
+        <a href="https://instagram.com/piro_ir" target="_blank" aria-label="اینستاگرام"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.4A4 4 0 1 1 12.6 8 4 4 0 0 1 16 11.4z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" aria-label="تلگرام"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4 data-en="Menu">منو</h4><ul><li><a href="index.html" data-en="Home">خانه</a></li><li><a href="shop.html" data-en="Products">محصولات</a></li><li><a href="about.html" data-en="About">درباره ما</a></li><li><a href="#" data-en="Contact">تماس</a></li></ul></div>
+    <div class="footer-col"><h4 data-en="Categories">دسته‌بندی</h4><ul><li><a href="shop.html" data-en="Living Room">نشیمن</a></li><li><a href="shop.html" data-en="Tables">میز</a></li><li><a href="shop.html" data-en="Accessories">اکسسوری</a></li></ul></div>
+    <div class="footer-col"><h4 data-en="Support">پشتیبانی</h4><ul><li><a href="#" data-en="How to Buy">نحوه خرید</a></li><li><a href="#" data-en="Warranty">گارانتی</a></li></ul></div>
+    <div class="footer-col footer-contact"><h4 data-en="Contact">تماس</h4><div><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>تهران، ایران</span></div><div><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>info@pirofurniture.com</span></div></div>
+  </div>
+  <div class="footer-bottom"><p data-en="© 2024 PIRO Furniture — All Rights Reserved">© ۱۴۰۳ خانه پیرو — تمامی حقوق محفوظ است</p><span class="lat">© 2024 PIRO Furniture</span></div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()">×</button>
+  <h4 data-en="Menu">منو</h4>
+  <a href="index.html" data-en="Home">خانه</a>
+  <a href="shop.html" data-en="Products">محصولات</a>
+  <a href="about.html" data-en="About Us">درباره ما</a>
+  <a href="#" data-en="Contact">تماس</a>
+</aside>
+
+<script src="assets/main.js?v=3"></script>
+<script>
+const DISCOUNT_CODES = { 'PIRO10': 10 };
+const SHIPPING_COST = 500000;
+
+function parsePrice(str) {
+  if (typeof str === 'number') return str;
+  return parseInt(String(str)
+    .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+    .replace(/,/g, '')) || 0;
+}
+function fmt(n) {
+  return n.toLocaleString('fa-IR');
+}
+
+let discountPct = 0;
+let discountApplied = '';
+
+function renderCart() {
+  const cart = getCart();
+  const wrap = document.getElementById('cartWrap');
+  if (!cart.length) {
+    wrap.innerHTML = `
+      <div class="cart-empty" style="grid-column:1/-1">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <p data-en="Your cart is empty">سبد خرید شما خالی است</p>
+        <a href="shop.html" class="btn btn-dark" data-en="View Products">مشاهده محصولات</a>
+      </div>`;
+    return;
+  }
+
+  const subtotal = cart.reduce((s, i) => s + parsePrice(i.price) * (i.quantity || 1), 0);
+  const discountAmt = Math.round(subtotal * discountPct / 100);
+  const shipping = 0; // نمایش در checkout — اینجا فقط اطلاع‌رسانی
+
+  wrap.innerHTML = `
+    <div class="cart-left">
+      <div class="cart-items" id="cartItems">${cart.map((item, idx) => renderItem(item, idx)).join('')}</div>
+      <div class="discount-row">
+        <input type="text" id="discountInput" placeholder="کد تخفیف دارید؟" maxlength="20" value="${discountApplied}">
+        <button onclick="applyDiscount()">اعمال</button>
+      </div>
+      <div class="discount-msg" id="discountMsg"></div>
+    </div>
+    <div class="cart-summary">
+      <div class="summary-title" data-en="Order Summary">خلاصه سفارش</div>
+      <div class="summary-row">
+        <span data-en="Subtotal">جمع محصولات</span>
+        <span class="val">${fmt(subtotal)} <small>تومان</small></span>
+      </div>
+      <div class="summary-row">
+        <span data-en="Shipping">هزینه ارسال</span>
+        <span class="val">بسته به استان</span>
+      </div>
+      <p class="summary-shipping-note">ارسال رایگان تهران — ۵۰۰٬۰۰۰ تومان سایر استان‌ها</p>
+      ${discountPct > 0 ? `
+      <div class="summary-row">
+        <span data-en="Discount (${discountPct}%)">تخفیف (${discountPct}٪)</span>
+        <span class="val discount">−${fmt(discountAmt)} تومان</span>
+      </div>` : ''}
+      <div class="summary-row total">
+        <span data-en="Total">جمع کل</span>
+        <span class="val">${fmt(subtotal - discountAmt)} <small>تومان</small></span>
+      </div>
+      <a href="checkout.html" class="btn-checkout" data-en="Continue to Checkout" onclick="saveCartMeta()">ادامه و تکمیل سفارش</a>
+      <a href="shop.html" class="btn-back" data-en="← Back to Shop">← بازگشت به فروشگاه</a>
+    </div>`;
+
+  if (discountApplied) {
+    const msg = document.getElementById('discountMsg');
+    if (msg) { msg.textContent = `کد ${discountApplied} — ${discountPct}٪ تخفیف اعمال شد`; msg.className = 'discount-msg ok'; }
+  }
+}
+
+function renderItem(item, idx) {
+  const qty = item.quantity || 1;
+  const unitPrice = parsePrice(item.price);
+  const totalPrice = unitPrice * qty;
+  const imgHtml = item.image
+    ? `<img src="${item.image}" alt="${item.name || ''}" loading="lazy">`
+    : `<div class="img-placeholder"></div>`;
+  const variantParts = [];
+  if (item.color) variantParts.push(`رنگ: ${item.color}`);
+  if (item.size)  variantParts.push(`سایز: ${item.size}`);
+
+  return `
+  <div class="cart-item" id="item-${idx}">
+    <div class="cart-img">${imgHtml}</div>
+    <div class="cart-meta">
+      <div class="cart-name">${item.name || 'محصول'}</div>
+      ${variantParts.length ? `<div class="cart-variant">${variantParts.join(' — ')}</div>` : ''}
+      <div class="cart-qty">
+        <button class="qty-btn" onclick="changeQty(${idx}, -1)" aria-label="کاهش تعداد">−</button>
+        <span class="qty-val">${fmt(qty)}</span>
+        <button class="qty-btn" onclick="changeQty(${idx}, 1)" aria-label="افزایش تعداد">+</button>
+      </div>
+    </div>
+    <div class="cart-price-col">
+      <div class="cart-price">${fmt(totalPrice)} <small>تومان</small></div>
+      <button class="cart-remove" onclick="removeItem(${idx})" aria-label="حذف محصول">
+        <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        حذف
+      </button>
+    </div>
+  </div>`;
+}
+
+function changeQty(idx, delta) {
+  const cart = getCart();
+  if (!cart[idx]) return;
+  cart[idx].quantity = Math.max(1, (cart[idx].quantity || 1) + delta);
+  saveCart(cart);
+  renderCart();
+}
+
+function removeItem(idx) {
+  const cart = getCart();
+  cart.splice(idx, 1);
+  saveCart(cart);
+  renderCart();
+}
+
+function applyDiscount() {
+  const code = (document.getElementById('discountInput')?.value || '').trim().toUpperCase();
+  const msg = document.getElementById('discountMsg');
+  if (DISCOUNT_CODES[code] !== undefined) {
+    discountPct = DISCOUNT_CODES[code];
+    discountApplied = code;
+    sessionStorage.setItem('piro_discount', JSON.stringify({ code, pct: discountPct }));
+    renderCart();
+  } else {
+    if (msg) { msg.textContent = 'کد تخفیف معتبر نیست'; msg.className = 'discount-msg err'; }
+  }
+}
+
+function saveCartMeta() {
+  if (discountApplied) {
+    sessionStorage.setItem('piro_discount', JSON.stringify({ code: discountApplied, pct: discountPct }));
+  }
+}
+
+// بازیابی کد تخفیف از قبل
+const savedDiscount = sessionStorage.getItem('piro_discount');
+if (savedDiscount) {
+  try {
+    const d = JSON.parse(savedDiscount);
+    discountPct = d.pct || 0;
+    discountApplied = d.code || '';
+  } catch(e) {}
+}
+
+renderCart();
+</script>
+<script>
+(function() {
+  var btn = document.createElement('button');
+  btn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+  btn.style.cssText = 'position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:50%;background:#1a1a1a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9999;box-shadow:0 2px 12px rgba(0,0,0,0.15)';
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://khaneh-piro-chat-pqtvg5jj1-piro-co.vercel.app';
+  iframe.style.cssText = 'position:fixed;bottom:92px;left:24px;width:340px;height:480px;border:none;border-radius:16px;z-index:9998;box-shadow:0 8px 32px rgba(0,0,0,0.12);display:none';
+  btn.onclick = function() {
+    iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
+  };
+  document.body.appendChild(btn);
+  document.body.appendChild(iframe);
+})();
+</script>
+</body>
+</html>

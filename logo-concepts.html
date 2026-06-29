@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIRO — Logo Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400&family=Vazirmatn:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #F7F3EE;
+    font-family: 'Vazirmatn', sans-serif;
+    color: #1C1917;
+    padding: 60px 40px;
+  }
+
+  h1 {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #8C7B6E;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #B5A99E;
+    text-align: center;
+    margin-bottom: 70px;
+    text-transform: uppercase;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: #FFFFFF;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 340px;
+    position: relative;
+  }
+
+  .card.dark {
+    background: #1C1917;
+  }
+
+  .card.warm {
+    background: #EDE0D0;
+  }
+
+  .card-label {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #C5B8AD;
+  }
+
+  .card.dark .card-label { color: #5C5148; }
+
+  /* ══════════════════════════════════════
+     CONCEPT A — Cormorant Serif Wordmark
+  ══════════════════════════════════════ */
+  .logo-a {
+    text-align: center;
+  }
+  .logo-a .wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 64px;
+    letter-spacing: 18px;
+    color: #1C1917;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-right: -18px; /* compensate last letter spacing */
+  }
+  .logo-a .tagline {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 9px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #8C7B6E;
+    margin-top: 14px;
+    text-align: center;
+  }
+
+  /* On dark background */
+  .logo-a-dark .wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 64px;
+    letter-spacing: 18px;
+    color: #F0E8DE;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-right: -18px;
+  }
+  .logo-a-dark .tagline {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 9px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #6B5D52;
+    margin-top: 14px;
+    text-align: center;
+  }
+
+  /* ══════════════════════════════════════
+     CONCEPT B — Monogram + Wordmark
+  ══════════════════════════════════════ */
+  .logo-b {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .logo-b .monogram {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+  }
+  .logo-b .text-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .logo-b .brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 32px;
+    letter-spacing: 10px;
+    color: #1C1917;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-right: -10px;
+  }
+  .logo-b .sub {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 8px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #A0917F;
+  }
+
+  /* ══════════════════════════════════════
+     CONCEPT C — Stacked + Divider
+  ══════════════════════════════════════ */
+  .logo-c {
+    text-align: center;
+  }
+  .logo-c .p-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 88px;
+    color: #1C1917;
+    line-height: 0.9;
+    margin-bottom: 12px;
+  }
+  .logo-c .divider {
+    width: 40px;
+    height: 1px;
+    background: #C5B5A5;
+    margin: 0 auto 14px;
+  }
+  .logo-c .brand-name {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: #1C1917;
+    margin-right: -8px;
+  }
+  .logo-c .sub {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 8px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #A0917F;
+    margin-top: 6px;
+  }
+
+  /* Warm version */
+  .logo-c-warm .p-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 88px;
+    color: #5C3D2E;
+    line-height: 0.9;
+    margin-bottom: 12px;
+  }
+  .logo-c-warm .divider {
+    width: 40px;
+    height: 1px;
+    background: #C5A882;
+    margin: 0 auto 14px;
+  }
+  .logo-c-warm .brand-name {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: #3D2B1F;
+    margin-right: -8px;
+  }
+  .logo-c-warm .sub {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 8px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #9C7B5E;
+    margin-top: 6px;
+  }
+
+  /* ══════════════════════════════════════
+     CONCEPT D — Geometric P mark
+  ══════════════════════════════════════ */
+  .logo-d {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .logo-d .brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 40px;
+    letter-spacing: 16px;
+    color: #1C1917;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-right: -16px;
+  }
+
+  /* Dark version of D */
+  .logo-d-dark {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .logo-d-dark .brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 40px;
+    letter-spacing: 16px;
+    color: #F0E8DE;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-right: -16px;
+  }
+
+  /* ══════════════════════════════════════
+     CONCEPT E — Minimal sans + line
+  ══════════════════════════════════════ */
+  .logo-e {
+    text-align: center;
+  }
+  .logo-e .brand {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 52px;
+    letter-spacing: 20px;
+    color: #1C1917;
+    text-transform: uppercase;
+    margin-right: -20px;
+    line-height: 1;
+  }
+  .logo-e .line {
+    width: 100%;
+    height: 0.5px;
+    background: #1C1917;
+    margin: 10px 0;
+  }
+  .logo-e .sub {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 8px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #8C7B6E;
+    margin-right: -6px;
+  }
+
+  /* ══════════════════════════════════════
+     CONCEPT F — Italic serif + gold accent
+  ══════════════════════════════════════ */
+  .logo-f {
+    text-align: center;
+  }
+  .logo-f .brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 56px;
+    letter-spacing: 8px;
+    color: #1C1917;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-right: -8px;
+  }
+  .logo-f .accent-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .logo-f .dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #B8973A;
+  }
+  .logo-f .sub {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 8px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #B8973A;
+  }
+
+  /* ══════════════════════════════════════
+     SIZE SHOWCASE
+  ══════════════════════════════════════ */
+  .sizes-section {
+    max-width: 1200px;
+    margin: 2px auto 0;
+    background: #fff;
+    padding: 50px 60px;
+  }
+  .sizes-title {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #C5B8AD;
+    margin-bottom: 40px;
+  }
+  .sizes-row {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+  .size-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .size-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #C5B8AD;
+  }
+
+  .logo-sm .wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 6px;
+    color: #1C1917;
+    text-transform: uppercase;
+    margin-right: -6px;
+  }
+  .logo-md .wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 36px;
+    letter-spacing: 12px;
+    color: #1C1917;
+    text-transform: uppercase;
+    margin-right: -12px;
+  }
+  .logo-lg .wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 72px;
+    letter-spacing: 20px;
+    color: #1C1917;
+    text-transform: uppercase;
+    margin-right: -20px;
+  }
+
+  .section-break {
+    max-width: 1200px;
+    margin: 50px auto 20px;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #8C7B6E;
+    text-align: center;
+  }
+
+  .note {
+    max-width: 1200px;
+    margin: 30px auto 0;
+    font-size: 12px;
+    color: #8C7B6E;
+    text-align: center;
+    font-family: 'Vazirmatn', sans-serif;
+    line-height: 1.8;
+    direction: rtl;
+  }
+</style>
+</head>
+<body>
+
+<h1>PIRO Furniture</h1>
+<p class="subtitle">Logo Concepts — Luxury Rebranding 2026</p>
+
+<!-- ROW 1 -->
+<div class="grid">
+
+  <!-- A: Pure Cormorant Serif Wordmark -->
+  <div class="card">
+    <div class="logo-a">
+      <div class="wordmark">PIRO</div>
+      <div class="tagline">Luxury Furniture</div>
+    </div>
+    <span class="card-label">A — Serif Wordmark</span>
+  </div>
+
+  <!-- A Dark -->
+  <div class="card dark">
+    <div class="logo-a-dark">
+      <div class="wordmark">PIRO</div>
+      <div class="tagline">Luxury Furniture</div>
+    </div>
+    <span class="card-label">A — روی تیره</span>
+  </div>
+
+  <!-- B: Monogram + Wordmark -->
+  <div class="card">
+    <div class="logo-b">
+      <!-- SVG monogram mark -->
+      <svg class="monogram" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Geometric P with wood grain lines -->
+        <path d="M12 8 L12 48" stroke="#1C1917" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M12 8 L28 8 Q38 8 38 20 Q38 32 28 32 L12 32" stroke="#1C1917" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <!-- Wood grain accent lines -->
+        <line x1="16" y1="14" x2="33" y2="14" stroke="#C5A882" stroke-width="0.5" opacity="0.7"/>
+        <line x1="16" y1="20" x2="36" y2="20" stroke="#C5A882" stroke-width="0.5" opacity="0.7"/>
+        <line x1="16" y1="26" x2="33" y2="26" stroke="#C5A882" stroke-width="0.5" opacity="0.7"/>
+      </svg>
+      <div class="text-group">
+        <div class="brand">PIRO</div>
+        <div class="sub">Wood & Living</div>
+      </div>
+    </div>
+    <span class="card-label">B — نشانه + کلمه</span>
+  </div>
+
+</div>
+
+<!-- ROW 2 -->
+<div class="grid" style="margin-top:2px">
+
+  <!-- C: Stacked italic P + wordmark -->
+  <div class="card warm">
+    <div class="logo-c-warm">
+      <div class="p-mark">P</div>
+      <div class="divider"></div>
+      <div class="brand-name">PIRO</div>
+      <div class="sub">Furniture · Since 1385</div>
+    </div>
+    <span class="card-label">C — ایتالیک استک</span>
+  </div>
+
+  <!-- D: Geometric SVG mark centered -->
+  <div class="card">
+    <div class="logo-d">
+      <!-- Refined geometric P mark -->
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="50" height="50" stroke="#1C1917" stroke-width="0.75"/>
+        <rect x="1" y="1" width="50" height="50" stroke="#C5A882" stroke-width="0.75" opacity="0.3" transform="translate(2,2)"/>
+        <path d="M17 14 L17 38 M17 14 L27 14 Q35 14 35 22 Q35 30 27 30 L17 30" stroke="#1C1917" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <div class="brand">PIRO</div>
+    </div>
+    <span class="card-label">D — مارک هندسی</span>
+  </div>
+
+  <!-- E: Ultra minimal sans -->
+  <div class="card dark">
+    <div class="logo-d-dark">
+      <!-- Same mark, light version -->
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="50" height="50" stroke="#F0E8DE" stroke-width="0.75" opacity="0.6"/>
+        <path d="M17 14 L17 38 M17 14 L27 14 Q35 14 35 22 Q35 30 27 30 L17 30" stroke="#F0E8DE" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <div class="brand">PIRO</div>
+    </div>
+    <span class="card-label">D — روی تیره</span>
+  </div>
+
+</div>
+
+<!-- ROW 3 -->
+<div class="grid" style="margin-top:2px">
+
+  <!-- E: Ultra minimal lines -->
+  <div class="card">
+    <div class="logo-e">
+      <div class="brand">PIRO</div>
+      <div class="line"></div>
+      <div class="sub">Luxury Furniture</div>
+    </div>
+    <span class="card-label">E — مینیمال خطی</span>
+  </div>
+
+  <!-- F: Italic serif + gold accent -->
+  <div class="card warm">
+    <div class="logo-f">
+      <div class="brand">Piro</div>
+      <div class="accent-line">
+        <div class="dot"></div>
+        <div class="sub">Luxury Furniture</div>
+        <div class="dot"></div>
+      </div>
+    </div>
+    <span class="card-label">F — ایتالیک + طلا</span>
+  </div>
+
+  <!-- G: Combined best — Serif + wood icon -->
+  <div class="card dark">
+    <div style="text-align:center">
+      <!-- Combined mark -->
+      <svg width="120" height="30" viewBox="0 0 120 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- P glyph-like mark -->
+        <path d="M4 4 L4 26 M4 4 L12 4 Q18 4 18 12 Q18 20 12 20 L4 20" stroke="#F0E8DE" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <line x1="6" y1="8" x2="15" y2="8" stroke="#B8973A" stroke-width="0.5"/>
+        <line x1="6" y1="12" x2="17" y2="12" stroke="#B8973A" stroke-width="0.5"/>
+        <line x1="6" y1="16" x2="15" y2="16" stroke="#B8973A" stroke-width="0.5"/>
+        <!-- Separator -->
+        <line x1="26" y1="4" x2="26" y2="26" stroke="#3D3028" stroke-width="0.5"/>
+        <!-- PIRO text-like paths approximated -->
+        <text x="34" y="22" font-family="Cormorant Garamond, serif" font-size="20" font-weight="300" fill="#F0E8DE" letter-spacing="5">PIRO</text>
+      </svg>
+      <div style="font-family:'Jost',sans-serif;font-size:8px;letter-spacing:4px;text-transform:uppercase;color:#5C4A3A;margin-top:8px;">Luxury Furniture</div>
+    </div>
+    <span class="card-label">G — ترکیبی (توصیه‌شده)</span>
+  </div>
+
+</div>
+
+<!-- SIZE VARIATIONS — Concept A -->
+<p class="section-break">مقیاس‌های مختلف — Concept A</p>
+<div class="sizes-section">
+  <p class="sizes-title">Scale Test — Serif Wordmark</p>
+  <div class="sizes-row">
+    <div class="size-item">
+      <div class="logo-sm"><div class="wordmark">PIRO</div></div>
+      <span class="size-label">فاوِیکان ۳۲px</span>
+    </div>
+    <div class="size-item">
+      <div class="logo-md"><div class="wordmark">PIRO</div></div>
+      <span class="size-label">هدر موبایل</span>
+    </div>
+    <div class="size-item">
+      <div class="logo-lg"><div class="wordmark">PIRO</div></div>
+      <span class="size-label">Hero دسکتاپ</span>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL RECOMMENDATION -->
+<div class="section-break">توضیح مفاهیم</div>
+<div class="note">
+  <strong>A</strong> — ساده‌ترین و قوی‌ترین. Cormorant Garamond Light با فاصله حروف زیاد. همین کاری است که Hermès، The Row، Loro Piana می‌کنند.
+  <br>
+  <strong>C</strong> — حرف P ایتالیک بزرگ به عنوان نشانه اصلی. برای بسته‌بندی، ختم کوسن، برچسب‌های چوبی عالی است.
+  <br>
+  <strong>D</strong> — نشانه هندسی + حروف. برای محیط‌های دیجیتال و کارت ویزیت.
+  <br>
+  <strong>F</strong> — گرم‌ترین و خانگی‌ترین. Piro با i کوچک ایتالیک، لمس جواهری با طلا.
+  <br><br>
+  <strong>توصیه:</strong> ترکیب A (wordmark اصلی) + C (نشانه مستقل برای بسته‌بندی)
+</div>
+
+<script>
+(function() {
+  var btn = document.createElement('button');
+  btn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+  btn.style.cssText = 'position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:50%;background:#1a1a1a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9999;box-shadow:0 2px 12px rgba(0,0,0,0.15)';
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://khaneh-piro-chat-pqtvg5jj1-piro-co.vercel.app';
+  iframe.style.cssText = 'position:fixed;bottom:92px;left:24px;width:340px;height:480px;border:none;border-radius:16px;z-index:9998;box-shadow:0 8px 32px rgba(0,0,0,0.12);display:none';
+  btn.onclick = function() {
+    iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
+  };
+  document.body.appendChild(btn);
+  document.body.appendChild(iframe);
+})();
+</script>
+</body>
+</html>

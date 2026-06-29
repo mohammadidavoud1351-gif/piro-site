@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>داشبورد من — خانه پیرو PIRO</title>
+<script>
+(function(){
+  var s=localStorage.getItem('piro_session');
+  if(s){try{var u=JSON.parse(localStorage.getItem('piro_users')||'[]');
+  if(u.some(function(x){return x.mobile===s||x.email===s.toLowerCase();}))return;}catch(e){}}
+  location.replace('account.html');
+})();
+</script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+.dash-layout{display:grid;grid-template-columns:260px 1fr;min-height:calc(100svh - 76px)}
+.dash-sidebar{background:var(--bg-soft);border-left:1px solid var(--line);padding:32px 0}
+.dash-user{padding:0 24px 28px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.dash-av{width:60px;height:60px;border-radius:50%;background:var(--burgundy);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-lat);font-size:24px;font-weight:600;margin-bottom:14px}
+.dash-name{font-size:17px;font-weight:600;margin-bottom:2px}
+.dash-contact{font-size:13px;color:var(--grey);font-family:var(--font-lat);direction:ltr;display:inline-block}
+.sidebar-nav{list-style:none}
+.sidebar-nav li a, .sidebar-nav li button{display:flex;align-items:center;gap:12px;padding:14px 24px;font-size:14.5px;color:var(--ink-soft);background:none;border:none;cursor:pointer;font-family:var(--font-fa);width:100%;text-align:right;transition:background .18s,color .18s;text-decoration:none}
+.sidebar-nav li a:hover,.sidebar-nav li button:hover{background:#eae7e2;color:var(--burgundy)}
+.sidebar-nav li a.active,.sidebar-nav li button.active{background:var(--burgundy);color:#fff;font-weight:500}
+.sidebar-nav li a.active svg,.sidebar-nav li button.active svg{stroke:#fff}
+.sidebar-nav svg{width:19px;height:19px;stroke:var(--grey);fill:none;stroke-width:1.6;flex-shrink:0;transition:stroke .18s}
+.sidebar-nav li a:hover svg,.sidebar-nav li button:hover svg{stroke:var(--burgundy)}
+.sidebar-sep{height:1px;background:var(--line);margin:8px 24px}
+.dash-main{padding:clamp(28px,4vw,52px)}
+.dash-panel{display:none}
+.dash-panel.active{display:block}
+.panel-title{font-size:clamp(20px,2.4vw,28px);font-weight:400;margin-bottom:6px}
+.panel-sub{font-size:14px;color:var(--grey);margin-bottom:36px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px}
+.stat-card{background:#fff;border:1px solid var(--line);padding:22px 24px;border-radius:6px}
+.stat-card .num{font-size:34px;font-weight:300;font-family:var(--font-lat);color:var(--burgundy);margin-bottom:4px}
+.stat-card .lbl{font-size:13px;color:var(--grey)}
+.order-list{display:flex;flex-direction:column;gap:14px}
+.order-card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:20px 24px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:20px}
+.order-icon{width:44px;height:44px;border-radius:50%;background:var(--bg-warm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.order-icon svg{width:20px;height:20px;stroke:var(--burgundy);fill:none;stroke-width:1.5}
+.order-name{font-size:15px;font-weight:500;margin-bottom:3px}
+.order-date{font-size:12.5px;color:var(--grey);font-family:var(--font-lat)}
+.order-status{font-size:13px;padding:5px 14px;border-radius:20px;white-space:nowrap}
+.status-pending{background:#fff8e1;color:#b8860b}
+.status-sent{background:#e8f5e9;color:#2e7d32}
+.status-delivered{background:#e3f2fd;color:#1565c0}
+.empty-state{text-align:center;padding:60px 20px;color:var(--grey)}
+.empty-state svg{width:56px;height:56px;stroke:var(--line);fill:none;stroke-width:1.2;margin:0 auto 18px;display:block}
+.empty-state p{font-size:15px;margin-bottom:20px}
+.addr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.addr-card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:22px 24px;position:relative}
+.addr-card .addr-tag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--burgundy);font-weight:600;margin-bottom:10px;display:block}
+.addr-card p{font-size:14px;color:var(--ink-soft);line-height:1.7}
+.addr-add{border:1.5px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:32px;border-radius:6px;cursor:pointer;transition:.25s;color:var(--grey);font-size:14px;background:none;font-family:var(--font-fa);min-height:140px}
+.addr-add:hover{border-color:var(--burgundy);color:var(--burgundy)}
+.addr-add svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.5}
+.wish-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
+.wish-card{background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden;cursor:pointer;transition:box-shadow .25s}
+.wish-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.1)}
+.wish-card .thumb{aspect-ratio:4/3;background:var(--bg-warm);display:flex;align-items:center;justify-content:center}
+.wish-card .thumb img{width:100%;height:100%;object-fit:cover}
+.wish-card .winfo{padding:14px 16px}
+.wish-card .wname{font-size:14.5px;font-weight:500;margin-bottom:4px}
+.wish-card .wprice{font-size:13px;color:var(--grey);font-family:var(--font-lat)}
+.profile-form{max-width:560px}
+.profile-form .f-group{margin-bottom:22px}
+.profile-form label{display:block;font-size:13.5px;font-weight:500;margin-bottom:7px;color:var(--ink-soft)}
+.profile-form input{width:100%;padding:14px 18px;border:1.5px solid var(--line);font-family:var(--font-fa);font-size:15px;border-radius:4px;outline:none;transition:border-color .25s,box-shadow .25s;background:#fff}
+.profile-form input:focus{border-color:var(--burgundy);box-shadow:0 0 0 3px rgba(139,38,53,.1)}
+.profile-form input:disabled{background:var(--bg-soft);color:var(--grey);cursor:not-allowed}
+.save-btn{background:var(--burgundy);color:#fff;padding:14px 36px;border:none;cursor:pointer;font-family:var(--font-fa);font-size:15px;border-radius:4px;transition:background .3s}
+.save-btn:hover{background:var(--burgundy-dark)}
+.save-ok{color:#27ae60;font-size:13.5px;margin-top:12px;display:none}
+.review-empty{padding:40px 0;color:var(--grey);font-size:14px}
+.logout-btn-main{display:inline-flex;align-items:center;gap:10px;background:none;border:1.5px solid #c0392b;color:#c0392b;padding:13px 28px;border-radius:4px;cursor:pointer;font-family:var(--font-fa);font-size:15px;transition:.25s}
+.logout-btn-main:hover{background:#c0392b;color:#fff}
+.logout-btn-main svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6}
+@media(max-width:860px){
+  .dash-layout{grid-template-columns:1fr}
+  .dash-sidebar{border-left:none;border-bottom:1px solid var(--line);padding:16px 0}
+  .dash-user{display:flex;align-items:center;gap:16px;padding:0 20px 16px}
+  .dash-av{width:44px;height:44px;font-size:18px;margin-bottom:0;flex-shrink:0}
+  .sidebar-nav{display:flex;overflow-x:auto;gap:0;padding:0 12px}
+  .sidebar-nav li{flex-shrink:0}
+  .sidebar-nav li a,.sidebar-nav li button{padding:10px 16px;font-size:13px;border-radius:24px;margin:0 2px}
+  .sidebar-sep{display:none}
+  .stat-row{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:500px){.stat-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="topbar" data-en="FREE DELIVERY IN TEHRAN &nbsp;·&nbsp; <span class='lat'>ارسال رایگان برای استان تهران</span>">ارسال رایگان برای استان تهران &nbsp;·&nbsp; <span class="lat">FREE DELIVERY IN TEHRAN</span></div>
+
+<header>
+  <div class="header-row">
+    <a href="index.html" class="logo lat">
+      <span class="logo-icon">
+        <svg class="logo-branch" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="9" y1="21" x2="9" y2="7" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round"/>
+          <path d="M9 7 Q5.5 4.5 2.5 2.5 Q4 6.5 9 7Z" fill="#6A4E38" opacity="0.80"/>
+          <path d="M9 10.5 Q12.5 8 15.5 6 Q14 10 9 10.5Z" fill="#5C4030" opacity="0.60"/>
+          <path d="M9 14 Q6 11.5 3.5 10 Q5.5 13 9 14Z" fill="#4E3428" opacity="0.40"/>
+        </svg>
+      </span>
+      <span class="logo-caption">
+        <span>Handcrafted in Iran</span>
+        <span>Natural Solid Wood</span>
+      </span>
+      <span class="logo-wordmark">House of PIRO</span>
+      <span class="logo-rules">
+        <span class="logo-rule-thick"></span>
+        <span class="logo-rule-thin"></span>
+      </span>
+    </a>
+    <nav>
+      <ul class="mainnav">
+        <li><a href="index.html" data-en="Home">خانه</a></li>
+        <li class="has-mega">
+          <a href="javascript:void(0)" data-en="Products ▾">محصولات ▾</a>
+          <div class="mega">
+            <div class="mega-inner">
+              <div class="mega-col">
+                <h4 data-en="Living Room"><a href="shop.html?cat=living" style="color:inherit">نشیمن</a></h4>
+                <ul>
+                  <li><a href="shop.html?cat=living&sub=sofa" data-en="Sofa">کاناپه</a></li>
+                  <li><a href="shop.html?cat=living&sub=lounge" data-en="Lounge Chair">مبل راحتی</a></li>
+                  <li><a href="shop.html?cat=living&sub=chair" data-en="Chair">صندلی</a></li>
+                  <li><a href="shop.html?cat=living&sub=barstool" data-en="Barstool">استول</a></li>
+                  <li><a href="shop.html?cat=living&sub=bench" data-en="Bench">نیمکت</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <h4 data-en="Bedroom"><a href="shop.html?cat=bedroom" style="color:inherit">سرویس خواب</a></h4>
+                <ul>
+                  <li><a href="shop.html?cat=bedroom&sub=bed" data-en="Bed">تخت‌خواب</a></li>
+                  <li><a href="shop.html?cat=bedroom&sub=bed" data-en="Bed Frame">باف تخت</a></li>
+                  <li><a href="shop.html?cat=bedroom&sub=nightstand" data-en="Nightstand">پاتختی</a></li>
+                  <li><a href="shop.html?cat=bedroom&sub=dresser" data-en="Dresser">دراور</a></li>
+                  <li><a href="shop.html?cat=bedroom&sub=hanger" data-en="Wardrobe">رخت آویز</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <h4 data-en="Tables"><a href="shop.html?cat=tables" style="color:inherit">میز</a></h4>
+                <ul>
+                  <li><a href="shop.html?cat=tables&sub=dining" data-en="Dining Table">میز ناهارخوری</a></li>
+                  <li><a href="shop.html?cat=tables&sub=coffee" data-en="Coffee Table">میز جلو مبلی</a></li>
+                  <li><a href="shop.html?cat=tables&sub=sidetable" data-en="Side Table">میز عسلی</a></li>
+                  <li><a href="shop.html?cat=tables&sub=bartable" data-en="Bar Table">میز بار</a></li>
+                  <li><a href="shop.html?cat=tables&sub=desk" data-en="Writing Desk">میز تحریر</a></li>
+                  <li><a href="shop.html?cat=tables&sub=vanity" data-en="Vanity Table">میز آرایش</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <h4 data-en="Console & Accessories">کنسول و اکسسوری</h4>
+                <ul>
+                  <li><a href="shop.html?cat=console&sub=sideboard" data-en="Sideboard">سایدبورد</a></li>
+                  <li><a href="shop.html?cat=console&sub=consoleunit" data-en="Console">کنسول</a></li>
+                  <li><a href="shop.html?cat=console&sub=tv" data-en="TV Unit">میز تلویزیون</a></li>
+                  <li><a href="shop.html?cat=console&sub=cabinet" data-en="Cabinet & Shoe Rack">کابینت و جاکفشی</a></li>
+                  <li><a href="shop.html?cat=console" data-en="Mirror">آینه</a></li>
+                  <li><a href="shop.html?cat=console" data-en="Shelf">شلف</a></li>
+                  <li><a href="shop.html?cat=console" data-en="Lighting">آباژور و روشنایی</a></li>
+                </ul>
+              </div>
+              <a href="product.html" class="mega-feature">
+                <img src="images/alto-2.jpg" alt="میز بار آلتو" loading="lazy">
+                <span class="tag" data-en="New · NEW">جدید · NEW</span>
+                <h5 class="lat">Alto Bar Table</h5>
+                <p data-en="Alto Bar Table — Natural Wood, Minimal Design">میز بار آلتو — چوب طبیعی، طراحی مینیمال</p>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li class="has-mega">
+          <a href="#" data-en="Designers ▾">طراحان ▾</a>
+          <div class="mega">
+            <div class="mega-inner">
+              <div class="mega-col">
+                <h4 data-en="Piro Design Team">تیم طراحی خانه پیرو</h4>
+                <ul>
+                  <li><a href="about.html" data-en="Piro Design Studio">استودیو طراحی خانه پیرو</a></li>
+                  <li><a href="about.html" data-en="Design Philosophy">فلسفه طراحی</a></li>
+                  <li><a href="about.html" data-en="Craftsmanship Process">روند ساخت</a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <h4 data-en="Collaboration">همکاری</h4>
+                <ul>
+                  <li><a href="#" data-en="Architects & Designers">معماران و دیزاینرها</a></li>
+                  <li><a href="#" data-en="Commercial Projects">پروژه‌های تجاری</a></li>
+                  <li><a href="#" data-en="Partnership Request">درخواست همکاری</a></li>
+                </ul>
+              </div>
+              <div class="mega-col"></div>
+              <div class="mega-col"></div>
+              <a href="about.html" class="mega-feature">
+                <img src="images/detail.jpg" alt="استودیو طراحی خانه پیرو" loading="lazy">
+                <span class="tag" data-en="Studio">استودیو</span>
+                <h5 class="lat">Design Studio</h5>
+                <p data-en="Designers who bring wood to life">طراحانی که چوب را زنده می‌کنند</p>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li><a href="catalogue.html" data-en="Catalogue">کاتالوگ</a></li>
+        <li><a href="#" data-en="Installments">فروش اقساطی</a></li>
+        <li><a href="about.html" data-en="About">درباره ما</a></li>
+        <li><a href="#" data-en="Contact">تماس</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="جستجو" title="جستجو"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <button class="icon-btn" aria-label="علاقه‌مندی‌ها" title="علاقه‌مندی"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+      <a id="authBtn" href="account.html" class="auth-header-btn"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span id="authBtnTxt" data-en="Sign In | Register">ورود | ثبت‌نام</span></a>
+      <button class="icon-btn" aria-label="سبد خرید" title="سبد خرید"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="badge" id="cartCount" aria-live="polite">0</span></button>
+      <button class="lang-btn lat" onclick="toggleLang(this)" aria-label="تغییر زبان">EN</button>
+      <button class="burger" onclick="openDrawer()" aria-label="منوی موبایل" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="dash-layout">
+  <aside class="dash-sidebar">
+    <div class="dash-user">
+      <div class="dash-av" id="sideAv">P</div>
+      <div>
+        <div class="dash-name" id="sideName">کاربر خانه پیرو</div>
+        <div class="dash-contact" id="sideContact"></div>
+      </div>
+    </div>
+    <ul class="sidebar-nav">
+      <li><a href="#" class="active" onclick="showPanel('orders',this)">
+        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span data-en="My Orders">سفارش‌های من</span>
+      </a></li>
+      <li><a href="#" onclick="showPanel('wishlist',this)">
+        <svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg><span data-en="Wishlist">علاقه‌مندی‌ها</span>
+      </a></li>
+      <li><a href="#" onclick="showPanel('addresses',this)">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-en="My Addresses">آدرس‌های من</span>
+      </a></li>
+      <li><a href="#" onclick="showPanel('reviews',this)">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span data-en="Reviews & Questions">دیدگاه‌ها و پرسش‌ها</span>
+      </a></li>
+      <div class="sidebar-sep"></div>
+      <li><a href="#" onclick="showPanel('profile',this)">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span data-en="Edit Profile">ویرایش پروفایل</span>
+      </a></li>
+      <li><button onclick="doLogout()">
+        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span data-en="Sign Out">خروج از حساب کاربری</span>
+      </button></li>
+    </ul>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-panel active" id="panel-orders">
+      <h2 class="panel-title" data-en="My Orders">سفارش‌های من</h2>
+      <p class="panel-sub" data-en="Your purchase history from Piro">تاریخچه خریدهای شما از خانه پیرو</p>
+      <div class="stat-row">
+        <div class="stat-card"><div class="num" id="statTotal">0</div><div class="lbl" data-en="Total Orders">مجموع سفارش‌ها</div></div>
+        <div class="stat-card"><div class="num" id="statPending">0</div><div class="lbl" data-en="Pending Shipment">در انتظار ارسال</div></div>
+        <div class="stat-card"><div class="num" id="statDone">0</div><div class="lbl" data-en="Delivered">تحویل‌داده‌شده</div></div>
+      </div>
+      <div class="order-list" id="orderList">
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <p data-en="No orders placed yet">هنوز سفارشی ثبت نشده است</p>
+          <a href="shop.html" class="btn btn-red" style="display:inline-flex" data-en="Browse Products">مشاهده محصولات</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-panel" id="panel-wishlist">
+      <h2 class="panel-title" data-en="Wishlist">علاقه‌مندی‌ها</h2>
+      <p class="panel-sub" data-en="Products you have saved">محصولاتی که ذخیره کرده‌اید</p>
+      <div class="wish-grid" id="wishGrid">
+        <div class="empty-state" style="grid-column:1/-1">
+          <svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+          <p data-en="You haven't added any products to your wishlist yet">هنوز محصولی به علاقه‌مندی‌ها اضافه نکرده‌اید</p>
+          <a href="shop.html" class="btn btn-red" style="display:inline-flex" data-en="Explore Products">کاوش در محصولات</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-panel" id="panel-addresses">
+      <h2 class="panel-title" data-en="My Addresses">آدرس‌های من</h2>
+      <p class="panel-sub" data-en="Your delivery addresses">آدرس‌های تحویل سفارش شما</p>
+      <div class="addr-grid" id="addrGrid">
+        <button class="addr-add" onclick="addAddressPrompt()">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span data-en="Add New Address">افزودن آدرس جدید</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="dash-panel" id="panel-reviews">
+      <h2 class="panel-title" data-en="Reviews & Questions">دیدگاه‌ها و پرسش‌ها</h2>
+      <p class="panel-sub" data-en="Comments and questions you have submitted">نظرات و سوالاتی که ثبت کرده‌اید</p>
+      <div class="empty-state review-empty">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <p data-en="No reviews or questions submitted yet">هنوز دیدگاه یا پرسشی ثبت نشده است</p>
+      </div>
+    </div>
+
+    <div class="dash-panel" id="panel-profile">
+      <h2 class="panel-title" data-en="Edit Profile">ویرایش پروفایل</h2>
+      <p class="panel-sub" data-en="Manage your personal information">اطلاعات شخصی خود را مدیریت کنید</p>
+      <div class="profile-form">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="f-group">
+            <label data-en="First Name">نام</label>
+            <input type="text" id="pf_fname">
+          </div>
+          <div class="f-group">
+            <label data-en="Last Name">نام خانوادگی</label>
+            <input type="text" id="pf_lname">
+          </div>
+        </div>
+        <div class="f-group">
+          <label data-en="National ID <small style='color:var(--grey);font-weight:400'>(Cannot be changed)</small>">کد ملی <small style="color:var(--grey);font-weight:400">(قابل تغییر نیست)</small></label>
+          <input type="text" id="pf_nid" disabled>
+        </div>
+        <div class="f-group">
+          <label data-en="Mobile">موبایل</label>
+          <input type="text" id="pf_mobile" disabled style="direction:ltr;text-align:right">
+        </div>
+        <div class="f-group">
+          <label data-en="Email">ایمیل</label>
+          <input type="email" id="pf_email" style="direction:ltr;text-align:right">
+        </div>
+        <button class="save-btn" onclick="saveProfile()" data-en="Save Changes">ذخیره تغییرات</button>
+        <div class="save-ok" id="saveOk" data-en="✔ Information saved successfully">✔ اطلاعات با موفقیت ذخیره شد</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo lat">
+      <span class="logo-icon">
+        <svg class="logo-branch" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="9" y1="21" x2="9" y2="7" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round"/>
+          <path d="M9 7 Q5.5 4.5 2.5 2.5 Q4 6.5 9 7Z" fill="#6A4E38" opacity="0.80"/>
+          <path d="M9 10.5 Q12.5 8 15.5 6 Q14 10 9 10.5Z" fill="#5C4030" opacity="0.60"/>
+          <path d="M9 14 Q6 11.5 3.5 10 Q5.5 13 9 14Z" fill="#4E3428" opacity="0.40"/>
+        </svg>
+      </span>
+      <span class="logo-caption">
+        <span>Handcrafted in Iran</span>
+        <span>Natural Solid Wood</span>
+      </span>
+      <span class="logo-wordmark">House of PIRO</span>
+      <span class="logo-rules">
+        <span class="logo-rule-thick"></span>
+        <span class="logo-rule-thin"></span>
+      </span>
+    </a>
+      <p data-en="Minimal, artful, high-quality furniture in natural wood. Japandi & Scandinavian design for your home.">مبلمان مینیمال، هنرمندانه و باکیفیت از چوب طبیعی. طراحی جپندی و اسکاندیناوی برای خانه شما.</p>
+      <div class="socials">
+        <a href="https://instagram.com/piro_ir" target="_blank"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.4A4 4 0 1 1 12.6 8 4 4 0 0 1 16 11.4z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4 data-en="Main Menu">منو اصلی</h4><ul><li><a href="index.html" data-en="Home">خانه</a></li><li><a href="shop.html" data-en="Products">محصولات</a></li><li><a href="about.html" data-en="About Us">درباره ما</a></li></ul></div>
+    <div class="footer-col"><h4 data-en="Support">پشتیبانی</h4><ul><li><a href="#" data-en="How to Buy">نحوه خرید</a></li><li><a href="#" data-en="Shipping & Delivery">ارسال و تحویل</a></li><li><a href="#" data-en="Contact Us">تماس با ما</a></li></ul></div>
+    <div class="footer-col"><h4></h4></div>
+    <div class="footer-col footer-contact"><h4 data-en="Contact">تماس</h4>
+      <div><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-en="Tehran, Iran">تهران، ایران</span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>info@pirofurniture.com</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p data-en="© 2024 PIRO Furniture — All Rights Reserved">© ۱۴۰۳ خانه پیرو — تمامی حقوق محفوظ است</p>
+    <span class="lat">© 2024 PIRO Furniture</span>
+  </div>
+</footer>
+
+<script src="assets/main.js"></script>
+<script src="assets/auth.js"></script>
+<script>
+var user=PiroAuth.current();
+
+if(user){
+  document.getElementById('sideAv').textContent=(user.firstName[0]||'P').toUpperCase();
+  document.getElementById('sideName').textContent=user.firstName+' '+user.lastName;
+  document.getElementById('sideContact').textContent=user.mobile||user.email||'';
+  document.getElementById('pf_fname').value=user.firstName||'';
+  document.getElementById('pf_lname').value=user.lastName||'';
+  document.getElementById('pf_nid').value=user.nationalId||'';
+  document.getElementById('pf_mobile').value=user.mobile||'';
+  document.getElementById('pf_email').value=user.email||'';
+  var orders=user.orders||[];
+  document.getElementById('statTotal').textContent=orders.length;
+  document.getElementById('statPending').textContent=orders.filter(function(o){return o.status==='pending';}).length;
+  document.getElementById('statDone').textContent=orders.filter(function(o){return o.status==='delivered';}).length;
+  if(orders.length>0){
+    var list=document.getElementById('orderList');
+    list.innerHTML='';
+    orders.forEach(function(o){
+      var statusLabel={'pending':'در انتظار ارسال','sent':'ارسال‌شده','delivered':'تحویل داده‌شده'}[o.status]||o.status;
+      var statusClass={'pending':'status-pending','sent':'status-sent','delivered':'status-delivered'}[o.status]||'';
+      list.innerHTML+='<div class="order-card">'
+        +'<div class="order-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg></div>'
+        +'<div><div class="order-name">'+o.name+'</div><div class="order-date">'+o.date+'</div></div>'
+        +'<div class="order-status '+statusClass+'">'+statusLabel+'</div>'
+        +'</div>';
+    });
+  }
+  var wish=user.wishlist||[];
+  if(wish.length>0){
+    var wg=document.getElementById('wishGrid');
+    wg.innerHTML='';
+    wish.forEach(function(w){
+      wg.innerHTML+='<div class="wish-card">'
+        +'<div class="wish-card-thumb"></div>'
+        +'<div class="winfo"><div class="wname">'+w.name+'</div><div class="wprice lat">'+w.price+'</div></div>'
+        +'</div>';
+    });
+  }
+  var addrs=user.addresses||[];
+  if(addrs.length>0){
+    var ag=document.getElementById('addrGrid');
+    addrs.forEach(function(a){
+      var div=document.createElement('div');
+      div.className='addr-card';
+      div.innerHTML='<span class="addr-tag">'+a.label+'</span><p>'+a.text+'</p>';
+      ag.insertBefore(div,ag.firstChild);
+    });
+  }
+}
+
+function showPanel(name,el){
+  event.preventDefault();
+  document.querySelectorAll('.dash-panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('panel-'+name).classList.add('active');
+  document.querySelectorAll('.sidebar-nav a, .sidebar-nav button').forEach(function(a){a.classList.remove('active');});
+  el.classList.add('active');
+}
+
+function saveProfile(){
+  if(!user)return;
+  user.firstName=document.getElementById('pf_fname').value.trim()||user.firstName;
+  user.lastName=document.getElementById('pf_lname').value.trim()||user.lastName;
+  user.email=document.getElementById('pf_email').value.trim()||user.email;
+  var all=PiroAuth.users();
+  var idx=all.findIndex(function(u){return u.nationalId===user.nationalId;});
+  if(idx>=0){all[idx]=user;PiroAuth.save(all);}
+  document.getElementById('sideName').textContent=user.firstName+' '+user.lastName;
+  document.getElementById('sideAv').textContent=user.firstName[0].toUpperCase();
+  var ok=document.getElementById('saveOk');
+  ok.style.display='block';
+  setTimeout(function(){ok.style.display='none';},3000);
+}
+
+function addAddressPrompt(){
+  var label=prompt('برچسب آدرس (مثلاً: خانه، محل کار):');
+  if(!label)return;
+  var text=prompt('آدرس کامل:');
+  if(!text)return;
+  if(!user.addresses)user.addresses=[];
+  user.addresses.push({label:label,text:text});
+  var all=PiroAuth.users();
+  var idx=all.findIndex(function(u){return u.nationalId===user.nationalId;});
+  if(idx>=0){all[idx]=user;PiroAuth.save(all);}
+  var ag=document.getElementById('addrGrid');
+  var div=document.createElement('div');
+  div.className='addr-card';
+  div.innerHTML='<span class="addr-tag">'+label+'</span><p>'+text+'</p>';
+  ag.insertBefore(div,ag.firstChild);
+}
+
+function doLogout(){
+  if(confirm('آیا می‌خواهید از حساب کاربری خود خارج شوید؟')){
+    PiroAuth.logout(); location.href='index.html';
+  }
+}
+</script>
+<script>
+(function() {
+  var btn = document.createElement('button');
+  btn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+  btn.style.cssText = 'position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:50%;background:#1a1a1a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9999;box-shadow:0 2px 12px rgba(0,0,0,0.15)';
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://khaneh-piro-chat-pqtvg5jj1-piro-co.vercel.app';
+  iframe.style.cssText = 'position:fixed;bottom:92px;left:24px;width:340px;height:480px;border:none;border-radius:16px;z-index:9998;box-shadow:0 8px 32px rgba(0,0,0,0.12);display:none';
+  btn.onclick = function() {
+    iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
+  };
+  document.body.appendChild(btn);
+  document.body.appendChild(iframe);
+})();
+</script>
+</body>
+</html>

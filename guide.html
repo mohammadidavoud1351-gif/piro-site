@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>راهنمای خرید | PIRO — نحوه خرید، ارسال، گارانتی</title>
+<meta name="description" content="راهنمای خرید از خانه پیرو — نحوه سفارش، شرایط ارسال و تحویل، گارانتی محصولات">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/chatbot.css">
+<style>
+.page-hero {
+  padding: clamp(110px,14vw,168px) var(--gut) clamp(48px,6vw,72px);
+  border-bottom: 1px solid var(--line);
+  max-width: var(--maxw); margin: 0 auto;
+}
+.page-hero .eyebrow { display: block; margin-bottom: 18px; }
+.page-hero h1 {
+  font-family: var(--font-lat); font-weight: 200;
+  font-size: clamp(44px,6.5vw,88px); letter-spacing: -.03em; line-height: 1.0;
+}
+
+/* Sidebar nav */
+.guide-layout {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: 200px 1fr; gap: 64px;
+  padding: clamp(56px,7vw,88px) var(--gut);
+  align-items: start;
+}
+.guide-nav { position: sticky; top: 88px; }
+.guide-nav a {
+  display: block; font-size: 13px; color: var(--ink-soft);
+  text-decoration: none; padding: 10px 0;
+  border-bottom: 1px solid var(--line); transition: color .2s;
+  letter-spacing: .02em;
+}
+.guide-nav a:first-child { border-top: 1px solid var(--line); }
+.guide-nav a:hover, .guide-nav a.active { color: var(--burgundy); }
+.guide-nav-title {
+  font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--grey); font-family: var(--font-lat); margin-bottom: 14px; display: block;
+}
+
+/* Guide sections */
+.guide-content { min-width: 0; }
+.guide-section {
+  padding-bottom: clamp(56px,7vw,88px);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: clamp(56px,7vw,88px);
+}
+.guide-section:last-child { border-bottom: none; margin-bottom: 0; }
+.guide-section .eyebrow { display: block; margin-bottom: 18px; }
+.guide-section h2 {
+  font-size: clamp(28px,3.4vw,44px); font-weight: 300;
+  letter-spacing: -.01em; margin-bottom: 32px;
+}
+
+/* Steps */
+.steps { counter-reset: step; display: flex; flex-direction: column; gap: 0; }
+.step {
+  display: grid; grid-template-columns: 56px 1fr; gap: 24px;
+  padding: 28px 0; border-bottom: 1px solid var(--line); align-items: start;
+}
+.step:first-child { border-top: 1px solid var(--line); }
+.step-num {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 1.5px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-lat); font-size: 15px; font-weight: 300; color: var(--grey);
+  flex-shrink: 0;
+}
+.step-body h3 { font-size: 17px; font-weight: 400; margin-bottom: 8px; }
+.step-body p { font-size: 14px; color: var(--ink-soft); line-height: 1.9; }
+.step-body a { color: var(--burgundy); text-decoration: none; border-bottom: 1px solid currentColor; }
+
+/* Info boxes */
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+.info-box {
+  background: var(--bg-warm); padding: 28px;
+  border: 1px solid var(--line);
+}
+.info-box svg {
+  width: 28px; height: 28px; stroke: var(--burgundy); fill: none;
+  stroke-width: 1.5; stroke-linecap: round; margin-bottom: 14px; display: block;
+}
+.info-box h3 { font-size: 15px; font-weight: 500; margin-bottom: 10px; }
+.info-box p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.85; }
+
+/* Shipping table */
+.ship-table { width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 14px; }
+.ship-table th {
+  text-align: right; padding: 14px 16px;
+  border-bottom: 2px solid var(--ink); font-weight: 500; font-size: 12px;
+  letter-spacing: .04em;
+}
+.ship-table td { padding: 14px 16px; border-bottom: 1px solid var(--line); color: var(--ink-soft); }
+.ship-table tr:hover td { background: var(--bg-warm); color: var(--ink); }
+.tag-free {
+  background: #e8f4e8; color: #2d6a2d; font-size: 11px;
+  padding: 3px 10px; border-radius: 20px; font-family: var(--font-lat);
+}
+
+/* Warranty items */
+.warranty-list { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+.warranty-item {
+  display: flex; gap: 20px; align-items: flex-start;
+  padding: 24px 0; border-bottom: 1px solid var(--line);
+}
+.warranty-item:first-child { border-top: 1px solid var(--line); }
+.warranty-icon {
+  width: 44px; height: 44px; background: var(--bg-warm);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.warranty-icon svg { width: 20px; height: 20px; stroke: var(--burgundy); fill: none; stroke-width: 1.5; }
+.warranty-item h3 { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+.warranty-item p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.85; }
+
+.guide-cta {
+  background: var(--ink); color: #fff; padding: clamp(48px,6vw,72px) var(--gut);
+  text-align: center; margin-top: 0;
+}
+.guide-cta h2 { font-size: clamp(24px,2.8vw,38px); font-weight: 300; margin-bottom: 12px; color: #fff; }
+.guide-cta p { color: rgba(255,255,255,.65); font-size: 14.5px; margin-bottom: 28px; }
+.guide-cta a {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #fff; color: var(--ink); text-decoration: none;
+  padding: 14px 36px; font-family: var(--font-lat); font-size: 11px;
+  letter-spacing: .2em; text-transform: uppercase; transition: background .2s;
+}
+.guide-cta a:hover { background: var(--bg-warm); }
+
+@media (max-width: 840px) {
+  .guide-layout { grid-template-columns: 1fr; gap: 40px; }
+  .guide-nav { position: static; display: flex; flex-wrap: wrap; gap: 4px; }
+  .guide-nav a { border: 1px solid var(--line); padding: 8px 14px; font-size: 12.5px; }
+  .guide-nav a:first-child { border-top: 1px solid var(--line); }
+  .info-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="header-row">
+    <a href="index.html" class="logo lat">
+      <span class="logo-icon">
+        <svg class="logo-branch" viewBox="0 0 28 32" fill="none">
+          <path d="M14,31 L14,20 Q13,17 12,14" stroke="#5C4030" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          <path d="M14,22 Q11,19 9,16" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <path d="M14,20 Q17,17 19,14" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+          <ellipse cx="14" cy="11" rx="9" ry="7" fill="#5C4030" opacity="0.18"/>
+          <ellipse cx="11" cy="9" rx="6.5" ry="5" fill="#6A4E38" opacity="0.25"/>
+          <ellipse cx="17" cy="10" rx="6" ry="4.5" fill="#5C4030" opacity="0.22"/>
+          <ellipse cx="14" cy="7.5" rx="7" ry="5.5" fill="#7A5A42" opacity="0.30"/>
+          <ellipse cx="14" cy="8" rx="5" ry="4" fill="#8A6A50" opacity="0.25"/>
+        </svg>
+      </span>
+      <span class="logo-caption"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></span>
+      <span class="logo-wordmark">House of PIRO</span>
+      <span class="logo-rules"><span class="logo-rule-thick"></span><span class="logo-rule-thin"></span></span>
+    </a>
+    <nav>
+      <ul class="mainnav">
+        <li><a href="index.html">خانه</a></li>
+        <li class="has-mega">
+          <a href="javascript:void(0)">محصولات ▾</a>
+          <div class="mega"><div class="mega-inner">
+            <div class="mega-col"><h4><a href="shop.html?cat=living" style="color:inherit">نشیمن</a></h4><ul>
+              <li><a href="shop.html?cat=living&sub=sofa">کاناپه</a></li>
+              <li><a href="shop.html?cat=living&sub=lounge">مبل راحتی</a></li>
+              <li><a href="shop.html?cat=living&sub=chair">صندلی</a></li>
+              <li><a href="shop.html?cat=living&sub=barstool">استول</a></li>
+              <li><a href="shop.html?cat=living&sub=bench">نیمکت</a></li>
+            </ul></div>
+            <div class="mega-col"><h4><a href="shop.html?cat=bedroom" style="color:inherit">سرویس خواب</a></h4><ul>
+              <li><a href="shop.html?cat=bedroom&sub=bed">تخت‌خواب</a></li>
+              <li><a href="shop.html?cat=bedroom&sub=nightstand">پاتختی</a></li>
+              <li><a href="shop.html?cat=bedroom&sub=dresser">دراور</a></li>
+              <li><a href="shop.html?cat=bedroom&sub=hanger">رخت آویز</a></li>
+            </ul></div>
+            <div class="mega-col"><h4><a href="shop.html?cat=tables" style="color:inherit">میز</a></h4><ul>
+              <li><a href="shop.html?cat=tables&sub=dining">میز ناهارخوری</a></li>
+              <li><a href="shop.html?cat=tables&sub=coffee">میز جلو مبلی</a></li>
+              <li><a href="shop.html?cat=tables&sub=sidetable">میز عسلی</a></li>
+              <li><a href="shop.html?cat=tables&sub=bartable">میز بار</a></li>
+            </ul></div>
+            <div class="mega-col"><h4>کنسول و اکسسوری</h4><ul>
+              <li><a href="shop.html?cat=console&sub=sideboard">سایدبورد</a></li>
+              <li><a href="shop.html?cat=console&sub=consoleunit">کنسول</a></li>
+              <li><a href="shop.html?cat=console">آینه</a></li>
+              <li><a href="shop.html?cat=console">شلف</a></li>
+            </ul></div>
+            <a href="product.html" class="mega-feature">
+              <img src="images/alto-2.jpg" alt="میز بار آلتو" loading="lazy">
+              <span class="tag">جدید · NEW</span>
+              <h5 class="lat">Alto Bar Table</h5>
+              <p>میز بار آلتو — چوب طبیعی، طراحی مینیمال</p>
+            </a>
+          </div></div>
+        </li>
+        <li class="has-mega">
+          <a href="javascript:void(0)">طراحان ▾</a>
+          <div class="mega"><div class="mega-inner">
+            <div class="mega-col"><h4>تیم طراحی خانه پیرو</h4><ul>
+              <li><a href="about.html">استودیو طراحی خانه پیرو</a></li>
+              <li><a href="about.html">فلسفه طراحی</a></li>
+            </ul></div>
+            <div class="mega-col"><h4>همکاری</h4><ul>
+              <li><a href="#">معماران و دیزاینرها</a></li>
+              <li><a href="#">پروژه‌های تجاری</a></li>
+            </ul></div>
+            <div class="mega-col"></div><div class="mega-col"></div>
+            <a href="about.html" class="mega-feature">
+              <img src="images/detail.jpg" alt="استودیو خانه پیرو" loading="lazy">
+              <span class="tag">استودیو</span><h5 class="lat">Design Studio</h5>
+              <p>طراحانی که چوب را زنده می‌کنند</p>
+            </a>
+          </div></div>
+        </li>
+        <li><a href="catalogue.html">کاتالوگ</a></li>
+        <li><a href="installments.html">فروش اقساطی</a></li>
+        <li><a href="about.html">درباره ما</a></li>
+        <li><a href="contact.html">تماس</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="جستجو"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <button class="icon-btn" aria-label="علاقه‌مندی‌ها"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+      <a id="authBtn" href="account.html" class="auth-header-btn"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span id="authBtnTxt" data-en="Sign In | Register">ورود | ثبت‌نام</span></a>
+      <button class="icon-btn" aria-label="سبد خرید"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="badge" id="cartCount">0</span></button>
+      <button class="lang-btn lat" onclick="toggleLang(this)">EN</button>
+      <button class="burger" onclick="openDrawer()"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero reveal">
+  <span class="eyebrow lat">SUPPORT · راهنما</span>
+  <h1>راهنمای<br>خرید از خانه پیرو</h1>
+</div>
+
+<!-- GUIDE LAYOUT -->
+<div class="guide-layout">
+
+  <!-- Sticky sidebar nav -->
+  <nav class="guide-nav">
+    <span class="guide-nav-title lat">CONTENTS</span>
+    <a href="#how-to-buy">نحوه خرید</a>
+    <a href="#shipping">ارسال و تحویل</a>
+    <a href="#warranty">گارانتی</a>
+    <a href="contact.html">تماس با ما</a>
+  </nav>
+
+  <!-- Main content -->
+  <div class="guide-content">
+
+    <!-- HOW TO BUY -->
+    <section class="guide-section reveal" id="how-to-buy">
+      <span class="eyebrow lat">HOW TO BUY</span>
+      <h2>نحوه خرید</h2>
+      <p style="font-size:14.5px;color:var(--ink-soft);line-height:1.9;margin-bottom:32px">
+        خرید از خانه پیرو ساده و شفاف است. محصولات ما سفارش‌پذیر و کاملاً قابل شخصی‌سازی در رنگ چوب و پارچه هستند.
+      </p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">۱</div>
+          <div class="step-body">
+            <h3>محصول مورد نظر را انتخاب کنید</h3>
+            <p>از <a href="shop.html">فروشگاه آنلاین</a> یا بازدید از نمایشگاه (سعادت‌آباد، مجتمع دیدار) محصول را انتخاب کنید. رنگ چوب و پارچه را می‌توانید سفارشی کنید.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">۲</div>
+          <div class="step-body">
+            <h3>روش پرداخت را انتخاب کنید</h3>
+            <p>پرداخت نقدی یا اقساط ۶ تا ۱۸ ماهه دیجی‌پی. برای خرید اقساطی <a href="installments.html">راهنمای فروش اقساطی</a> را ببینید.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">۳</div>
+          <div class="step-body">
+            <h3>ثبت سفارش و تأیید</h3>
+            <p>پس از ثبت سفارش، کارشناسان ما با شما تماس می‌گیرند تا جزئیات سفارش را نهایی کنند و قرارداد ساخت را امضا کنیم.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">۴</div>
+          <div class="step-body">
+            <h3>تولید و تحویل</h3>
+            <p>زمان تولید ۶۰ روز کاری است. پس از اتمام، محصول آماده‌سازی و ارسال می‌شود. ارسال در تهران رایگان است.</p>
+          </div>
+        </div>
+      </div>
+      <div class="info-grid" style="margin-top:32px">
+        <div class="info-box">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 17z"/></svg>
+          <h3>مشاوره تلفنی</h3>
+          <p>تیم ما آماده پاسخگویی است:<br><strong>۰۲۱–۲۶۷۴–۶۷۲۴</strong><br>شنبه تا پنجشنبه ۱۰–۲۱</p>
+        </div>
+        <div class="info-box">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <h3>بازدید از نمایشگاه</h3>
+          <p>سعادت‌آباد، جنب اسپیناس پالاس، مجتمع دیدار، طبقه دوم — پارکینگ رایگان دارد.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHIPPING -->
+    <section class="guide-section reveal" id="shipping">
+      <span class="eyebrow lat">SHIPPING & DELIVERY</span>
+      <h2>ارسال و تحویل</h2>
+      <p style="font-size:14.5px;color:var(--ink-soft);line-height:1.9;margin-bottom:8px">
+        همه محصولات خانه پیرو سفارشی ساخته می‌شوند. زمان تولید ۶۰ روز کاری از تاریخ تأیید سفارش و دریافت پیش‌پرداخت است.
+      </p>
+      <table class="ship-table">
+        <thead>
+          <tr>
+            <th>منطقه</th>
+            <th>هزینه ارسال</th>
+            <th>زمان تحویل</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>تهران (داخل شهر)</td>
+            <td><span class="tag-free">رایگان</span></td>
+            <td>۱–۳ روز کاری پس از آماده‌سازی</td>
+          </tr>
+          <tr>
+            <td>البرز، کرج</td>
+            <td>با هماهنگی</td>
+            <td>۲–۵ روز کاری</td>
+          </tr>
+          <tr>
+            <td>سایر شهرها</td>
+            <td>با هماهنگی تیم فروش</td>
+            <td>۵–۱۰ روز کاری</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="info-grid" style="margin-top:28px">
+        <div class="info-box">
+          <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          <h3>نصب و راه‌اندازی</h3>
+          <p>تیم نصب خانه پیرو محصول را در محل شما مونتاژ و راه‌اندازی می‌کند. این خدمات برای تهران رایگان است.</p>
+        </div>
+        <div class="info-box">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <h3>بسته‌بندی ایمن</h3>
+          <p>همه محصولات با کارتن و فوم مخصوص بسته‌بندی می‌شوند تا در حین حمل آسیبی نبینند.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WARRANTY -->
+    <section class="guide-section reveal" id="warranty">
+      <span class="eyebrow lat">WARRANTY</span>
+      <h2>گارانتی محصولات</h2>
+      <p style="font-size:14.5px;color:var(--ink-soft);line-height:1.9;margin-bottom:32px">
+        خانه پیرو به کیفیت ساخت محصولاتش ایمان دارد. همه محصولات با ضمانت کیفیت ارائه می‌شوند.
+      </p>
+      <div class="warranty-list">
+        <div class="warranty-item">
+          <div class="warranty-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div>
+            <h3>ضمانت ۱ ساله سازه</h3>
+            <p>اتصالات، ساختار و یکپارچگی چوب تا ۱ سال از تاریخ تحویل ضمانت دارند. در صورت بروز عیب سازه‌ای، محصول تعمیر یا جایگزین می‌شود.</p>
+          </div>
+        </div>
+        <div class="warranty-item">
+          <div class="warranty-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div>
+            <h3>پشتیبانی مادام‌العمر پوشش</h3>
+            <p>پارچه و روکش مبل قابل تعویض هستند. در صورت نیاز، تیم ما می‌تواند پوشش محصول شما را با قیمت مناسب تعویض کند.</p>
+          </div>
+        </div>
+        <div class="warranty-item">
+          <div class="warranty-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <div>
+            <h3>کیفیت مواد اولیه</h3>
+            <p>چوب راش یکپارچه اروپایی، روغن گیاهی روبیو مونوکوت بلژیک، پارچه مرغوب ترکیه — همه مواد دارای استاندارد کیفی مستند هستند.</p>
+          </div>
+        </div>
+        <div class="warranty-item">
+          <div class="warranty-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div>
+            <h3>موارد خارج از گارانتی</h3>
+            <p>آسیب‌های ناشی از استفاده نادرست، قرار گرفتن در معرض رطوبت شدید یا آفتاب مستقیم، و تغییرات توسط مشتری از شمول گارانتی خارج هستند.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="guide-cta">
+  <h2>سوالی دارید؟</h2>
+  <p>تیم پشتیبانی خانه پیرو آماده پاسخگویی است.</p>
+  <a href="contact.html">تماس با ما</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo lat">
+        <span class="logo-icon">
+          <svg class="logo-branch" viewBox="0 0 28 32" fill="none">
+            <path d="M14,31 L14,20 Q13,17 12,14" stroke="#5C4030" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+            <path d="M14,22 Q11,19 9,16" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+            <path d="M14,20 Q17,17 19,14" stroke="#5C4030" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+            <ellipse cx="14" cy="11" rx="9" ry="7" fill="#5C4030" opacity="0.18"/>
+            <ellipse cx="11" cy="9" rx="6.5" ry="5" fill="#6A4E38" opacity="0.25"/>
+            <ellipse cx="17" cy="10" rx="6" ry="4.5" fill="#5C4030" opacity="0.22"/>
+            <ellipse cx="14" cy="7.5" rx="7" ry="5.5" fill="#7A5A42" opacity="0.30"/>
+            <ellipse cx="14" cy="8" rx="5" ry="4" fill="#8A6A50" opacity="0.25"/>
+          </svg>
+        </span>
+        <span class="logo-caption"><span>Handcrafted in Iran</span><span>Natural Solid Wood</span></span>
+        <span class="logo-wordmark">House of PIRO</span>
+        <span class="logo-rules"><span class="logo-rule-thick"></span><span class="logo-rule-thin"></span></span>
+      </a>
+      <p>مبلمان مینیمال، هنرمندانه و باکیفیت از چوب طبیعی.</p>
+      <div class="socials">
+        <a href="https://instagram.com/piro_ir" target="_blank"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.4A4 4 0 1 1 12.6 8 4 4 0 0 1 16 11.4z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg></a>
+        <a href="https://wa.me/982126746724" target="_blank"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>منو اصلی</h4><ul>
+      <li><a href="index.html">خانه</a></li>
+      <li><a href="shop.html">محصولات</a></li>
+      <li><a href="catalogue.html">کاتالوگ</a></li>
+      <li><a href="installments.html">فروش اقساطی</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>دسته‌بندی</h4><ul>
+      <li><a href="shop.html">نشیمن</a></li>
+      <li><a href="shop.html">سرویس خواب</a></li>
+      <li><a href="shop.html">میز</a></li>
+      <li><a href="shop.html">کنسول و سایدبورد</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>پشتیبانی</h4><ul>
+      <li><a href="guide.html#how-to-buy">نحوه خرید</a></li>
+      <li><a href="guide.html#shipping">ارسال و تحویل</a></li>
+      <li><a href="guide.html#warranty">گارانتی</a></li>
+      <li><a href="about.html">درباره ما</a></li>
+      <li><a href="contact.html">تماس با ما</a></li>
+    </ul></div>
+    <div class="footer-col footer-contact"><h4>تماس</h4>
+      <div><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>تهران، سعادت‌آباد، مجتمع دیدار</span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 17z"/></svg><span class="lat">۰۲۱–۲۶۷۴–۶۷۲۴</span></div>
+      <div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>شنبه تا پنجشنبه ۱۰–۲۱</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© ۱۴۰۳ خانه پیرو — تمامی حقوق محفوظ است</p>
+    <span class="lat">© 2024 PIRO Furniture — All Rights Reserved</span>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()">×</button>
+  <h4>منو</h4>
+  <a href="index.html">خانه</a>
+  <a href="shop.html">محصولات</a>
+  <a href="catalogue.html">کاتالوگ</a>
+  <a href="installments.html">فروش اقساطی</a>
+  <a href="about.html">درباره ما</a>
+  <a href="contact.html">تماس</a>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/db.js"></script>
+<script src="assets/main.js?v=2"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/chatbot.js"></script>
+<script>
+(function() {
+  var btn = document.createElement('button');
+  btn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+  btn.style.cssText = 'position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:50%;background:#1a1a1a;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9999;box-shadow:0 2px 12px rgba(0,0,0,0.15)';
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://khaneh-piro-chat-pqtvg5jj1-piro-co.vercel.app';
+  iframe.style.cssText = 'position:fixed;bottom:92px;left:24px;width:340px;height:480px;border:none;border-radius:16px;z-index:9998;box-shadow:0 8px 32px rgba(0,0,0,0.12);display:none';
+  btn.onclick = function() {
+    iframe.style.display = iframe.style.display === 'none' ? 'block' : 'none';
+  };
+  document.body.appendChild(btn);
+  document.body.appendChild(iframe);
+})();
+</script>
+</body>
+</html>

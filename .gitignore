@@ -1,0 +1,17 @@
+# Local Netlify folder
+.netlify
+
+# Environment variables (secrets — never commit)
+.env
+.env.local
+.env.*.local
+
+# Large image files — host on CDN
+catalogs/*.pdf
+
+# Duplicate/staging image folders (not referenced by site)
+images/images/
+images/_staging/
+
+# Node
+node_modules/
